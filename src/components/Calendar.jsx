@@ -12,7 +12,7 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 const insertBooking = async (bookingData) => {
   try {
     const { data, error } = await supabase
-      .from("piercing")
+      .from("piercings")
       .insert([{ ...bookingData }]);
 
     if (error) {
@@ -248,7 +248,7 @@ const DatePicker = ({ onDateSelect, selectedDate }) => {
     const endDate = new Date(year, month + 1, 0);
 
     const { data, error } = await supabase
-      .from("piercing")
+      .from("piercings")
       .select("selected_date")
       .gte("selected_date", formatDate(startDate))
       .lte("selected_date", formatDate(endDate));
