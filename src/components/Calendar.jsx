@@ -55,27 +55,19 @@ const Calendar = ({ isModalOpened, onClose, onBookingComplete }) => {
   };
 
   function handleSubmit(e) {
-    // e.preventDefault(); // тут ОБОВ'ЯЗКОВО preventDefault щоб React міг повністю контролювати
-
+    e.preventDefault();
     const form = e.target;
-
-    // Створимо об'єкт з даними для перевірки чи все ок
     const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
 
-    if (!selectedDate || !selectedTime) {
-      alert("Оберіть дату та час");
-      return;
-    }
-
-    // Тепер робимо свою логіку
-    if (onBookingComplete) {
-      onBookingComplete(selectedDate, selectedTime);
-    }
-
-    // ВАЖЛИВО: ручний submit для Netlify
-    form.submit(); // це відправить форму на сервер
-    onClose();
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(formData).toString(),
+    })
+      .then(() => {
+        alert("Бронювання надіслано успішно!");
+      })
+      .catch((error) => alert("Виникла помилка: " + error));
   }
 
   return (
