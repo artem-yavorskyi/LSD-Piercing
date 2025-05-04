@@ -74,7 +74,7 @@ const Calendar = ({ isModalOpened, onClose, onBookingComplete }) => {
     }
 
     // ВАЖЛИВО: ручний submit для Netlify
-    form.submit(); // це відправить форму на сервер
+    // form.submit(); // це відправить форму на сервер
     onClose();
   }
 
