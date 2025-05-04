@@ -2,6 +2,12 @@ import React, { useState, useEffect, useRef } from "react";
 import Modal from "./Modal";
 import TimeSlotSelector from "./TimeSlotSelector";
 import "../styles/components/Calendar.css";
+import { createClient } from "@supabase/supabase-js";
+
+const supabaseUrl = "https://xexpesevtjvmveqouekm.supabase.co"; // Встав свій URL з дашборду Supabase
+const supabaseKey =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhleHBlc2V2dGp2bXZlcW91ZWttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYzNjk3NzUsImV4cCI6MjA2MTk0NTc3NX0.J7Xl9eJYuO1OnCnj3sH7mDiGx7wOajPMC7oLgqXDoDA"; // Встав свій анонімний ключ з дашборду Supabase
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 const Calendar = ({ isModalOpened, onClose, onBookingComplete }) => {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -192,6 +198,36 @@ const DatePicker = ({ onDateSelect, selectedDate }) => {
   const today = new Date();
   const [currentMonth, setCurrentMonth] = useState(today.getMonth());
   const [currentYear, setCurrentYear] = useState(today.getFullYear());
+  const [bookedDates, setBookedDates] = useState([]);
+
+  const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  useEffect(() => {
+    fetchBookedDates(currentYear, currentMonth);
+  }, [currentMonth, currentYear]);
+
+  const fetchBookedDates = async (year, month) => {
+    const startDate = new Date(year, month, 1);
+    const endDate = new Date(year, month + 1, 0);
+
+    const { data, error } = await supabase
+      .from("piercings")
+      .select("selected_date")
+      .gte("selected_date", formatDate(startDate))
+      .lte("selected_date", formatDate(endDate));
+
+    if (error) {
+      console.error("Помилка при завантаженні заброньованих дат");
+      return;
+    }
+
+    setBookedDates(data.map((item) => item.selected_date));
+  };
 
   // Generate days in month
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
@@ -205,7 +241,8 @@ const DatePicker = ({ onDateSelect, selectedDate }) => {
   // Check if day is available (only future dates)
   const isDayAvailable = (day) => {
     const date = new Date(currentYear, currentMonth, day);
-    return date >= today;
+    const formattedDate = formatDate(date);
+    return date >= today && !bookedDates.includes(formattedDate);
   };
 
   const handleDateSelect = (day) => {
