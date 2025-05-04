@@ -55,7 +55,7 @@ const Calendar = ({ isModalOpened, onClose, onBookingComplete }) => {
   };
 
   function handleSubmit(e) {
-    e.preventDefault(); // тут ОБОВ'ЯЗКОВО preventDefault щоб React міг повністю контролювати
+    // e.preventDefault(); // тут ОБОВ'ЯЗКОВО preventDefault щоб React міг повністю контролювати
 
     const form = e.target;
 
