@@ -4,22 +4,23 @@ import TimeSlotSelector from "./TimeSlotSelector";
 import "../styles/components/Calendar.css";
 import { createClient } from "@supabase/supabase-js";
 
-const SUPABASE_URL = "https://xexpesevtjvmveqouekm.supabase.co"; // Встав свій URL з дашборду Supabase
+const SUPABASE_URL = "https://xexpesevtjvmveqouekm.supabase.co";
 const SUPABASE_ANON_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhleHBlc2V2dGp2bXZlcW91ZWttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYzNjk3NzUsImV4cCI6MjA2MTk0NTc3NX0.J7Xl9eJYuO1OnCnj3sH7mDiGx7wOajPMC7oLgqXDoDA"; // Встав свій анонімний ключ з дашборду Supabase
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhleHBlc2V2dGp2bXZlcW91ZWttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYzNjk3NzUsImV4cCI6MjA2MTk0NTc3NX0.J7Xl9eJYuO1OnCnj3sH7mDiGx7wOajPMC7oLgqXDoDA";
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-const insertBooking = async (selectedDate) => {
+const insertBooking = async (bookingData) => {
   try {
     const { data, error } = await supabase
       .from("piercing")
       .insert([{ ...bookingData }]);
+
     if (error) {
-      console.log("Помилка при додаванні бронювання:", error);
+      console.error("Помилка при додаванні бронювання:", error);
       return false;
     }
 
-    console.log("Бронювання успішно додано:, data");
+    console.log("Бронювання успішно додано:", data);
     return true;
   } catch (error) {
     console.error("Неочікувана помилка при додаванні бронювання:", error);
@@ -82,7 +83,7 @@ const Calendar = ({ isModalOpened, onClose, onBookingComplete }) => {
         instagram: instagram,
         comment: comment,
       };
-
+      console.log(bookingDetails);
       const isSuccess = await insertBooking(bookingDetails);
       if (isSuccess) {
         alert("Бронювання надіслано успішно!");
@@ -104,18 +105,7 @@ const Calendar = ({ isModalOpened, onClose, onBookingComplete }) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    // const form = e.target;
-    // const formData = new FormData(form);
-
-    // fetch("/", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    //   body: new URLSearchParams(formData).toString(),
-    // })
-    //   .then(() => {
-    //     alert("Бронювання надіслано успішно!");
-    //   })
-    //   .catch((error) => alert("Виникла помилка: " + error));
+    // Більше не потрібно відправляти форму через Netlify Forms, якщо вся логіка в handleConfirmBooking
   }
 
   return (
@@ -221,7 +211,7 @@ const Calendar = ({ isModalOpened, onClose, onBookingComplete }) => {
               />
 
               <button
-                type="submit"
+                type="button" // Змінено на button, щоб запобігти стандартній відправці форми Netlify
                 className="booking-confirm-button"
                 disabled={!selectedDate || !selectedTime}
                 onClick={handleConfirmBooking}
@@ -258,7 +248,7 @@ const DatePicker = ({ onDateSelect, selectedDate }) => {
     const endDate = new Date(year, month + 1, 0);
 
     const { data, error } = await supabase
-      .from("piercings")
+      .from("piercing")
       .select("selected_date")
       .gte("selected_date", formatDate(startDate))
       .lte("selected_date", formatDate(endDate));
