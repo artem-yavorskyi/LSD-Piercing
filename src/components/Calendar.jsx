@@ -4,10 +4,28 @@ import TimeSlotSelector from "./TimeSlotSelector";
 import "../styles/components/Calendar.css";
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = "https://xexpesevtjvmveqouekm.supabase.co"; // Встав свій URL з дашборду Supabase
-const supabaseKey =
+const SUPABASE_URL = "https://xexpesevtjvmveqouekm.supabase.co"; // Встав свій URL з дашборду Supabase
+const SUPABASE_ANON_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhleHBlc2V2dGp2bXZlcW91ZWttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYzNjk3NzUsImV4cCI6MjA2MTk0NTc3NX0.J7Xl9eJYuO1OnCnj3sH7mDiGx7wOajPMC7oLgqXDoDA"; // Встав свій анонімний ключ з дашборду Supabase
-const supabase = createClient(supabaseUrl, supabaseKey);
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+const insertBooking = async (selectedDate) => {
+  try {
+    const { data, error } = await supabase
+      .from("piercing")
+      .insert([{ ...bookingData }]);
+    if (error) {
+      console.log("Помилка при додаванні бронювання:", error);
+      return false;
+    }
+
+    console.log("Бронювання успішно додано:, data");
+    return true;
+  } catch (error) {
+    console.error("Неочікувана помилка при додаванні бронювання:", error);
+    return false;
+  }
+};
 
 const Calendar = ({ isModalOpened, onClose, onBookingComplete }) => {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -53,27 +71,51 @@ const Calendar = ({ isModalOpened, onClose, onBookingComplete }) => {
     setSelectedTime(time);
   };
 
-  const handleBooking = () => {
-    if (selectedDate && selectedTime && onBookingComplete) {
-      onBookingComplete(selectedDate, selectedTime);
+  const handleConfirmBooking = async () => {
+    if (selectedDate && selectedTime) {
+      const bookingDetails = {
+        selected_date: selectedDate,
+        selected_time: selectedTime,
+        name: name,
+        last_name: lastName,
+        phone_number: phoneNumber,
+        instagram: instagram,
+        comment: comment,
+      };
+
+      const isSuccess = await insertBooking(bookingDetails);
+      if (isSuccess) {
+        alert("Бронювання надіслано успішно!");
+        onClose();
+        setName("");
+        setLastName("");
+        setPhoneNumber("");
+        setInstagram("");
+        setComment("");
+        setSelectedDate(null);
+        setSelectedTime(null);
+      } else {
+        alert("Виникла помилка при бронюванні. Спробуйте ще раз.");
+      }
+    } else {
+      alert("Будь ласка, виберіть дату та час.");
     }
-    onClose();
   };
 
   function handleSubmit(e) {
     e.preventDefault();
-    const form = e.target;
-    const formData = new FormData(form);
+    // const form = e.target;
+    // const formData = new FormData(form);
 
-    fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(formData).toString(),
-    })
-      .then(() => {
-        alert("Бронювання надіслано успішно!");
-      })
-      .catch((error) => alert("Виникла помилка: " + error));
+    // fetch("/", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    //   body: new URLSearchParams(formData).toString(),
+    // })
+    //   .then(() => {
+    //     alert("Бронювання надіслано успішно!");
+    //   })
+    //   .catch((error) => alert("Виникла помилка: " + error));
   }
 
   return (
@@ -182,7 +224,7 @@ const Calendar = ({ isModalOpened, onClose, onBookingComplete }) => {
                 type="submit"
                 className="booking-confirm-button"
                 disabled={!selectedDate || !selectedTime}
-                // onClick={handleBooking}
+                onClick={handleConfirmBooking}
               >
                 Підтвердити
               </button>
