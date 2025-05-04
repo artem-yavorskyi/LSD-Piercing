@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "/public/assets/images/lsd-logo.webp";
+import logo from "/assets/images/lsd-logo.webp";
 
 const Hero = ({ scrollToBooking }) => {
   return (
