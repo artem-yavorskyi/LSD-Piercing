@@ -1,0 +1,56 @@
+import React from "react";
+import { Clock } from "lucide-react";
+
+const TimeSlotSelector = ({ onTimeSelect, selectedTime }) => {
+  // Generate time slots from 8:00 to 18:00 with 30-minute intervals
+  const generateTimeSlots = () => {
+    const slots = [];
+    let startHour = 8;
+    let startMinute = 0;
+
+    while (startHour < 18 || (startHour === 18 && startMinute === 0)) {
+      const endHour = startMinute === 0 ? startHour : startHour + 1;
+      const endMinute = startMinute === 0 ? 30 : 0;
+
+      const formatTime = (h, m) =>
+        `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
+
+      const start = formatTime(startHour, startMinute);
+      const end = formatTime(endHour, endMinute);
+      slots.push(`${start} - ${end}`);
+
+      if (startMinute === 0) {
+        startMinute = 30;
+      } else {
+        startMinute = 0;
+        startHour++;
+      }
+    }
+
+    return slots;
+  };
+
+  const timeSlots = generateTimeSlots();
+
+  return (
+    <div className="time-slot-selector">
+      <div className="time-slot-header">
+        <Clock size={16} />
+        <h3>Оберіть час</h3>
+      </div>
+      <div className="time-slots-grid">
+        {timeSlots.map((time) => (
+          <div
+            key={time}
+            className={`time-slot ${selectedTime === time ? "selected" : ""}`}
+            onClick={() => onTimeSelect(time)}
+          >
+            {time}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default TimeSlotSelector;

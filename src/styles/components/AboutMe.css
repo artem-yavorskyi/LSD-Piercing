@@ -1,0 +1,72 @@
+/* components/AboutMe.css */
+.about-me {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+  width: 100%;
+  padding: 60px 20px;
+  margin: 100px 0 0;
+}
+
+.about-me h2 {
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative; /* Щоб перекрити ::before, якщо потрібно */
+  z-index: 1;
+}
+
+.qoute-container {
+  width: 100%; /* Щоб займав доступну ширину */
+  max-width: 830px;
+  margin-bottom: 40px;
+  position: relative; /* Додано для позиціонування ::before відносно цього елемента */
+}
+
+.qoute-container::before {
+  content: "";
+  background-image: url("/assets/images/sticker.webp"); /* Переконайтеся, що шлях правильний */
+  position: absolute;
+  top: -214px; /* Регулюйте це значення, щоб розмістити картинку над .quote */
+  left: 46px; /* Регулюйте це значення, щоб розмістити картинку по горизонталі */
+  width: 250px; /* Задайте потрібну ширину */
+  height: 250px; /* Задайте потрібну висоту */
+  background-size: contain; /* Або cover, auto залежно від потреби */
+  background-repeat: no-repeat;
+  z-index: 0; /* Щоб картинка була позаду .quote, якщо потрібно */
+}
+
+.quote {
+  position: relative;
+  font-size: 1.2rem;
+  font-family: "Montserrat", sans-serif;
+  line-height: 1.6;
+  padding: 50px 80px;
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  color: #ffffff;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 20px;
+}
+
+.quote::before,
+.quote::after {
+  position: absolute;
+  font-size: 8rem;
+  color: #a986fc;
+  opacity: 0.5;
+  line-height: 1;
+}
+
+.quote::before {
+  content: "“";
+  top: 10px;
+  left: 15px;
+}
+
+.quote::after {
+  content: "”";
+  bottom: -40px;
+  right: 30px;
+}

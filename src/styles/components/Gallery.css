@@ -1,0 +1,109 @@
+.carousel-wrapper h2 {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.carousel-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 95%;
+  margin-bottom: 80px;
+}
+
+.carousel-piercing {
+  margin-bottom: 150px;
+  margin-top: 50px;
+}
+
+.carousel-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    #0a0a0a 0%,
+    #0a0a0a 10%,
+    #0a0a0a 20%,
+    rgba(10, 10, 10, 0.95) 30%,
+    rgba(10, 10, 10, 0.85) 40%,
+    rgba(10, 10, 10, 0.75) 50%,
+    rgba(10, 10, 10, 0.6) 60%,
+    rgba(10, 10, 10, 0.4) 70%,
+    rgba(10, 10, 10, 0.25) 80%,
+    rgba(10, 10, 10, 0.1) 90%,
+    rgba(10, 10, 10, 0.05) 95%,
+    transparent 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+.carousel-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 250px;
+  height: 100%;
+  background: linear-gradient(
+    to left,
+    #0a0a0a 0%,
+    #0a0a0a 10%,
+    #0a0a0a 20%,
+    rgba(10, 10, 10, 0.95) 30%,
+    rgba(10, 10, 10, 0.85) 40%,
+    rgba(10, 10, 10, 0.75) 50%,
+    rgba(10, 10, 10, 0.6) 60%,
+    rgba(10, 10, 10, 0.4) 70%,
+    rgba(10, 10, 10, 0.25) 80%,
+    rgba(10, 10, 10, 0.1) 90%,
+    rgba(10, 10, 10, 0.05) 95%,
+    transparent 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+.track-piercing {
+  display: flex;
+  width: max-content;
+  animation: scroll 60s linear infinite;
+
+  /* &:hover {
+    animation-play-state: paused;
+  } */
+}
+
+.track-tattoo {
+  display: flex;
+  width: max-content;
+  animation: scroll 60s linear infinite reverse;
+
+  /* &:hover {
+    animation-play-state: paused;
+  } */
+}
+
+.carousel-item {
+  margin-right: 16px;
+}
+
+.carousel-item img {
+  width: auto;
+  height: 420px;
+  border-radius: 8px;
+  display: block;
+}
+
+/* Ключові кадри */
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}

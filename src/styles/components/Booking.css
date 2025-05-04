@@ -1,0 +1,85 @@
+.booking {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  width: 100%;
+  background: url(/assets/images/booking-bg.png);
+  background-size: cover;
+  max-height: 547px;
+}
+.container.booking {
+  padding: 200px;
+}
+.booking h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.booking input[type="date"] {
+  padding: 10px 15px;
+  font-size: 1rem;
+  border: 1px solid #333;
+  border-radius: 5px;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  font-family: "Montserrat", sans-serif;
+  width: auto;
+  min-width: 200px;
+  cursor: pointer;
+}
+
+.booking input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) brightness(0.8); /* Робить іконку світлою на темному фоні */
+  cursor: pointer;
+}
+
+/* Стилі для кнопки бронювання */
+.booking-button {
+  box-sizing: border-box;
+  color: #ffffff;
+  padding: 15px 26px;
+  border-radius: 30px;
+  border: none;
+  outline: 2px solid transparent;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: "Inter", sans-serif; /* Явно вказано шрифт */
+  background: transparent;
+  border: 2px solid #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.booking-button:hover {
+  background-color: #c09ee7;
+  border-color: #c09ee7; /* Зміна кольору рамки при ховері */
+  color: #30203f;
+}
+
+.time-picker {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #e0e0e0;
+}
+
+.time-picker label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.time-picker select {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #555;
+  background-color: #1a1a1a;
+  color: #fff;
+  font-family: "Montserrat", sans-serif;
+}

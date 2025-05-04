@@ -1,0 +1,85 @@
+/* components/Hero.css */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column; /* Змінено для кращого контролю */
+  align-items: center; /* Центрування контенту */
+  background-image: url("/assets/images/hero-bg.png"); /* Перевір шлях! */
+  background-size: cover;
+  background-position: center; /* Додано для кращого відображення */
+  background-repeat: no-repeat;
+  color: #ffffff;
+  text-align: center;
+  border-bottom: none; /* Перевизначення загального стилю секції, якщо .hero є <section> */
+  padding: 0; /* Скидання загального padding секції */
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 800px; /* Обмеження ширини контенту */
+  padding: 20px; /* Додано внутрішні відступи */
+  margin: 240px auto 0;
+}
+
+.hero-logo img {
+  width: 100%; /* Зроблено адаптивним */
+  width: 400px; /* Обмеження максимальної ширини */
+  height: auto;
+  /* display: flex та justify-content: center тут зайві, бо це на img */
+}
+
+.hero-content h1 {
+  font-size: 2rem; /* Специфічний розмір для Hero */
+  color: #ffffff;
+  margin-bottom: 36px; /* Зменшено відступ */
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  color: #ffffff;
+  margin-bottom: 30px; /* Додано відступ знизу */
+}
+
+.hero-button {
+  box-sizing: border-box;
+  color: #ffffff;
+  padding: 15px 26px;
+  border-radius: 30px;
+  border: none;
+  outline: 2px solid transparent;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: "Inter", sans-serif; /* Явно вказано шрифт */
+  background: transparent;
+  border: 2px solid #ffffff;
+}
+
+.hero-button:hover {
+  background-color: #c09ee7;
+  border-color: #c09ee7; /* Зміна кольору рамки при ховері */
+  color: #30203f;
+}
+
+.arrow-icon {
+  height: 50px;
+  width: auto;
+  margin-top: 200px; /* Зменшено відступ */
+  animation: smoothBounce 2s ease-in-out infinite; /* Використання ease-in-out */
+}
+.hero .hero-button:focus {
+  border-color: #c09ee7 !important; /* Використання !important (з обережністю) */
+}
+@keyframes smoothBounce {
+  0% {
+    transform: translateY(0); /* Початкове положення */
+  }
+  50% {
+    transform: translateY(-20px); /* Плавно піднімаємо вгору */
+  }
+  100% {
+    transform: translateY(0); /* Плавно повертаємо вниз */
+  }
+}

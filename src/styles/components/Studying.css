@@ -1,0 +1,108 @@
+.studying-wrapper {
+  background-image: url("/assets/images/sections-bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.studying-container {
+  max-width: 1270px;
+  width: 100%; /* Займає доступну ширину */
+  margin: 0 auto;
+  padding: 40px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.studying-container h2 {
+  margin-top: 60px;
+  margin-bottom: 40px;
+}
+
+.courses-columns {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  width: 100%;
+}
+
+.course-card {
+  background-color: #140f1d9f;
+  border-radius: 10px;
+  padding: 40px 60px;
+  text-align: left;
+  color: #e0e0e0;
+  border: 1px solid #cfbeff;
+}
+
+.course-card .price {
+  display: flex;
+  justify-content: center;
+  font-size: 1.2rem;
+  background-color: #5f4e8f;
+  border-radius: 99px;
+  font-weight: 500;
+  color: #dbd1ff;
+}
+.course-price {
+  text-align: center;
+  background-color: #8471b18c;
+  border-radius: 99px;
+  padding: 5px;
+}
+
+.course-card-1 {
+  background: #16163180;
+}
+.course-card-2 {
+  background: #1f163180;
+}
+
+.course-card-2 .course-price {
+  background-color: #b8a4ff8c;
+}
+
+.course-card h2 {
+  color: #ffffff;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.course-card h3 {
+  color: #e9d6ff;
+  font-size: 1.75rem;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.course-card h4 {
+  color: #c7b7ff;
+  font-size: 1.3rem;
+  margin: 34px 0 24px 14px;
+  text-align: left;
+}
+
+.course-card p {
+  margin: 10px 0;
+  line-height: 1.6;
+  color: #e0e0e0;
+}
+
+.course-card ul {
+  padding-left: 20px;
+  margin: 10px 0;
+}
+
+.course-card li {
+  margin-left: 8px;
+  margin-bottom: 8px;
+  line-height: 1.6;
+  color: #e0e0e0; /* Явно вказано колір елементів списку */
+}
+
+/* Адаптивність для колонок */
+@media (max-width: 1000px) {
+  .courses-columns {
+    grid-template-columns: 1fr; /* Одна колонка на мобільних */
+  }
+}

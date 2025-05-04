@@ -1,0 +1,211 @@
+.price-wrapper {
+  background-image: url("/assets/images/sections-bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+.price-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  text-align: center;
+  justify-content: center;
+  align-content: center;
+}
+
+.price-container h2 {
+  margin-top: 60px;
+  margin-bottom: 40px;
+}
+
+/* Повноширинний елемент */
+.full-width-item {
+  background-color: #9c85ff60;
+  border-radius: 12px;
+  padding: 18px 30px;
+  margin-bottom: 20px;
+  display: block;
+  font-size: 1.2rem;
+}
+
+.full-width-item .piercing-name {
+  color: #f6eeff;
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+.full-width-item .piercing-price {
+  color: #b980ff;
+  font-weight: 700;
+}
+
+/* Грід з колонками */
+.price-grid {
+  background-color: #1a1a1a9a;
+  border-radius: 16px;
+  padding: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px 60px;
+  text-align: left;
+  margin-bottom: 30px;
+}
+
+/* Елемент у колонці */
+.price-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.15rem;
+  border-bottom: 1px solid #333;
+  padding-bottom: 8px;
+}
+
+.piercing-name {
+  color: #ddc2ff;
+  font-weight: 500;
+  max-width: 70%;
+}
+
+.piercing-price {
+  color: #b980ff;
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .price-grid {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+
+  .full-width-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+/* Certificates Section */
+.certificates-container {
+  margin: 0 auto;
+}
+
+h2.section-title {
+  text-align: center;
+  color: #ffffff;
+  margin-bottom: 40px;
+  font-weight: 700;
+  margin-top: 40px;
+}
+
+.certificates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  justify-content: center;
+}
+
+.certificate-card {
+  background: #ffffff;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  background-color: #1a1a1a9a;
+
+  color: #e0e0e0;
+}
+
+.certificate-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #f8edff;
+}
+
+.certificate-header h3 {
+  font-size: 1.5rem;
+  color: #e0e0e0;
+  margin: 0 auto;
+}
+
+.certificate-icon {
+  font-size: 1.8rem;
+  color: #667eea;
+}
+
+.certificate-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: #e0e0e0;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.detail-label {
+  font-weight: 600;
+  color: #e0e0e0;
+
+  margin-right: 1rem;
+}
+
+.detail-value {
+  color: #dac6ff;
+  text-align: right;
+}
+span.piercing-price {
+  color: #dac6ff !important;
+}
+/* Specific certificate styles */
+.piercing-certificate {
+  border-top: 4px solid #667eea;
+}
+
+.tattoo-certificate {
+  border-top: 4px solid #a173df;
+}
+
+/* Price list styling */
+.price-list {
+  margin-top: 3rem;
+}
+.piercing-name {
+  color: #f6eeff;
+}
+.piercing-price {
+  color: #dac6ff;
+}
+.price-list h3 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #e0e0e0;
+}
+
+@media (max-width: 768px) {
+  .certificates-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .certificate-card {
+    padding: 1.5rem;
+  }
+
+  .detail-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+
+  .detail-value {
+    text-align: left;
+  }
+}

@@ -1,0 +1,25 @@
+.container.footer {
+  padding: 30px 0;
+}
+
+/* components/Footer.css */
+footer {
+  background-color: #0a0a0a;
+  color: #e0e0e0;
+  text-align: center;
+}
+
+footer p {
+  margin-bottom: 20px; /* Відступ між параграфами, якщо їх кілька */
+}
+
+footer a {
+  font-size: 1.1rem;
+  color: #bb86fc;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: #ffffff; /* Зміна кольору при наведенні */
+}

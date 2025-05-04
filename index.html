@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/images/lsd-favicon.png" type="image/png" />
+    <title>LSD PIERCING</title>
+    <link rel="preload" as="image" href="/images/lsd-logo.webp" />
+    <link rel="preload" as="image" href="/images/hero-bg.png" />
+    <link rel="preload" as="image" href="/images/booking-bg.png" />
+    <link rel="preload" as="image" href="/images/sections-bg.png" />
+    <link rel="preload" as="image" href="/images/care-bg.png" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <form
+      name="contact"
+      data-netlify="true"
+      method="POST"
+      data-netlify="true"
+      data-netlify-honeypot="bot-field"
+      onSubmit="{handleSubmit}"
+      hidden
+    >
+      <input type="text" name="name" />
+      <input type="text" name="last-name" />
+      <input type="text" name="phone-number" />
+      <input type="text" name="instagram" />
+      <input type="text" name="comment" />
+      <input type="text" name="selectedDate" />
+      <input type="text" name="selectedTime" />
+
+      <input type="hidden" name="form-name" value="contact" />
+      <input type="hidden" name="bot-field" /> {/* honeypot */}
+    </form>
+
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

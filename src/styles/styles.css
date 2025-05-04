@@ -1,0 +1,83 @@
+/* global.css */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import "../styles/components/Tabs.css";
+@import "../styles/components/Hero.css";
+@import "../styles/components/AboutMe.css";
+@import "../styles/components/Gallery.css";
+@import "../styles/components/Booking.css";
+@import "../styles/components/DatePicker.css";
+@import "../styles/components/Studying.css";
+@import "../styles/components/Footer.css";
+@import "../styles/components/PriceList.css";
+@import "../styles/components/Care.css";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Видалення стандартних стилів фокусу та виділення */
+*:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+img {
+  outline: none !important;
+  border: none !important;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+html,
+body {
+  width: 100vw;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  margin: 0;
+  padding: 0;
+  /* Зверни увагу: шрифт за замовчуванням тут Inter, але в цитаті використовується Montserrat */
+  font-family: "Inter", sans-serif;
+  background-color: #0a0a0a;
+  color: #ffffff;
+  scroll-behavior: smooth;
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center; /* Обережно, це центрує текст у всьому контейнері */
+}
+
+h1 {
+  font-size: 2.5rem; /* Загальний стиль, може бути перевизначений */
+}
+
+h2 {
+  font-size: 40px;
+  color: #ffffff;
+  margin-bottom: 40px;
+}
+
+h3 {
+  font-size: 1.75rem; /* Загальний стиль, може бути перевизначений */
+}
+
+p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #ffffff; /* Загальний стиль, може бути перевизначений */
+}
+
+/* Загальний стиль для секцій */
+section:not(.booking-section) {
+  display: flex;
+  justify-content: center;
+  /* border-bottom: 1px solid #333333; */
+  height: fit-content;
+  align-content: center;
+  margin: 20px 0;
+}
