@@ -35,6 +35,59 @@
   opacity: 0.8;
 }
 
+.thankYou-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.thankYou-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1a1a1a;
+  border-radius: 16px;
+  width: 90%;
+  padding: 50px;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  animation: slideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+  position: relative;
+}
+
+.thankYou-close {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.thankYou-close:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
 /* Modal Styling */
 .modal-overlay {
   position: fixed;
@@ -42,12 +95,12 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.85);
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(6px);
   animation: fadeIn 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -115,7 +168,6 @@
   border: none;
   color: rgba(255, 255, 255, 0.6);
   cursor: pointer;
-  padding: 8px;
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -142,6 +194,7 @@
 /* DatePicker Component */
 .datepicker {
   width: 100%;
+  position: relative;
 }
 
 .datepicker-header {
@@ -215,19 +268,22 @@
   visibility: hidden;
 }
 
-.calendar-day.available {
+.calendar-day.available,
+.time-slot.available {
   background-color: #2a2a2a;
   color: #fff;
   cursor: pointer;
   border-color: rgba(255, 255, 255, 0.1);
 }
 
-.calendar-day.available:hover {
+.calendar-day.available:hover,
+.time-slot:not(.unavailable):hover {
   background-color: #333;
   border-color: rgba(255, 255, 255, 0.2);
 }
 
-.calendar-day.unavailable {
+.calendar-day.unavailable,
+.time-slot.unavailable {
   color: rgba(255, 255, 255, 0.3);
   background-color: #1f1f1f;
   cursor: not-allowed;
@@ -285,7 +341,7 @@
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.time-slot:hover {
+.time-slot:hover:not(.unavailable) {
   background-color: #333;
   border-color: rgba(255, 255, 255, 0.2);
 }
@@ -295,6 +351,13 @@
   color: #000;
   border-color: #fff;
   font-weight: 500;
+}
+
+.time-slot.unavailable {
+  background-color: #1f1f1f;
+  color: rgba(255, 255, 255, 0.3);
+  cursor: not-allowed;
+  border-color: rgba(255, 255, 255, 0.05);
 }
 
 /* Booking Button */
@@ -332,6 +395,29 @@
   color: rgba(255, 255, 255, 0.3);
   cursor: not-allowed;
 }
+
+/* Loading indicator */
+.loading-indicator {
+  text-align: center;
+  margin-top: 12px;
+  padding: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
 /* Стилі для форми */
 .booking-form {
   display: flex;
@@ -366,6 +452,11 @@
 
 .form-field input::placeholder {
   color: rgba(255, 255, 255, 0.4);
+}
+
+.form-field input:focus {
+  border-color: rgba(255, 255, 255, 0.3);
+  outline: none;
 }
 
 /* Animations */

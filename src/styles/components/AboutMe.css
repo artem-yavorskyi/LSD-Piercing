@@ -5,7 +5,7 @@
   align-items: center;
   text-align: left;
   width: 100%;
-  padding: 60px 20px;
+  padding: 100px 20px 60px;
   margin: 100px 0 0;
 }
 
@@ -25,7 +25,7 @@
 
 .qoute-container::before {
   content: "";
-  background-image: url("/assets/images/sticker.webp"); /* Переконайтеся, що шлях правильний */
+  background-image: url("/assets/images/sticker-hi.webp"); /* Переконайтеся, що шлях правильний */
   position: absolute;
   top: -214px; /* Регулюйте це значення, щоб розмістити картинку над .quote */
   left: 46px; /* Регулюйте це значення, щоб розмістити картинку по горизонталі */

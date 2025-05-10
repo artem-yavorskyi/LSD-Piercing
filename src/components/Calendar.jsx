@@ -3,16 +3,23 @@ import Modal from "./Modal";
 import TimeSlotSelector from "./TimeSlotSelector";
 import "../styles/components/Calendar.css";
 import { createClient } from "@supabase/supabase-js";
+import { X } from "lucide-react";
 
+// ========================================
+// ============SUPABASE CONFIG=============
+// ========================================
 const SUPABASE_URL = "https://xexpesevtjvmveqouekm.supabase.co";
 const SUPABASE_ANON_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhleHBlc2V2dGp2bXZlcW91ZWttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYzNjk3NzUsImV4cCI6MjA2MTk0NTc3NX0.J7Xl9eJYuO1OnCnj3sH7mDiGx7wOajPMC7oLgqXDoDA";
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+// ========================================
+// =========SUPABASE INSERT FUNCTION=======
+// ========================================
 const insertBooking = async (bookingData) => {
   try {
     const { data, error } = await supabase
-      .from("piercings")
+      .from("sessions")
       .insert([{ ...bookingData }]);
 
     if (error) {
@@ -20,7 +27,7 @@ const insertBooking = async (bookingData) => {
       return false;
     }
 
-    console.log("Бронювання успішно додано:", data);
+    console.log("Бронювання успішно додано:", { ...bookingData });
     return true;
   } catch (error) {
     console.error("Неочікувана помилка при додаванні бронювання:", error);
@@ -28,9 +35,13 @@ const insertBooking = async (bookingData) => {
   }
 };
 
+// ========================================
+// ===========CALENDAR COMPONENT===========
+// ========================================
 const Calendar = ({ isModalOpened, onClose, onBookingComplete }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
+  const [bookedTimeSlots, setBookedTimeSlots] = useState({});
 
   const timeSlotSelectorRef = useRef(null);
 
@@ -40,6 +51,11 @@ const Calendar = ({ isModalOpened, onClose, onBookingComplete }) => {
   const [instagram, setInstagram] = useState("");
   const [comment, setComment] = useState("");
 
+  const [isThankYouOpened, setIsThankYouOpened] = useState(false);
+
+  // ========================================
+  // ======CALENDAR LIFECYCLE EFFECTS======
+  // ========================================
   useEffect(() => {
     const scrollbarWidth =
       window.innerWidth - document.documentElement.clientWidth;
@@ -64,16 +80,37 @@ const Calendar = ({ isModalOpened, onClose, onBookingComplete }) => {
     }
   }, [selectedDate, timeSlotSelectorRef.current]);
 
+  // ========================================
+  // =========CALENDAR EVENT HANDLERS========
+  // ========================================
   const handleDateSelect = (date) => {
     setSelectedDate(date);
+    setSelectedTime(null);
   };
 
   const handleTimeSelect = (time) => {
     setSelectedTime(time);
   };
 
+  function openThankYouModal() {
+    setIsThankYouOpened(true);
+  }
+
   const handleConfirmBooking = async () => {
     if (selectedDate && selectedTime) {
+      const date = new Date();
+
+      const options = {
+        day: "2-digit",
+        month: "2-digit",
+        year: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+      };
+      const createAt = date.toLocaleString("uk-UA", options);
+
       const bookingDetails = {
         selected_date: selectedDate,
         selected_time: selectedTime,
@@ -82,12 +119,15 @@ const Calendar = ({ isModalOpened, onClose, onBookingComplete }) => {
         phone_number: phoneNumber,
         instagram: instagram,
         comment: comment,
+        created_at: createAt,
       };
-      console.log(bookingDetails);
+
       const isSuccess = await insertBooking(bookingDetails);
+
       if (isSuccess) {
-        alert("Бронювання надіслано успішно!");
-        onClose();
+        // alert("Бронювання надіслано успішно!");
+        openThankYouModal();
+        // onClose();
         setName("");
         setLastName("");
         setPhoneNumber("");
@@ -105,16 +145,37 @@ const Calendar = ({ isModalOpened, onClose, onBookingComplete }) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    // Більше не потрібно відправляти форму через Netlify Forms, якщо вся логіка в handleConfirmBooking
   }
 
+  // ========================================
+  // ===========CALENDAR JSX RENDER==========
+  // ========================================
   return (
     <div className="calendar-container">
       <Modal
+        isThankYouOpened={isThankYouOpened}
         isModalOpened={isModalOpened}
         onClose={onClose}
         title="Запис на сеанс"
       >
+        {isThankYouOpened && (
+          <div className="thankYou-overlay">
+            <div className="thankYou-container">
+              <div className="thankYou-header">
+                <h2>Дякую за запис!</h2>
+                <p>До зустрічі!</p>
+                <button className="thankYou-close" onClick={onClose}>
+                  <X size={20} />
+                </button>
+                <img
+                  height="300px"
+                  src="/public/assets/images/sticker-thank-you.webp"
+                ></img>
+              </div>
+            </div>
+          </div>
+        )}
+
         <form
           className="booking-form"
           onSubmit={handleSubmit}
@@ -187,6 +248,7 @@ const Calendar = ({ isModalOpened, onClose, onBookingComplete }) => {
             <DatePicker
               onDateSelect={handleDateSelect}
               selectedDate={selectedDate}
+              setBookedTimeSlots={setBookedTimeSlots}
             />
 
             {selectedDate && (
@@ -194,6 +256,8 @@ const Calendar = ({ isModalOpened, onClose, onBookingComplete }) => {
                 <TimeSlotSelector
                   onTimeSelect={handleTimeSelect}
                   selectedTime={selectedTime}
+                  selectedDate={selectedDate}
+                  bookedTimeSlots={bookedTimeSlots[selectedDate] || []}
                 />
               </div>
             )}
@@ -211,9 +275,15 @@ const Calendar = ({ isModalOpened, onClose, onBookingComplete }) => {
               />
 
               <button
-                type="button" // Змінено на button, щоб запобігти стандартній відправці форми Netlify
+                type="button"
                 className="booking-confirm-button"
-                disabled={!selectedDate || !selectedTime}
+                disabled={
+                  !selectedDate ||
+                  !selectedTime ||
+                  !name ||
+                  !lastName ||
+                  !phoneNumber
+                }
                 onClick={handleConfirmBooking}
               >
                 Підтвердити
@@ -226,12 +296,22 @@ const Calendar = ({ isModalOpened, onClose, onBookingComplete }) => {
   );
 };
 
-const DatePicker = ({ onDateSelect, selectedDate }) => {
+// ========================================
+// ==========DATEPICKER COMPONENT==========
+// ========================================
+const DatePicker = ({ onDateSelect, selectedDate, setBookedTimeSlots }) => {
+  // ========================================
+  // ========DATEPICKER STATE VARIABLES======
+  // ========================================
   const today = new Date();
   const [currentMonth, setCurrentMonth] = useState(today.getMonth());
   const [currentYear, setCurrentYear] = useState(today.getFullYear());
-  const [bookedDates, setBookedDates] = useState([]);
+  const [availableDays, setAvailableDays] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
+  // ========================================
+  // ========DATEPICKER HELPER FUNCTIONS=====
+  // ========================================
   const formatDate = (date) => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -239,28 +319,98 @@ const DatePicker = ({ onDateSelect, selectedDate }) => {
     return `${year}-${month}-${day}`;
   };
 
+  // ========================================
+  // =====DATEPICKER LIFECYCLE EFFECTS=====
+  // ========================================
   useEffect(() => {
-    fetchBookedDates(currentYear, currentMonth);
-  }, [currentMonth, currentYear]);
+    fetchBookedTimeSlots(currentYear, currentMonth);
+  }, [currentYear, currentMonth]);
 
-  const fetchBookedDates = async (year, month) => {
+  // ========================================
+  // ======DATEPICKER DATA FETCHING========
+  // ========================================
+  const fetchBookedTimeSlots = async (year, month) => {
+    setIsLoading(true);
     const startDate = new Date(year, month, 1);
     const endDate = new Date(year, month + 1, 0);
 
     const { data, error } = await supabase
-      .from("piercings")
-      .select("selected_date")
+      .from("sessions")
+      .select("selected_date, selected_time")
       .gte("selected_date", formatDate(startDate))
       .lte("selected_date", formatDate(endDate));
 
     if (error) {
-      console.error("Помилка при завантаженні заброньованих дат");
+      console.error("Помилка при завантаженні заброньованих часів:", error);
+      setIsLoading(false);
       return;
     }
 
-    setBookedDates(data.map((item) => item.selected_date));
+    // Group booked time slots by date
+    const timeSlotsByDate = {};
+    const availableDaysMap = {};
+
+    // Get all possible time slots
+    const allTimeSlots = generateAllTimeSlots();
+
+    // Process data
+    data.forEach((item) => {
+      if (!timeSlotsByDate[item.selected_date]) {
+        timeSlotsByDate[item.selected_date] = [];
+      }
+      timeSlotsByDate[item.selected_date].push(item.selected_time);
+    });
+
+    // Determine available days (days with at least one available time slot)
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    for (let day = 1; day <= daysInMonth; day++) {
+      const date = new Date(year, month, day);
+      const formattedDate = formatDate(date);
+
+      const bookedSlots = timeSlotsByDate[formattedDate] || [];
+
+      // A day is available if not all time slots are booked
+      availableDaysMap[formattedDate] =
+        bookedSlots.length < allTimeSlots.length;
+    }
+
+    setBookedTimeSlots(timeSlotsByDate);
+    setAvailableDays(availableDaysMap);
+    setIsLoading(false);
   };
 
+  // ========================================
+  // ======DATEPICKER TIME SLOT GENERATION===
+  // ========================================
+  const generateAllTimeSlots = () => {
+    const slots = [];
+    let startHour = 8;
+    let startMinute = 0;
+
+    while (startHour < 18 || (startHour === 17 && startMinute === 0)) {
+      const endHour = startMinute === 0 ? startHour : startHour + 1;
+      const endMinute = startMinute === 0 ? 30 : 0;
+
+      const formatTime = (hour, minute) =>
+        `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`;
+
+      const start = formatTime(startHour, startMinute);
+      const end = formatTime(endHour, endMinute);
+      slots.push(`${start} - ${end}`);
+
+      if (startMinute === 0) {
+        startMinute = 30;
+      } else {
+        startMinute = 0;
+        startHour++;
+      }
+    }
+    return slots;
+  };
+
+  // ========================================
+  // =========DATEPICKER DATE LOGIC==========
+  // ========================================
   // Generate days in month
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
   const daysArray = Array.from({ length: daysInMonth }, (_, i) => i + 1);
@@ -270,13 +420,16 @@ const DatePicker = ({ onDateSelect, selectedDate }) => {
   // Adjust for Monday as first day of week
   const startOffset = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1;
 
-  // Check if day is available (only future dates)
+  // Check if day is available (only future dates with at least one available time slot)
   const isDayAvailable = (day) => {
     const date = new Date(currentYear, currentMonth, day);
     const formattedDate = formatDate(date);
-    return date >= today && !bookedDates.includes(formattedDate);
+    return date >= today && availableDays[formattedDate];
   };
 
+  // ========================================
+  // ========DATEPICKER EVENT HANDLERS=======
+  // ========================================
   const handleDateSelect = (day) => {
     if (isDayAvailable(day)) {
       const formattedDate = `${currentYear}-${String(currentMonth + 1).padStart(
@@ -292,7 +445,7 @@ const DatePicker = ({ onDateSelect, selectedDate }) => {
       currentMonth === today.getMonth() &&
       currentYear === today.getFullYear()
     ) {
-      return; // Cannot go before current month
+      return;
     }
 
     if (currentMonth === 0) {
@@ -312,6 +465,9 @@ const DatePicker = ({ onDateSelect, selectedDate }) => {
     }
   };
 
+  // ========================================
+  // =========DATEPICKER UI HELPERS==========
+  // ========================================
   // Get month name in Ukrainian
   const getMonthName = () => {
     return new Date(currentYear, currentMonth).toLocaleDateString("uk-UA", {
@@ -320,6 +476,9 @@ const DatePicker = ({ onDateSelect, selectedDate }) => {
     });
   };
 
+  // ========================================
+  // ==========DATEPICKER JSX RENDER=========
+  // ========================================
   return (
     <div className="datepicker">
       <div className="datepicker-header">
@@ -340,26 +499,23 @@ const DatePicker = ({ onDateSelect, selectedDate }) => {
       </div>
 
       <div className="calendar-grid">
-        {/* Weekday headers - Mon to Sun */}
         {["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд"].map((day) => (
           <div key={day} className="day-header">
             {day}
           </div>
         ))}
 
-        {/* Empty cells for days before the start of month */}
         {Array(startOffset)
           .fill(null)
           .map((_, i) => (
             <div key={`empty-${i}`} className="calendar-day empty"></div>
           ))}
 
-        {/* Actual days of the month */}
         {daysArray.map((day) => {
-          const isAvailable = isDayAvailable(day);
           const formattedDate = `${currentYear}-${String(
             currentMonth + 1,
           ).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+          const isAvailable = isDayAvailable(day);
           const isSelected = selectedDate === formattedDate;
 
           return (
@@ -375,6 +531,8 @@ const DatePicker = ({ onDateSelect, selectedDate }) => {
           );
         })}
       </div>
+
+      {isLoading && <div className="loading-indicator">Завантаження...</div>}
     </div>
   );
 };

@@ -1,14 +1,19 @@
 import React from "react";
 import { Clock } from "lucide-react";
 
-const TimeSlotSelector = ({ onTimeSelect, selectedTime }) => {
+const TimeSlotSelector = ({
+  onTimeSelect,
+  selectedTime,
+  selectedDate,
+  bookedTimeSlots = [],
+}) => {
   // Generate time slots from 8:00 to 18:00 with 30-minute intervals
   const generateTimeSlots = () => {
     const slots = [];
     let startHour = 8;
     let startMinute = 0;
 
-    while (startHour < 18 || (startHour === 18 && startMinute === 0)) {
+    while (startHour < 18 || (startHour === 17 && startMinute === 0)) {
       const endHour = startMinute === 0 ? startHour : startHour + 1;
       const endMinute = startMinute === 0 ? 30 : 0;
 
@@ -32,6 +37,11 @@ const TimeSlotSelector = ({ onTimeSelect, selectedTime }) => {
 
   const timeSlots = generateTimeSlots();
 
+  // Check if a time slot is available (not booked)
+  const isTimeSlotAvailable = (time) => {
+    return !bookedTimeSlots.includes(time);
+  };
+
   return (
     <div className="time-slot-selector">
       <div className="time-slot-header">
@@ -39,15 +49,20 @@ const TimeSlotSelector = ({ onTimeSelect, selectedTime }) => {
         <h3>Оберіть час</h3>
       </div>
       <div className="time-slots-grid">
-        {timeSlots.map((time) => (
-          <div
-            key={time}
-            className={`time-slot ${selectedTime === time ? "selected" : ""}`}
-            onClick={() => onTimeSelect(time)}
-          >
-            {time}
-          </div>
-        ))}
+        {timeSlots.map((time) => {
+          const isAvailable = isTimeSlotAvailable(time);
+          return (
+            <div
+              key={time}
+              className={`time-slot ${!isAvailable ? "unavailable" : ""} ${
+                selectedTime === time ? "selected" : ""
+              }`}
+              onClick={() => isAvailable && onTimeSelect(time)}
+            >
+              {time}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

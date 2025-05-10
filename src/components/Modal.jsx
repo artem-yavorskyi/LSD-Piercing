@@ -1,7 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import { X } from "lucide-react";
 
-const Modal = ({ isModalOpened, onClose, title, children }) => {
+const Modal = ({
+  isThankYouOpened,
+  isModalOpened,
+  onClose,
+  title,
+  children,
+}) => {
   const modalRef = useRef(null);
 
   useEffect(() => {
@@ -34,7 +40,11 @@ const Modal = ({ isModalOpened, onClose, title, children }) => {
 
   return (
     <div className="modal-overlay">
-      <div className="modal-container" ref={modalRef}>
+      <div
+        className="modal-container"
+        style={{ maxHeight: isThankYouOpened ? "0" : "90%" }}
+        ref={modalRef}
+      >
         <div className="modal-header">
           <h2>{title}</h2>
           <button className="modal-close" onClick={onClose}>
