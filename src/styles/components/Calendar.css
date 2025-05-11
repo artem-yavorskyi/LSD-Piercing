@@ -88,6 +88,14 @@
   color: #fff;
 }
 
+.thankYou-header h2 {
+  margin-bottom: 36px;
+}
+
+.thankYou-header p {
+  text-align: left;
+}
+
 /* Modal Styling */
 .modal-overlay {
   position: fixed;
@@ -320,7 +328,8 @@
 .time-slots-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
+  column-gap: 20px;
+  row-gap: 8px;
 }
 
 @media (max-width: 480px) {
@@ -333,7 +342,7 @@
   background-color: #2a2a2a;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
-  padding: 10px;
+  padding: 10px 5px;
   text-align: center;
   color: #fff;
   font-size: 14px;

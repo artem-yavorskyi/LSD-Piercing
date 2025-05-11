@@ -15,14 +15,12 @@ const TimeSlotSelector = ({
 
     while (startHour < 18 || (startHour === 17 && startMinute === 0)) {
       const endHour = startMinute === 0 ? startHour : startHour + 1;
-      const endMinute = startMinute === 0 ? 30 : 0;
 
       const formatTime = (h, m) =>
         `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
 
       const start = formatTime(startHour, startMinute);
-      const end = formatTime(endHour, endMinute);
-      slots.push(`${start} - ${end}`);
+      slots.push(`${start}`);
 
       if (startMinute === 0) {
         startMinute = 30;

@@ -133,8 +133,8 @@ const Calendar = ({ isModalOpened, onClose, onBookingComplete }) => {
         setPhoneNumber("");
         setInstagram("");
         setComment("");
-        setSelectedDate(null);
-        setSelectedTime(null);
+        // setSelectedDate(null);
+        // setSelectedTime(null);
       } else {
         alert("Виникла помилка при бронюванні. Спробуйте ще раз.");
       }
@@ -163,7 +163,23 @@ const Calendar = ({ isModalOpened, onClose, onBookingComplete }) => {
             <div className="thankYou-container">
               <div className="thankYou-header">
                 <h2>Дякую за запис!</h2>
-                <p>До зустрічі!</p>
+                <p>
+                  &nbsp;&nbsp;Чекаю на Вас{" "}
+                  {selectedDate.split("-").reverse().join(".")} о {selectedTime}{" "}
+                  за адресою Театральна, 4 ✨ +380974511990 (Ліза) теле-
+                  фонуйте, якщо потрібна буде допомога.
+                </p>
+                <p>
+                  &nbsp;&nbsp;З собою необхідно мати документи (фізичний паспорт
+                  або додаток «Дія»). Перед сеансом пот- рібно обов'язково
+                  поїсти (бажано солодкого), виспатись і бути в гарному настрої
+                  ✨
+                </p>
+                <p>
+                  &nbsp;&nbsp;Детальне відео як дістатись до нас закріплено в
+                  актуальному «студія» 💜
+                </p>
+
                 <button className="thankYou-close" onClick={onClose}>
                   <X size={20} />
                 </button>
@@ -388,15 +404,11 @@ const DatePicker = ({ onDateSelect, selectedDate, setBookedTimeSlots }) => {
     let startMinute = 0;
 
     while (startHour < 18 || (startHour === 17 && startMinute === 0)) {
-      const endHour = startMinute === 0 ? startHour : startHour + 1;
-      const endMinute = startMinute === 0 ? 30 : 0;
-
       const formatTime = (hour, minute) =>
         `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`;
 
       const start = formatTime(startHour, startMinute);
-      const end = formatTime(endHour, endMinute);
-      slots.push(`${start} - ${end}`);
+      slots.push(`${start}`);
 
       if (startMinute === 0) {
         startMinute = 30;
