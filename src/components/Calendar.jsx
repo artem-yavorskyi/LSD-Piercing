@@ -169,7 +169,7 @@ const Calendar = ({ isModalOpened, onClose, onBookingComplete }) => {
                 </button>
                 <img
                   height="300px"
-                  src="/public/assets/images/sticker-thank-you.webp"
+                  src="/assets/images/sticker-thank-you.webp"
                 ></img>
               </div>
             </div>
