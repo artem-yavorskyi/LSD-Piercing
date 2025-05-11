@@ -16,6 +16,7 @@
 .studying-container h2 {
   margin-top: 60px;
   margin-bottom: 40px;
+  font-size: 2.25rem;
 }
 
 .courses-columns {
@@ -60,10 +61,10 @@
 }
 
 .course-card-1 {
-  background: #2d2d6396;
+  background: #33365f96;
 }
 .course-card-2 {
-  background: #372c6398;
+  background: #45326e98;
 }
 
 .course-card-2 .course-price {
