@@ -1,34 +1,34 @@
 import React, { useState, forwardRef } from "react";
-import Calendar from "./Calendar";
+import BookingForm from "./BookingForm";
 import { Calendar as CalendarIcon } from "lucide-react";
 
 const Booking = forwardRef((props, ref) => {
   const [isModalOpened, setIsModalOpened] = useState(false);
 
-  function openCalendarModal() {
+  function openBookingFormModal() {
     setIsModalOpened(true);
   }
 
-  function closeCalendarModal() {
+  function closeBookingFormModal() {
     setIsModalOpened(false);
   }
 
   const handleBookingComplete = (date, time) => {
     console.log("Booking complete:", date, time);
-    closeCalendarModal();
+    closeBookingFormModal();
   };
 
   return (
     <div className="container booking" ref={ref}>
       <h2>Запис на сеанс</h2>
-      <button onClick={openCalendarModal} className="booking-button">
+      <button onClick={openBookingFormModal} className="booking-button">
         Записатися <CalendarIcon />
       </button>
 
       {isModalOpened && (
-        <Calendar
+        <BookingForm
           isModalOpened={isModalOpened}
-          onClose={closeCalendarModal}
+          onClose={closeBookingFormModal}
           onBookingComplete={handleBookingComplete}
         />
       )}

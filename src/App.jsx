@@ -8,6 +8,8 @@ import Footer from "./components/Footer";
 import Studying from "./components/Studying";
 import PriceList from "./components/PriceList";
 import Care from "./components/Care";
+import FadeInBlur from "./components/FadeInBlur";
+import SmoothScroll from "./components/SmoothScroll";
 
 const App = () => {
   const [activeTab, setActiveTab] = useState("home");
@@ -16,7 +18,6 @@ const App = () => {
   const gallery_piercingRef = useRef(null);
   const gallery_tattooRef = useRef(null);
   const bookingRef = useRef(null);
-  const careRef = useRef(null);
 
   const scrollToBooking = () => {
     if (bookingRef.current) {
@@ -29,10 +30,16 @@ const App = () => {
       case "home":
         return (
           <>
-            <Hero scrollToBooking={scrollToBooking} />
+            <SmoothScroll />
+            <FadeInBlur>
+              <Hero scrollToBooking={scrollToBooking} />
+            </FadeInBlur>
             <section ref={aboutMeRef}>
-              <AboutMe />
+              <FadeInBlur delay={0.3}>
+                <AboutMe />
+              </FadeInBlur>
             </section>
+
             <section ref={gallery_piercingRef}>
               <CarouselPiercing />
             </section>
@@ -41,52 +48,80 @@ const App = () => {
             </section>
 
             <section className="booking-section" ref={bookingRef}>
-              <Booking />
+              <FadeInBlur>
+                <Booking />
+              </FadeInBlur>
             </section>
             <Footer />
           </>
         );
       case "studying":
-        return <Studying />;
+        return (
+          <>
+            <SmoothScroll />
+            <FadeInBlur key={activeTab}>
+              <Studying />;
+            </FadeInBlur>
+          </>
+        );
       case "pricelist":
-        return <PriceList />;
+        return (
+          <>
+            <SmoothScroll />
+            <FadeInBlur key={activeTab}>
+              <PriceList />;
+            </FadeInBlur>
+          </>
+        );
       case "care":
-        return <Care />;
+        return (
+          <>
+            <SmoothScroll />
+            <FadeInBlur key={activeTab}>
+              <Care />;
+            </FadeInBlur>
+          </>
+        );
       default:
         return null;
     }
   };
 
   return (
-    <div>
-      <nav className="tabs">
-        <button
-          onClick={() => setActiveTab("home")}
-          className={activeTab === "home" ? "active" : ""}
-        >
-          Головна
-        </button>
-        <button
-          onClick={() => setActiveTab("studying")}
-          className={activeTab === "studying" ? "active" : ""}
-        >
-          Навчання
-        </button>
-        <button
-          onClick={() => setActiveTab("pricelist")}
-          className={activeTab === "pricelist" ? "active" : ""}
-        >
-          Прайс-ліст
-        </button>
-        <button
-          onClick={() => setActiveTab("care")}
-          className={activeTab === "care" ? "active" : ""}
-        >
-          Догляд
-        </button>
-      </nav>
-      {renderContent()}
-    </div>
+    <>
+      <SmoothScroll />
+      <FadeInBlur>
+        <div>
+          <nav className="tabs">
+            <button
+              onClick={() => setActiveTab("home")}
+              className={activeTab === "home" ? "active" : ""}
+            >
+              Головна
+            </button>
+            <button
+              onClick={() => setActiveTab("studying")}
+              className={activeTab === "studying" ? "active" : ""}
+            >
+              Навчання
+            </button>
+            <button
+              onClick={() => setActiveTab("pricelist")}
+              className={activeTab === "pricelist" ? "active" : ""}
+            >
+              Прайс-ліст
+            </button>
+            <button
+              onClick={() => setActiveTab("care")}
+              className={activeTab === "care" ? "active" : ""}
+            >
+              Догляд
+            </button>
+          </nav>
+          {renderContent()}
+        </div>
+      </FadeInBlur>
+    </>
   );
 };
 

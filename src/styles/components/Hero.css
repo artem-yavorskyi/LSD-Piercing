@@ -5,7 +5,7 @@
   flex-direction: column; /* Змінено для кращого контролю */
   align-items: center; /* Центрування контенту */
   justify-content: center;
-  background-image: url("/assets/images/hero-bg.png"); /* Перевір шлях! */
+  background-image: url("/assets/images/hero-bg.webp"); /* Перевір шлях! */
   background-size: cover;
   background-position: center; /* Додано для кращого відображення */
   background-repeat: no-repeat;
@@ -26,15 +26,15 @@
 
 .hero-logo img {
   width: 100%; /* Зроблено адаптивним */
-  width: 400px; /* Обмеження максимальної ширини */
+  width: 360px; /* Обмеження максимальної ширини */
   height: auto;
-  /* display: flex та justify-content: center тут зайві, бо це на img */
+  margin-bottom: 30px;
 }
 
 .hero-content h1 {
   font-size: 2rem; /* Специфічний розмір для Hero */
-  color: #ffffff;
-  margin-bottom: 36px;
+  color: #f3eeff;
+  margin-bottom: 28px;
 }
 
 .hero-content p {

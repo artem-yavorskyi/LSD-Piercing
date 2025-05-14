@@ -1,5 +1,6 @@
 import React from "react";
 import "../styles/styles.css";
+import FadeInBlur from "./FadeInBlur";
 
 const images = [
   "/assets/images/piercing1.JPG",
@@ -18,13 +19,15 @@ const CarouselPiercing = () => {
   return (
     <div className="carousel-wrapper carousel-piercing">
       <h2>Роботи з пірсингом</h2>
-      <div className="track-piercing">
-        {[...images, ...images].map((img, index) => (
-          <div className="carousel-item" key={index}>
-            <img src={img} alt={`Зображення ${index}`} />
-          </div>
-        ))}
-      </div>
+      <FadeInBlur delay={0.1}>
+        <div className="track-piercing">
+          {[...images, ...images].map((img, index) => (
+            <div className="carousel-item" key={index}>
+              <img src={img} alt={`Зображення ${index}`} />
+            </div>
+          ))}
+        </div>
+      </FadeInBlur>
     </div>
   );
 };
