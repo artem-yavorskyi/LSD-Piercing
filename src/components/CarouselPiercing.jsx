@@ -1,25 +1,25 @@
 import React from "react";
 import "../styles/styles.css";
-import FadeInBlur from "./FadeInBlur";
+import FadeInBlurForCarousel from "./FadeInBlurForCarousel";
 
 const images = [
-  "/assets/images/piercing1.JPG",
-  "/assets/images/piercing2.JPG",
-  "/assets/images/piercing3.JPG",
-  "/assets/images/piercing4.JPG",
-  "/assets/images/piercing5.JPG",
-  "/assets/images/piercing6.JPG",
-  "/assets/images/piercing7.JPG",
-  "/assets/images/piercing8.JPG",
-  "/assets/images/piercing9.JPG",
-  "/assets/images/piercing10.JPG",
+  "/assets/images/piercing1.avif",
+  "/assets/images/piercing2.avif",
+  "/assets/images/piercing3.avif",
+  "/assets/images/piercing4.avif",
+  "/assets/images/piercing5.avif",
+  "/assets/images/piercing6.avif",
+  "/assets/images/piercing7.avif",
+  "/assets/images/piercing8.avif",
+  "/assets/images/piercing9.avif",
+  "/assets/images/piercing10.avif",
 ];
 
 const CarouselPiercing = () => {
   return (
     <div className="carousel-wrapper carousel-piercing">
       <h2>Роботи з пірсингом</h2>
-      <FadeInBlur delay={0.1}>
+      <FadeInBlurForCarousel>
         <div className="track-piercing">
           {[...images, ...images].map((img, index) => (
             <div className="carousel-item" key={index}>
@@ -27,7 +27,7 @@ const CarouselPiercing = () => {
             </div>
           ))}
         </div>
-      </FadeInBlur>
+      </FadeInBlurForCarousel>
     </div>
   );
 };

@@ -26,8 +26,8 @@
 
 .hero-logo img {
   width: 100%; /* Зроблено адаптивним */
-  width: 360px; /* Обмеження максимальної ширини */
-  height: auto;
+  width: auto; /* Обмеження максимальної ширини */
+  height: 215px;
   margin-bottom: 30px;
 }
 

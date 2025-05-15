@@ -130,16 +130,16 @@
 .modal-container {
   background-color: #1a1a1a;
   border-radius: 12px;
-
   width: 90%;
   max-width: 500px;
   max-height: 90vh;
-  overflow-y: auto;
+  overflow-y: scroll;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
   animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid rgba(255, 255, 255, 0.1);
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+  overscroll-behavior-y: contain;
 }
 
 .modal-container::-webkit-scrollbar-track {

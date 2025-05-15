@@ -1,7 +1,9 @@
 .price-wrapper {
-  background-image: url("/assets/images/sections-bg.png");
+  background-image: url("/assets/images/sections-bg.avif");
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
+
   min-height: 100vh;
 }
 

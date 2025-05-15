@@ -1,7 +1,8 @@
 .studying-wrapper {
-  background-image: url("/assets/images/sections-bg.png");
+  background-image: url("/assets/images/sections-bg.avif");
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
 }
 .studying-container {
   max-width: 1270px;

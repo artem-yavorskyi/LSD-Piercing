@@ -11,7 +11,6 @@ import ReactDOM from "react-dom";
 // ========================================
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
-("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhleHBlc2V2dGp2bXZlcW91ZWttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYzNjk3NzUsImV4cCI6MjA2MTk0NTc3NX0.J7Xl9eJYuO1OnCnj3sH7mDiGx7wOajPMC7oLgqXDoDA");
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // ========================================
@@ -39,7 +38,7 @@ const insertBooking = async (bookingData) => {
 // ========================================
 // ===========BookingForm COMPONENT===========
 // ========================================
-const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
+const BookingForm = ({ isModalOpened, onClose, onBookingComplete, lenis }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const [bookedTimeSlots, setBookedTimeSlots] = useState({});
@@ -64,16 +63,28 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
     if (isModalOpened) {
       document.body.style.overflow = "hidden";
       document.body.style.paddingRight = `${scrollbarWidth}px`;
+
+      if (lenis) {
+        lenis.stop();
+      }
     } else {
       document.body.style.overflow = "";
       document.body.style.paddingRight = "";
+
+      if (lenis) {
+        lenis.start();
+      }
     }
 
     return () => {
       document.body.style.overflow = "";
       document.body.style.paddingRight = "";
+
+      if (lenis && isModalOpened) {
+        lenis.start();
+      }
     };
-  }, [isModalOpened]);
+  }, [isModalOpened, lenis]);
 
   useEffect(() => {
     if (selectedDate && timeSlotSelectorRef.current) {
@@ -126,16 +137,12 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
       const isSuccess = await insertBooking(bookingDetails);
 
       if (isSuccess) {
-        // alert("Бронювання надіслано успішно!");
         openThankYouModal();
-        // onClose();
         setName("");
         setLastName("");
         setPhoneNumber("");
         setInstagram("");
         setComment("");
-        // setSelectedDate(null);
-        // setSelectedTime(null);
       } else {
         alert("Виникла помилка при бронюванні. Спробуйте ще раз.");
       }
@@ -323,7 +330,7 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
         </form>
       </Modal>
     </div>,
-    document.body,
+    document.body
   );
 };
 
@@ -461,7 +468,7 @@ const DatePicker = ({ onDateSelect, selectedDate, setBookedTimeSlots }) => {
     if (isDayAvailable(day)) {
       const formattedDate = `${currentYear}-${String(currentMonth + 1).padStart(
         2,
-        "0",
+        "0"
       )}-${String(day).padStart(2, "0")}`;
       onDateSelect(formattedDate);
     }
@@ -540,7 +547,7 @@ const DatePicker = ({ onDateSelect, selectedDate, setBookedTimeSlots }) => {
 
         {daysArray.map((day) => {
           const formattedDate = `${currentYear}-${String(
-            currentMonth + 1,
+            currentMonth + 1
           ).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
           const isAvailable = isDayAvailable(day);
           const isSelected = selectedDate === formattedDate;

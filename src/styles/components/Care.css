@@ -1,7 +1,8 @@
 .care-wrapper {
-  background-image: url("/assets/images/care-bg.png");
+  background-image: url("/assets/images/care-bg.avif");
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
 }
 
 .care-container {

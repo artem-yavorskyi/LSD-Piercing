@@ -4,8 +4,9 @@
   gap: 20px;
   align-items: center;
   width: 100%;
-  background: url(/assets/images/booking-bg.png);
+  background: url(/assets/images/booking-bg.avif);
   background-size: cover;
+  background-position: center;
   max-height: 547px;
 }
 .container.booking {

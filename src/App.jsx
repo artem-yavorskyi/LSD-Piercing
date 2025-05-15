@@ -8,8 +8,8 @@ import Footer from "./components/Footer";
 import Studying from "./components/Studying";
 import PriceList from "./components/PriceList";
 import Care from "./components/Care";
-import FadeInBlur from "./components/FadeInBlur";
-import SmoothScroll from "./components/SmoothScroll";
+import FadeInBlurPrimary from "./components/FadeInBlurPrimary";
+import FadeInBlurSecondary from "./components/FadeInBlurSecondary";
 
 const App = () => {
   const [activeTab, setActiveTab] = useState("home");
@@ -30,14 +30,13 @@ const App = () => {
       case "home":
         return (
           <>
-            <SmoothScroll />
-            <FadeInBlur>
+            <FadeInBlurPrimary>
               <Hero scrollToBooking={scrollToBooking} />
-            </FadeInBlur>
+            </FadeInBlurPrimary>
             <section ref={aboutMeRef}>
-              <FadeInBlur delay={0.3}>
+              <FadeInBlurPrimary delay={0.2}>
                 <AboutMe />
-              </FadeInBlur>
+              </FadeInBlurPrimary>
             </section>
 
             <section ref={gallery_piercingRef}>
@@ -48,9 +47,9 @@ const App = () => {
             </section>
 
             <section className="booking-section" ref={bookingRef}>
-              <FadeInBlur>
+              <FadeInBlurPrimary delay={0.1}>
                 <Booking />
-              </FadeInBlur>
+              </FadeInBlurPrimary>
             </section>
             <Footer />
           </>
@@ -58,28 +57,25 @@ const App = () => {
       case "studying":
         return (
           <>
-            <SmoothScroll />
-            <FadeInBlur key={activeTab}>
-              <Studying />;
-            </FadeInBlur>
+            <FadeInBlurSecondary key={activeTab}>
+              <Studying />
+            </FadeInBlurSecondary>
           </>
         );
       case "pricelist":
         return (
           <>
-            <SmoothScroll />
-            <FadeInBlur key={activeTab}>
-              <PriceList />;
-            </FadeInBlur>
+            <FadeInBlurSecondary key={activeTab}>
+              <PriceList />
+            </FadeInBlurSecondary>
           </>
         );
       case "care":
         return (
           <>
-            <SmoothScroll />
-            <FadeInBlur key={activeTab}>
-              <Care />;
-            </FadeInBlur>
+            <FadeInBlurSecondary key={activeTab}>
+              <Care />
+            </FadeInBlurSecondary>
           </>
         );
       default:
@@ -89,8 +85,7 @@ const App = () => {
 
   return (
     <>
-      <SmoothScroll />
-      <FadeInBlur>
+      <FadeInBlurSecondary>
         <div>
           <nav className="tabs">
             <button
@@ -120,7 +115,7 @@ const App = () => {
           </nav>
           {renderContent()}
         </div>
-      </FadeInBlur>
+      </FadeInBlurSecondary>
     </>
   );
 };
