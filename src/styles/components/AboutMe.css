@@ -112,8 +112,8 @@
 
 @media (max-width: 768px) {
   .qoute-container::before {
-    content: "";
-    background-image: none;
+    height: 190px;
+    top: -150px;
   }
   .quote {
     position: relative;
@@ -122,12 +122,19 @@
   .about-me {
     padding: 20px;
   }
-  .about-me h2 {
-    margin-bottom: 10px;
-  }
 }
 
 @media (max-width: 576px) {
+  .qoute-container::before {
+    height: 200px;
+    top: -160px;
+    left: 60px;
+  }
+
+  .about-me h2 {
+    margin-bottom: 140px;
+  }
+
   .quote {
     padding: 50px 36px;
     font-size: 15px;
