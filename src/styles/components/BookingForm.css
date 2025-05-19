@@ -1,3 +1,5 @@
+/* booking-form Container */
+
 /* Modal Styling */
 .modal-overlay {
   position: fixed;
@@ -19,7 +21,7 @@
   border-radius: 12px;
   width: 90%;
   max-width: 500px;
-  max-height: 90dvh;
+  height: 82dvh;
   overflow-y: scroll;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
   animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
