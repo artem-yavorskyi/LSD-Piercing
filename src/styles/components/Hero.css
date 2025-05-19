@@ -1,38 +1,390 @@
-/* components/Hero.css */
+/*===================================
+=========GENERAL FOOTER STYLES========
+===================================*/
+footer {
+  background-color: #0f0f0f;
+  display: flex;
+  justify-content: center;
+}
+
+footer p {
+  margin: 0;
+}
+
+footer a {
+  font-size: 1.1rem;
+  color: #bb86fc;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: #ffffff;
+}
+
+/*===================================
+=======FOOTER STRUCTURE AND LAYOUT=======
+===================================*/
+.footer-wrapper {
+  max-width: 1050px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 12px 0;
+}
+
+.footer-group {
+  display: flex;
+  gap: 26px;
+}
+
+.footer-title {
+  display: flex;
+  align-items: center;
+}
+
+.footer .connection {
+  display: flex;
+  align-items: center;
+}
+
+.phone-number {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 5px;
+}
+
+.footer .connection span {
+  font-weight: 300;
+  font-size: 1.2rem;
+  margin-right: 2px;
+}
+
+.footer .logo {
+  height: 100%;
+  display: inline-flex;
+}
+
+.footer .logo img {
+  height: 30px;
+  width: auto;
+}
+
+/*===================================
+======FOOTER MEDIA QUERIES=======
+===================================*/
+@media (max-width: 1400px) {
+}
+
+@media (max-width: 1200px) {
+  .footer-wrapper {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .footer-group {
+    display: flex;
+    gap: 30px;
+  }
+}
+
+@media (max-width: 992px) {
+}
+
+@media (max-width: 768px) {
+  .footer-wrapper {
+    gap: 12px;
+  }
+
+  .footer-group {
+    gap: 10px;
+  }
+
+  footer a,
+  footer p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer-group {
+    align-items: center;
+  }
+
+  .footer .logo {
+    align-items: center;
+  }
+
+  .footer .logo img {
+    align-items: center;
+  }
+
+  .connection {
+    flex-direction: column;
+  }
+
+  .footer-wrapper {
+    padding: 0;
+  }
+}
+
+@media (max-width: 440px) {
+  .footer-group:nth-child(2) {
+    flex-direction: column;
+  }
+}
+
+/*===================================
+======CAROUSEL WRAPPER AND TITLE======
+===================================*/
+.carousel-wrapper h2 {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.carousel-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 95%;
+  margin-bottom: 80px;
+}
+
+.carousel-piercing {
+  margin-bottom: 150px;
+  margin-top: 50px;
+}
+
+.carousel-piercing,
+.carousel-tattoo {
+  margin-bottom: 100px;
+}
+
+/*===================================
+=======CAROUSEL PSEUDO-ELEMENTS======
+===================================*/
+.carousel-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    #0a0a0a 0%,
+    #0a0a0a 10%,
+    #0a0a0a 20%,
+    rgba(10, 10, 10, 0.95) 30%,
+    rgba(10, 10, 10, 0.85) 40%,
+    rgba(10, 10, 10, 0.75) 50%,
+    rgba(10, 10, 10, 0.6) 60%,
+    rgba(10, 10, 10, 0.4) 70%,
+    rgba(10, 10, 10, 0.25) 80%,
+    rgba(10, 10, 10, 0.1) 90%,
+    rgba(10, 10, 10, 0.05) 95%,
+    transparent 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+.carousel-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 250px;
+  height: 100%;
+  background: linear-gradient(
+    to left,
+    #0a0a0a 0%,
+    #0a0a0a 10%,
+    #0a0a0a 20%,
+    rgba(10, 10, 10, 0.95) 30%,
+    rgba(10, 10, 10, 0.85) 40%,
+    rgba(10, 10, 10, 0.75) 50%,
+    rgba(10, 10, 10, 0.6) 60%,
+    rgba(10, 10, 10, 0.4) 70%,
+    rgba(10, 10, 10, 0.25) 80%,
+    rgba(10, 10, 10, 0.1) 90%,
+    rgba(10, 10, 10, 0.05) 95%,
+    transparent 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+/*===================================
+=========CAROUSEL TRACKS=========
+===================================*/
+.track-piercing {
+  display: flex;
+  width: max-content;
+  animation: scroll 60s linear infinite;
+}
+
+.track-tattoo {
+  display: flex;
+  width: max-content;
+  animation: scroll 60s linear infinite reverse;
+}
+
+/*===================================
+=========CAROUSEL ITEMS=========
+===================================*/
+.carousel-item {
+  margin-right: 16px;
+}
+
+.carousel-item img {
+  width: auto;
+  height: 420px;
+  border-radius: 8px;
+  display: block;
+}
+
+/*===================================
+========CAROUSEL KEYFRAMES========
+===================================*/
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/*===================================
+=======CAROUSEL MEDIA QUERIES=======
+===================================*/
+@media (max-width: 1400px) {
+  .carousel-item img {
+    height: 300px;
+  }
+
+  .carousel-wrapper::before,
+  .carousel-wrapper::after {
+    width: 150px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .carousel-piercing,
+  .carousel-tattoo {
+    margin-bottom: 100px;
+  }
+
+  .carousel-wrapper h2 {
+    margin-bottom: 40px;
+  }
+}
+
+@media (max-width: 992px) {
+  .carousel-tattoo {
+    margin-bottom: 40px;
+  }
+
+  .carousel-item img {
+    height: 240px;
+  }
+
+  .carousel-wrapper::before,
+  .carousel-wrapper::after {
+    width: 80px;
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel-piercing {
+    margin-bottom: 60px;
+  }
+  .carousel-tattoo {
+    margin-bottom: 0;
+  }
+
+  .carousel-wrapper {
+    width: 100%;
+    margin-top: 0;
+    padding: 0;
+  }
+
+  .carousel-wrapper h2 {
+    margin-bottom: 40px;
+  }
+
+  .carousel-item img {
+    height: 220px;
+  }
+
+  .carousel-wrapper::before,
+  .carousel-wrapper::after {
+    width: 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .carousel-item img {
+    height: 170px;
+    border-radius: 4px;
+  }
+
+  .track-piercing {
+    animation: scroll 35s linear infinite;
+  }
+
+  .track-tattoo {
+    animation: scroll 35s linear infinite reverse;
+  }
+}
+
+/*===================================
+========GENERAL HERO STYLES========
+===================================*/
 .hero {
   min-height: 100vh;
   display: flex;
-  flex-direction: column; /* Змінено для кращого контролю */
-  align-items: center; /* Центрування контенту */
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  background-image: url("/assets/images/hero-bg.webp"); /* Перевір шлях! */
+  background-image: url("/assets/images/hero-bg.webp");
   background-size: cover;
-  background-position: center; /* Додано для кращого відображення */
+  background-position: center;
   background-repeat: no-repeat;
   color: #ffffff;
   text-align: center;
-  border-bottom: none; /* Перевизначення загального стилю секції, якщо .hero є <section> */
-  padding: 0; /* Скидання загального padding секції */
+  border-bottom: none;
+  padding: 0;
 }
 
+/*===================================
+========HERO CONTENT CONTAINER========
+===================================*/
 .hero-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 800px; /* Обмеження ширини контенту */
-  padding: 20px; /* Додано внутрішні відступи */
-  /* margin: 240px auto 0; */
+  max-width: 800px;
+  padding: 20px;
 }
 
+/*===================================
+===========HERO LOGO===========
+===================================*/
 .hero-logo img {
-  width: 100%; /* Зроблено адаптивним */
-  width: auto; /* Обмеження максимальної ширини */
+  width: 100%;
+  width: auto;
   height: 215px;
   margin-bottom: 30px;
 }
 
+/*===================================
+============HERO TEXT============
+===================================*/
 .hero-content h1 {
-  font-size: 2rem; /* Специфічний розмір для Hero */
+  font-size: 2rem;
   color: #f3eeff;
   margin-bottom: 28px;
 }
@@ -40,9 +392,12 @@
 .hero-content p {
   font-size: 1.2rem;
   color: #ffffff;
-  margin-bottom: 30px; /* Додано відступ знизу */
+  margin-bottom: 30px;
 }
 
+/*===================================
+============HERO BUTTON============
+===================================*/
 .hero-button {
   box-sizing: border-box;
   color: #ffffff;
@@ -53,38 +408,94 @@
   font-size: 1.1rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: "Inter", sans-serif; /* Явно вказано шрифт */
+  font-family: "Inter", sans-serif;
   background: transparent;
   border: 2px solid #ffffff;
 }
 
 .hero-button:hover {
   background-color: #c09ee7;
-  border-color: #c09ee7; /* Зміна кольору рамки при ховері */
+  border-color: #c09ee7;
   color: #30203f;
 }
 
+.hero .hero-button:focus {
+  border-color: #c09ee7 !important;
+}
+
+/*===================================
+============ARROW ICON============
+===================================*/
 .arrow-icon {
   position: absolute;
   height: 50px;
   width: auto;
   bottom: 50px;
-  /* margin-top: 200px;  */
-  animation: smoothBounce 2s ease-in-out infinite; /* Використання ease-in-out */
+  animation: smoothBounce 2s ease-in-out infinite;
 }
 
-.hero .hero-button:focus {
-  border-color: #c09ee7 !important; /* Використання !important (з обережністю) */
-}
-
+/*===================================
+=========HERO KEYFRAMES=========
+===================================*/
 @keyframes smoothBounce {
   0% {
-    transform: translateY(0); /* Початкове положення */
+    transform: translateY(0);
   }
   50% {
-    transform: translateY(-20px); /* Плавно піднімаємо вгору */
+    transform: translateY(-20px);
   }
   100% {
-    transform: translateY(0); /* Плавно повертаємо вниз */
+    transform: translateY(0);
+  }
+}
+
+/*===================================
+========HERO MEDIA QUERIES========
+===================================*/
+@media (max-width: 1200px) {
+}
+
+@media (max-width: 992px) {
+}
+
+@media (max-width: 768px) {
+  .hero-logo img {
+    height: 150px;
+  }
+  .hero-content h1 {
+    font-size: 1.5rem;
+  }
+  .hero-button {
+    font-size: 1rem;
+    border-width: 1px;
+  }
+}
+
+@media (max-width: 576px) {
+}
+
+@media (orientation: landscape) and (max-height: 680px) {
+  .hero-logo img {
+    height: 100px;
+    margin-bottom: 10px;
+  }
+
+  .hero-content {
+    padding: 0;
+  }
+
+  .hero-content h1 {
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+  }
+
+  .hero-button {
+    font-size: 14px;
+    padding: 12px 20px;
+  }
+
+  .arrow-icon {
+    height: 36px;
+    bottom: 10px;
   }
 }

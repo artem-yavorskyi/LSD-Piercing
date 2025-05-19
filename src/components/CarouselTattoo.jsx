@@ -18,8 +18,8 @@ const images = [
 const CarouselTattoo = () => {
   return (
     <div className="carousel-wrapper carousel-tattoo">
-      <h2>Роботи з тату</h2>
       <FadeInBlurForCarousel>
+        <h2>Роботи з тату</h2>
         <div className="track-tattoo">
           {[...images, ...images].map((img, index) => (
             <div className="carousel-item" key={index}>

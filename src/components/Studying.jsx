@@ -7,8 +7,7 @@ export default function Studying() {
       <div className="studying-container">
         <h2>Навчальні курси</h2>
         <div className="courses-columns">
-          {/* Базовий курс */}
-          <div className="course-card course-card-1">
+          <div className="course-card course-card-base">
             <div className="course-header">
               <h3>Базовий курс</h3>
               <p className="course-price">
@@ -54,8 +53,7 @@ export default function Studying() {
             </div>
           </div>
 
-          {/* Повний курс */}
-          <div className="course-card course-card-2">
+          <div className="course-card course-card-full">
             <div className="course-header">
               <h3>Повний курс</h3>
               <p className="course-price">

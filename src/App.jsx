@@ -10,6 +10,7 @@ import PriceList from "./components/PriceList";
 import Care from "./components/Care";
 import FadeInBlurPrimary from "./components/FadeInBlurPrimary";
 import FadeInBlurSecondary from "./components/FadeInBlurSecondary";
+import NavTabs from "./components/NavTabs";
 
 const App = () => {
   const [activeTab, setActiveTab] = useState("home");
@@ -86,35 +87,8 @@ const App = () => {
   return (
     <>
       <FadeInBlurSecondary>
-        <div>
-          <nav className="tabs">
-            <button
-              onClick={() => setActiveTab("home")}
-              className={activeTab === "home" ? "active" : ""}
-            >
-              Головна
-            </button>
-            <button
-              onClick={() => setActiveTab("studying")}
-              className={activeTab === "studying" ? "active" : ""}
-            >
-              Навчання
-            </button>
-            <button
-              onClick={() => setActiveTab("pricelist")}
-              className={activeTab === "pricelist" ? "active" : ""}
-            >
-              Прайс-ліст
-            </button>
-            <button
-              onClick={() => setActiveTab("care")}
-              className={activeTab === "care" ? "active" : ""}
-            >
-              Догляд
-            </button>
-          </nav>
-          {renderContent()}
-        </div>
+        <NavTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+        {renderContent()}
       </FadeInBlurSecondary>
     </>
   );

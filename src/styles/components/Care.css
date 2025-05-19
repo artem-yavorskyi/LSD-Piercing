@@ -8,7 +8,8 @@
 .care-container {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 40px 40px;
+  text-align: center;
   justify-content: center;
   align-content: center;
 }
@@ -26,9 +27,8 @@ h3.card-title {
 }
 
 .care-container h2 {
-  margin-top: 100px;
+  margin-top: 60px;
   margin-bottom: 40px;
-  text-align: center;
   font-size: 2.25rem;
 }
 .care-page {
@@ -38,11 +38,6 @@ h3.card-title {
   padding: 80px 0;
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     sans-serif;
-}
-
-.care-container {
-  margin: 0 auto;
-  padding: 0 24px;
 }
 
 .care-title {
@@ -61,15 +56,21 @@ h3.card-title {
   margin-bottom: 40px;
 }
 
+.card-content p {
+  margin-bottom: 0;
+}
+
 .care-card {
   background-color: rgba(30, 30, 40, 0.8);
   border-radius: 16px;
-  margin-bottom: 24px;
-  padding: 44px 50px;
+  margin-bottom: 32px;
+  padding: 32px 45px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: left;
+  hyphens: auto;
 }
 
 .card-title {
@@ -110,7 +111,7 @@ h3.card-title {
   padding: 16px;
   border-radius: 12px;
   margin: 16px 0;
-  border-left: 4px solid #a78bfa;
+  border-left: 3px solid #a78bfa;
   align-items: flex-start;
 }
 
@@ -146,7 +147,7 @@ h3.card-title {
 .recommendation-list li {
   position: relative;
   padding-left: 12px;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   color: #e5e7eb;
   counter-increment: item;
 }
@@ -164,51 +165,86 @@ p {
   color: #e5e7eb;
 }
 
-@media (max-width: 768px) {
-  .care-page {
-    padding: 60px 0;
-  }
+/*=======================================
+=============MEDIA QUERIES==============
+=======================================*/
 
+@media (max-width: 1200px) {
+}
+
+@media (max-width: 992px) {
   .care-container {
-    padding: 0 16px;
+    padding: 40px;
+  }
+  .care-container h2 {
+    margin-bottom: 30px;
+    font-size: 1.85rem;
   }
 
-  .care-title {
-    font-size: 2rem;
+  .care-container h3.card-title {
+    font-size: 1.4rem; /* Залишаємо як в базі, або трохи зменшуємо, якщо потрібно */
   }
 
-  .care-subtitle {
-    font-size: 1.2rem;
-    margin-bottom: 32px;
+  .care-container h4 {
+    font-size: 1.1rem; /* Зменшення розміру шрифту h4 */
   }
 
-  .care-card {
-    padding: 20px;
-  }
-
-  .card-title {
-    font-size: 1.2rem;
-  }
-
-  .care-note {
-    padding: 12px;
-  }
-
-  .recommendation-title {
-    font-size: 1rem;
-  }
-
-  .recommendation-list li {
-    margin-bottom: 6px;
+  .section-subtitle {
+    font-size: 1rem; /* Зменшення розміру шрифту підзаголовків */
   }
 }
 
-@media (max-width: 480px) {
-  .care-title {
-    font-size: 1.8rem;
+@media (max-width: 768px) {
+  .care-container {
+    padding: 20px;
   }
+  .care-container h2 {
+    margin-top: 88px;
+  }
+  .care-card {
+    padding: 26px 30px;
+  }
+  .care-card p {
+    font-size: 1rem;
+  }
+  .recommendation-list li {
+    margin-bottom: 2px;
+  }
+  .note-content {
+    font-size: 1rem;
+  }
+  .care-note {
+    padding: 10px;
+  }
+}
 
-  .care-subtitle {
-    font-size: 1.1rem;
+@media (max-width: 576px) {
+  .care-container h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  h3.card-title {
+    font-size: 1.25rem !important;
+  }
+  .care-container h2 {
+    margin-top: 80px;
+  }
+  .care-card {
+    padding: 26px 20px;
+  }
+  .recommendation-list {
+    padding-left: 5px;
+  }
+  .care-card h4 {
+    font-size: 1rem;
+  }
+  .note-content {
+    font-size: 14px;
+  }
+  .care-note {
+    padding-left: 8px;
+  }
+  .note-icon {
+    margin-right: 6px;
   }
 }

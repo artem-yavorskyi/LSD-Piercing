@@ -14,14 +14,14 @@ const FadeInBlurForCarousel = ({ children, delay = 0 }) => {
       element,
       {
         opacity: 0,
-        filter: "blur(10px)",
-        y: 40,
+        filter: "blur(4px)",
+        y: 0,
       },
       {
         opacity: 1,
         filter: "blur(0px)",
         y: 0,
-        duration: 1.5,
+        duration: 0.6,
         delay,
         ease: "power2.out",
         scrollTrigger: {

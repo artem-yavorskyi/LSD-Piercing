@@ -152,16 +152,15 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete, lenis }) => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // 1. Зупинити стандартну відправку
+    e.preventDefault();
     const form = e.currentTarget;
 
     if (!form.checkValidity()) {
-      // 2. Перевірити валідність усіх полів
-      form.reportValidity(); // 3. Показати браузерні помилки
-      return; // Не продовжувати
+      form.reportValidity();
+      return;
     }
 
-    handleConfirmBooking(); // 4. Якщо все валідне — відправити
+    handleConfirmBooking();
   };
 
   // ========================================
@@ -176,35 +175,34 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete, lenis }) => {
         title="Запис на сеанс"
       >
         {isThankYouOpened && (
-          <div className="thankYou-overlay">
-            <div className="thankYou-container">
-              <div className="thankYou-header">
+          <div className="thank-you-overlay">
+            <div className="thank-you-container">
+              <div className="thank-you-content">
                 <h2>Дякую за запис!</h2>
                 <p>
-                  &nbsp;&nbsp;Чекаю на Вас{" "}
+                  &nbsp;&nbsp;&nbsp;Чекаю на Вас{" "}
                   {selectedDate.split("-").reverse().join(".")} о {selectedTime}{" "}
                   за адресою м. Вінниця, вул. Театральна, 4 ✨ +380974511990
                   (Ліза) телефонуйте, якщо потрібна буде допомога.
                 </p>
                 <p>
-                  &nbsp;&nbsp;З собою необхідно мати документи (фізичний паспорт
-                  або додаток «Дія»). Перед сеансом потрібно обов'язково поїсти
-                  (бажано солодкого), виспатись і бути в гарному настрої ✨
+                  &nbsp;&nbsp;&nbsp;З собою необхідно мати документи (фізичний
+                  паспорт або додаток «Дія»). Перед сеансом потрібно обов'язково
+                  поїсти (бажано солодкого), виспатись і бути в гарному настрої
+                  ✨
                 </p>
-                <p>
-                  &nbsp;&nbsp;Детальне відео як дістатись до нас&nbsp;
-                  {` --> `}
+                <p className="video-link-text">
+                  Детальне відео як дістатись до нас&nbsp;
                   <a
                     href="https://www.instagram.com/stories/highlights/18113082277287997/"
                     target="_blank"
                     rel="noreferrer noopener"
                   >
-                    тут
+                    тут💜
                   </a>
-                  💜
                 </p>
 
-                <button className="thankYou-close" onClick={onClose}>
+                <button className="thank-you-close" onClick={onClose}>
                   <X size={20} />
                 </button>
                 <img
@@ -384,11 +382,9 @@ const DatePicker = ({ onDateSelect, selectedDate, setBookedTimeSlots }) => {
       return;
     }
 
-    // Group booked time slots by date
     const timeSlotsByDate = {};
     const availableDaysMap = {};
 
-    // Get all possible time slots
     const allTimeSlots = generateAllTimeSlots();
 
     // Process data
@@ -399,7 +395,6 @@ const DatePicker = ({ onDateSelect, selectedDate, setBookedTimeSlots }) => {
       timeSlotsByDate[item.selected_date].push(item.selected_time);
     });
 
-    // Determine available days (days with at least one available time slot)
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     for (let day = 1; day <= daysInMonth; day++) {
       const date = new Date(year, month, day);
@@ -407,7 +402,6 @@ const DatePicker = ({ onDateSelect, selectedDate, setBookedTimeSlots }) => {
 
       const bookedSlots = timeSlotsByDate[formattedDate] || [];
 
-      // A day is available if not all time slots are booked
       availableDaysMap[formattedDate] =
         bookedSlots.length < allTimeSlots.length;
     }
@@ -445,16 +439,12 @@ const DatePicker = ({ onDateSelect, selectedDate, setBookedTimeSlots }) => {
   // ========================================
   // =========DATEPICKER DATE LOGIC==========
   // ========================================
-  // Generate days in month
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
   const daysArray = Array.from({ length: daysInMonth }, (_, i) => i + 1);
 
-  // Determine day of week for first day of month (0 = Sunday, 1 = Monday, etc.)
   const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
-  // Adjust for Monday as first day of week
   const startOffset = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1;
 
-  // Check if day is available (only future dates with at least one available time slot)
   const isDayAvailable = (day) => {
     const date = new Date(currentYear, currentMonth, day);
     const formattedDate = formatDate(date);
@@ -502,7 +492,6 @@ const DatePicker = ({ onDateSelect, selectedDate, setBookedTimeSlots }) => {
   // ========================================
   // =========DATEPICKER UI HELPERS==========
   // ========================================
-  // Get month name in Ukrainian
   const getMonthName = () => {
     return new Date(currentYear, currentMonth).toLocaleDateString("uk-UA", {
       month: "long",

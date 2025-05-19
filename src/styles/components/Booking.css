@@ -1,3 +1,6 @@
+/*=================================
+===========BOOKING SECTION===========
+=================================*/
 .booking {
   display: flex;
   flex-direction: column;
@@ -9,14 +12,19 @@
   background-position: center;
   max-height: 547px;
 }
+
 .container.booking {
-  padding: 200px;
+  padding: 200px 0;
 }
+
 .booking h2 {
   text-align: center;
   margin-bottom: 20px;
 }
 
+/*=================================
+===========INPUT STYLES===========
+=================================*/
 .booking input[type="date"] {
   padding: 10px 15px;
   font-size: 1rem;
@@ -31,11 +39,13 @@
 }
 
 .booking input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(1) brightness(0.8); /* Робить іконку світлою на темному фоні */
+  filter: invert(1) brightness(0.8);
   cursor: pointer;
 }
 
-/* Стилі для кнопки бронювання */
+/*=================================
+===========BUTTON STYLES===========
+=================================*/
 .booking-button {
   box-sizing: border-box;
   color: #ffffff;
@@ -46,7 +56,7 @@
   font-size: 1.1rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: "Inter", sans-serif; /* Явно вказано шрифт */
+  font-family: "Inter", sans-serif;
   background: transparent;
   border: 2px solid #ffffff;
   display: flex;
@@ -56,10 +66,13 @@
 
 .booking-button:hover {
   background-color: #c09ee7;
-  border-color: #c09ee7; /* Зміна кольору рамки при ховері */
+  border-color: #c09ee7;
   color: #30203f;
 }
 
+/*=================================
+===========TIME PICKER===========
+=================================*/
 .time-picker {
   margin-top: 20px;
   width: 100%;
@@ -83,4 +96,20 @@
   background-color: #1a1a1a;
   color: #fff;
   font-family: "Montserrat", sans-serif;
+}
+
+/*=================================
+===========MEDIA QUERIES===========
+=================================*/
+@media (max-width: 1200px) {
+  .container.booking {
+    padding: 120px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .booking-button {
+    font-size: 1rem;
+    border-width: 1px;
+  }
 }

@@ -1,17 +1,19 @@
-/* components/DatePicker.css - Стилі для кастомного календаря */
-
-/* Контейнер для інпута дати */
+/*=================================
+===========DATE PICKER=============
+=================================*/
 .date-picker {
   position: relative;
   margin: 20px 0;
-  width: 100%; /* Займає доступну ширину батьківського елемента */
-  max-width: 300px; /* Обмеження максимальної ширини */
+  width: 100%;
+  max-width: 300px;
 }
 
-/* Сам інпут (або div, що його імітує) */
+/*=================================
+===========INPUT STYLES============
+=================================*/
 .date-input {
   padding: 12px 16px;
-  border: 1px solid #555; /* Темніша рамка для темної теми */
+  border: 1px solid #555;
   border-radius: 8px;
   font-size: 16px;
   cursor: pointer;
@@ -19,47 +21,47 @@
   justify-content: space-between;
   align-items: center;
   transition: border-color 0.3s;
-  background-color: #1a1a1a; /* Фон інпута */
-  color: #e0e0e0; /* Колір тексту */
+  background-color: #1a1a1a;
+  color: #e0e0e0;
 }
 
 .date-input:hover {
-  border-color: #bb86fc; /* Колір рамки при ховері */
+  border-color: #bb86fc;
 }
 
-/* Іконка календаря */
 .calendar-icon {
   margin-left: 8px;
   width: 20px;
   height: 20px;
   fill: none;
-  stroke: #bb86fc; /* Колір іконки */
+  stroke: #bb86fc;
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
-/* Контейнер календаря, що випадає */
+/*=================================
+===========CALENDAR POPUP==========
+=================================*/
 .calendar {
-  position: absolute; /* Позиціонується відносно .date-picker */
-  top: calc(100% + 8px); /* Розміщення під інпутом з відступом */
+  position: absolute;
+  top: calc(100% + 8px);
   left: 50%;
-  transform: translateX(-50%); /* Центрування календаря */
-  width: 100%; /* Ширина відповідає .date-picker */
-  max-width: 300px; /* Обмеження ширини */
-  background: #1f1f1f; /* Фон календаря */
-  border: 1px solid #333; /* Рамка календаря */
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 300px;
+  background: #1f1f1f;
+  border: 1px solid #333;
   border-radius: 8px;
   padding: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Тінь */
-  z-index: 1000; /* Вище за інші елементи */
-  color: #e0e0e0; /* Основний колір тексту в календарі */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  color: #e0e0e0;
 }
 
-/* Заголовок календаря (Місяць Рік) */
 .calendar-header {
-  display: flex; /* Для розміщення кнопок навігації */
-  justify-content: space-between; /* Кнопки по краях */
+  display: flex;
+  justify-content: space-between;
   align-items: center;
   text-align: center;
   margin-bottom: 16px;
@@ -69,10 +71,9 @@
   margin: 0;
   font-size: 16px;
   font-weight: 500;
-  color: #ffffff; /* Колір заголовка */
+  color: #ffffff;
 }
 
-/* Кнопки навігації місяцями (якщо є) */
 .calendar-header button {
   background: none;
   border: none;
@@ -81,58 +82,58 @@
   cursor: pointer;
 }
 
-/* Сітка днів */
+/*=================================
+===========CALENDAR GRID===========
+=================================*/
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 8px;
 }
 
-/* Заголовки днів тижня (Пн, Вт...) */
 .day-header {
   text-align: center;
   font-size: 14px;
-  color: #aaa; /* Колір заголовків днів */
+  color: #aaa;
   padding: 4px;
   font-weight: bold;
 }
 
-/* Стилі для окремого дня */
 .day {
   text-align: center;
   padding: 8px;
-  border-radius: 50%; /* Круглі дні */
+  border-radius: 50%;
   cursor: pointer;
   transition: all 0.2s;
-  width: 32px; /* Фіксована ширина */
-  height: 32px; /* Фіксована висота */
-  display: flex; /* Для центрування числа */
+  width: 32px;
+  height: 32px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto; /* Центрування в grid комірці */
+  margin: 0 auto;
 }
 
-/* Доступний день */
+/*=================================
+===========DAY STATES=============
+=================================*/
 .day.available {
   background: transparent;
   color: #e0e0e0;
 }
 
 .day.available:hover {
-  background: #333; /* Фон при наведенні */
+  background: #333;
   color: #ffffff;
 }
 
-/* Вибраний день */
 .day.selected {
   background: #bb86fc;
-  color: #0a0a0a; /* Колір тексту на вибраному дні */
+  color: #0a0a0a;
   font-weight: bold;
 }
 
-/* Недоступний день */
 .day.unavailable {
-  color: #666; /* Колір недоступних днів */
+  color: #666;
   cursor: not-allowed;
   background: transparent;
 }
@@ -141,7 +142,6 @@
   background: transparent;
 }
 
-/* Порожня комірка в сітці */
 .empty-day {
   visibility: hidden;
 }

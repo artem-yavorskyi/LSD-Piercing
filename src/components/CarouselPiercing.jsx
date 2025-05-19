@@ -18,8 +18,8 @@ const images = [
 const CarouselPiercing = () => {
   return (
     <div className="carousel-wrapper carousel-piercing">
-      <h2>Роботи з пірсингом</h2>
       <FadeInBlurForCarousel>
+        <h2>Роботи з пірсингом</h2>
         <div className="track-piercing">
           {[...images, ...images].map((img, index) => (
             <div className="carousel-item" key={index}>

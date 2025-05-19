@@ -23,7 +23,6 @@ const PriceList = () => {
       <div className="price-container">
         <h2>Пірсинг та сертифікати</h2>
 
-        {/* Блок з прикрасою */}
         <div className="full-width-item">
           <span className="piercing-name">Титанова прикраса</span>
           <span className="piercing-price">| від 250 грн</span>
@@ -38,10 +37,7 @@ const PriceList = () => {
           ))}
         </div>
         <div className="certificates-container">
-          {/* <h2 className="section-title">Сертифікати</h2> */}
-
           <div className="certificates-grid">
-            {/* Piercing Certificate */}
             <div className="certificate-card piercing-certificate">
               <div className="certificate-header">
                 <h3>Сертифікат на сеанс</h3>
@@ -62,7 +58,6 @@ const PriceList = () => {
               </div>
             </div>
 
-            {/* Tattoo Certificate */}
             <div className="certificate-card tattoo-certificate">
               <div className="certificate-header">
                 <h3>Сертифікат на тату</h3>
