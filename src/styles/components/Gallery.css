@@ -1,6 +1,7 @@
 /*===================================
 ======CAROUSEL WRAPPER AND TITLE======
 ===================================*/
+
 .carousel-wrapper h2 {
   text-align: center;
   margin-bottom: 80px;
@@ -84,13 +85,13 @@
 .track-piercing {
   display: flex;
   width: max-content;
-  animation: scroll 60s linear infinite reverse;
+  /* animation: scroll 60s linear infinite reverse; */
 }
 
 .track-tattoo {
   display: flex;
   width: max-content;
-  animation: scroll 60s linear infinite reverse;
+  /* animation: scroll 60s linear infinite reverse; */
 }
 
 /*===================================
@@ -193,11 +194,11 @@
     border-radius: 4px;
   }
 
-  .track-piercing {
+  /* .track-piercing {
     animation: scroll 35s linear infinite reverse;
   }
 
   .track-tattoo {
     animation: scroll 35s linear infinite reverse;
-  }
+  } */
 }

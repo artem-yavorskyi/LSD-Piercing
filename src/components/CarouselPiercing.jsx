@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../styles/styles.css";
 import FadeInBlurForCarousel from "./FadeInBlurForCarousel";
 
 const images = [
-  "/assets/images/piercing2-resized.avif",
   "/assets/images/piercing1-resized.avif",
+  "/assets/images/piercing2-resized.avif",
   "/assets/images/piercing3-resized.avif",
   "/assets/images/piercing4-resized.avif",
   "/assets/images/piercing5-resized.avif",
@@ -16,13 +16,125 @@ const images = [
 ];
 
 const CarouselPiercing = () => {
+  const [translateX, setTranslateX] = useState(0);
+  const trackRef = useRef(null);
+  const animationFrameId = useRef(null);
+  const singleSetWidth = useRef(0);
+  const isAnimating = useRef(false);
+
+  useEffect(() => {
+    const trackElement = trackRef.current;
+    if (!trackElement) return;
+
+    const measureWidth = () => {
+      const items = trackElement.querySelectorAll(".carousel-item");
+      let totalWidth = 0;
+      const numItemsInSet = images.length;
+
+      if (numItemsInSet === 0 || items.length === 0) {
+        console.warn("Cannot measure width: No items or images.");
+        singleSetWidth.current = 0;
+        return;
+      }
+
+      for (let i = 0; i < numItemsInSet && i < items.length; i++) {
+        const item = items[i];
+        const style = getComputedStyle(item);
+        const marginRight = parseFloat(style.marginRight) || 0;
+        totalWidth += item.offsetWidth + marginRight;
+      }
+
+      singleSetWidth.current = totalWidth;
+      console.log("Measured single set width:", singleSetWidth.current, "px");
+
+      if (singleSetWidth.current > 0 && !isAnimating.current) {
+        animate();
+        isAnimating.current = true;
+      }
+    };
+
+    const imagesLoadedAndMeasure = () => {
+      const imgs = trackElement.querySelectorAll(".carousel-item img");
+      const totalImgsInSet = images.length;
+
+      if (totalImgsInSet === 0) {
+        measureWidth();
+        return;
+      }
+
+      let loadedCount = 0;
+      const loadingPromises = Array.from(imgs)
+        .slice(0, totalImgsInSet)
+        .map((img) => {
+          return new Promise((resolve) => {
+            if (img.complete) {
+              resolve();
+            } else {
+              img.addEventListener("load", resolve);
+              img.addEventListener("error", resolve);
+            }
+          });
+        });
+
+      Promise.all(loadingPromises)
+        .then(() => {
+          measureWidth();
+          if (singleSetWidth.current > 0 && !isAnimating.current) {
+            animate();
+            isAnimating.current = true;
+          }
+        })
+        .catch((error) => {
+          console.error("Error loading images:", error);
+          measureWidth();
+          if (singleSetWidth.current > 0 && !isAnimating.current) {
+            animate();
+            isAnimating.current = true;
+          }
+        });
+    };
+
+    imagesLoadedAndMeasure();
+
+    const animate = () => {
+      const speed = 0.7;
+
+      setTranslateX((prevX) => {
+        let newX = prevX - speed;
+
+        if (singleSetWidth.current > 0 && newX <= -singleSetWidth.current) {
+          newX = newX + singleSetWidth.current;
+        }
+
+        return newX;
+      });
+
+      animationFrameId.current = requestAnimationFrame(animate);
+    };
+
+    return () => {
+      if (animationFrameId.current) {
+        cancelAnimationFrame(animationFrameId.current);
+      }
+      isAnimating.current = false;
+    };
+  }, [images.length]);
+
   return (
     <div className="carousel-wrapper carousel-piercing">
       <FadeInBlurForCarousel>
         <h2>Роботи з пірсингом</h2>
-        <div className="track-piercing">
+        <div
+          className="track-piercing"
+          ref={trackRef}
+          style={{
+            transform: `translateX(${translateX}px)`,
+            animation: "none",
+            width: "max-content",
+          }}
+        >
           {[...images, ...images].map((img, index) => (
-            <div className="carousel-item" key={index}>
+            <div className="carousel-item" key={`${index}-${img}`}>
               <img src={img} alt={`Зображення ${index}`} />
             </div>
           ))}
