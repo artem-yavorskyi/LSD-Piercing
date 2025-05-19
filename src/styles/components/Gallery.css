@@ -84,7 +84,7 @@
 .track-piercing {
   display: flex;
   width: max-content;
-  animation: scroll 60s linear infinite;
+  animation: scroll 60s linear infinite reverse;
 }
 
 .track-tattoo {
