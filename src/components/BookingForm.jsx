@@ -331,6 +331,17 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete, lenis }) => {
     document.body
   );
 };
+useEffect(() => {
+  const modal = document.querySelector(".modal-container");
+  const updateHeight = () => {
+    modal.style.maxHeight = window.innerHeight + "px";
+  };
+
+  updateHeight();
+  window.addEventListener("resize", updateHeight);
+
+  return () => window.removeEventListener("resize", updateHeight);
+}, []);
 
 // ========================================
 // ==========DATEPICKER COMPONENT==========

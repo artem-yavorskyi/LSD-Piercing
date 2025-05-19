@@ -1,5 +1,3 @@
-/* booking-form Container */
-
 /* Modal Styling */
 .modal-overlay {
   position: fixed;
@@ -21,7 +19,7 @@
   border-radius: 12px;
   width: 90%;
   max-width: 500px;
-  max-height: 90vh;
+  max-height: 90dvh;
   overflow-y: scroll;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
   animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -36,7 +34,7 @@
   margin: 4px 0;
 }
 
-.modal-container::-webkit-scrollbar-thumb {
+.ainer::-webkit-scrollbar-thumb {
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 3px;
   transition: background-color 0.2s;
@@ -46,7 +44,7 @@
   background-color: rgba(255, 255, 255, 0.3);
 }
 
-.modal-container::-webkit-scrollbar {
+.ainer::-webkit-scrollbar {
   display: none;
 }
 
@@ -272,8 +270,8 @@
   display: flex;
   justify-content: flex-end;
   margin-top: 24px;
-  /* position: sticky; */
-  /* bottom: 0; */
+  position: sticky;
+  bottom: 0;
   background-color: #1a1a1a;
   padding-top: 16px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -329,8 +327,8 @@
 .booking-form {
   display: flex;
   flex-direction: column;
-  gap: 16px; /* Відступ між полями */
-  padding: 10px 24px 0; /* Відступи всередині форми, крім нижнього */
+  gap: 16px;
+  padding: 10px 24px 0;
 }
 
 .form-field {
@@ -518,10 +516,6 @@
 }
 
 @media (max-width: 576px) {
-  html,
-  body {
-    overflow-y: none;
-  }
   .form-field input {
     padding: 8px 10px;
     font-size: 16px;
