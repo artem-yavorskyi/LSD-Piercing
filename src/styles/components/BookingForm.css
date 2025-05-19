@@ -272,8 +272,8 @@
   display: flex;
   justify-content: flex-end;
   margin-top: 24px;
-  position: sticky;
-  bottom: 0;
+  /* position: sticky; */
+  /* bottom: 0; */
   background-color: #1a1a1a;
   padding-top: 16px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -518,6 +518,10 @@
 }
 
 @media (max-width: 576px) {
+  html,
+  body {
+    overflow-y: none;
+  }
   .form-field input {
     padding: 8px 10px;
     font-size: 16px;
@@ -560,8 +564,6 @@
 }
 
 @media (max-width: 400px) {
-  .thank-you-content p {
-  }
 }
 
 @media (max-width: 375px) {
