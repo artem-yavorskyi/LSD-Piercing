@@ -518,10 +518,6 @@
 }
 
 @media (max-width: 576px) {
-  .modal-container {
-    height: 700px;
-  }
-
   .form-field input {
     padding: 8px 10px;
     font-size: 16px;
