@@ -15,7 +15,7 @@ const FadeInBlurPrimary = ({ children, delay = 0 }) => {
       {
         opacity: 0,
         filter: "blur(12px)",
-        y: 50,
+        y: 20,
       },
       {
         opacity: 1,
@@ -29,7 +29,7 @@ const FadeInBlurPrimary = ({ children, delay = 0 }) => {
           start: "top 95%",
           toggleActions: "play none none reverse",
         },
-      },
+      }
     );
   }, [delay]);
 

@@ -196,7 +196,7 @@ p {
 
 @media (max-width: 768px) {
   .care-container {
-    padding: 20px;
+    padding: 10px;
   }
   .care-container h2 {
     margin-top: 88px;

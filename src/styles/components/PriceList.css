@@ -248,7 +248,7 @@ span.piercing-price {
 @media (max-width: 768px) {
   .price-container {
     max-width: 550px;
-    padding: 40px 20px;
+    padding: 40px 10px;
   }
 
   .certificates-grid {
