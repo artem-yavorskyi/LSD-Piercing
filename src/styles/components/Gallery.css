@@ -194,7 +194,7 @@
   }
 
   .track-piercing {
-    animation: scroll 35s linear infinite;
+    animation: scroll 35s linear infinite reverse;
   }
 
   .track-tattoo {
