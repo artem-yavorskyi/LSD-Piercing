@@ -1,10 +1,17 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useMemo,
+  useCallback,
+} from "react";
 import Modal from "./Modal";
 import TimeSlotSelector from "./TimeSlotSelector";
 import "../styles/components/BookingForm.css";
 import { createClient } from "@supabase/supabase-js";
 import { X } from "lucide-react";
 import ReactDOM from "react-dom";
+import { generateTimeSlots } from "../utils/timeSlots";
 
 // ========================================
 // ============SUPABASE CONFIG=============
@@ -328,7 +335,7 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete, lenis }) => {
         </form>
       </Modal>
     </div>,
-    document.body
+    document.body,
   );
 };
 
@@ -358,84 +365,71 @@ const DatePicker = ({ onDateSelect, selectedDate, setBookedTimeSlots }) => {
   // ========================================
   // =====DATEPICKER LIFECYCLE EFFECTS=====
   // ========================================
-  useEffect(() => {
-    fetchBookedTimeSlots(currentYear, currentMonth);
-  }, [currentYear, currentMonth]);
+  const memoizedAllTimeSlots = useMemo(() => {
+    return generateTimeSlots();
+  }, []);
 
   // ========================================
   // ======DATEPICKER DATA FETCHING========
   // ========================================
-  const fetchBookedTimeSlots = async (year, month) => {
-    setIsLoading(true);
-    const startDate = new Date(year, month, 1);
-    const endDate = new Date(year, month + 1, 0);
+  const fetchBookedTimeSlots = useCallback(
+    async (year, month) => {
+      setIsLoading(true);
+      const startDate = new Date(year, month, 1);
+      const endDate = new Date(year, month + 1, 0);
 
-    const { data, error } = await supabase
-      .from("sessions")
-      .select("selected_date, selected_time")
-      .gte("selected_date", formatDate(startDate))
-      .lte("selected_date", formatDate(endDate));
+      const { data, error } = await supabase
+        .from("sessions")
+        .select("selected_date, selected_time")
+        .gte("selected_date", formatDate(startDate))
+        .lte("selected_date", formatDate(endDate));
 
-    if (error) {
-      console.error("Помилка при завантаженні заброньованих часів:", error);
+      if (error) {
+        console.error("Помилка при завантаженні заброньованих часів:", error);
+        setIsLoading(false);
+        return;
+      }
+
+      const timeSlotsByDate = {};
+      const availableDaysMap = {};
+
+      const allTimeSlots = memoizedAllTimeSlots;
+
+      // Process data
+      data.forEach((item) => {
+        if (!timeSlotsByDate[item.selected_date]) {
+          timeSlotsByDate[item.selected_date] = [];
+        }
+        timeSlotsByDate[item.selected_date].push(item.selected_time);
+      });
+
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      for (let day = 1; day <= daysInMonth; day++) {
+        const date = new Date(year, month, day);
+        const formattedDate = formatDate(date);
+
+        const bookedSlots = timeSlotsByDate[formattedDate] || [];
+
+        availableDaysMap[formattedDate] =
+          bookedSlots.length < allTimeSlots.length;
+      }
+
+      setBookedTimeSlots(timeSlotsByDate);
+      setAvailableDays(availableDaysMap);
       setIsLoading(false);
-      return;
-    }
+    },
+    [
+      memoizedAllTimeSlots,
+      setBookedTimeSlots,
+      setAvailableDays,
+      setIsLoading,
+      formatDate,
+    ],
+  );
 
-    const timeSlotsByDate = {};
-    const availableDaysMap = {};
-
-    const allTimeSlots = generateAllTimeSlots();
-
-    // Process data
-    data.forEach((item) => {
-      if (!timeSlotsByDate[item.selected_date]) {
-        timeSlotsByDate[item.selected_date] = [];
-      }
-      timeSlotsByDate[item.selected_date].push(item.selected_time);
-    });
-
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    for (let day = 1; day <= daysInMonth; day++) {
-      const date = new Date(year, month, day);
-      const formattedDate = formatDate(date);
-
-      const bookedSlots = timeSlotsByDate[formattedDate] || [];
-
-      availableDaysMap[formattedDate] =
-        bookedSlots.length < allTimeSlots.length;
-    }
-
-    setBookedTimeSlots(timeSlotsByDate);
-    setAvailableDays(availableDaysMap);
-    setIsLoading(false);
-  };
-
-  // ========================================
-  // ======DATEPICKER TIME SLOT GENERATION===
-  // ========================================
-  const generateAllTimeSlots = () => {
-    const slots = [];
-    let startHour = 8;
-    let startMinute = 0;
-
-    while (startHour < 18 || (startHour === 17 && startMinute === 0)) {
-      const formatTime = (hour, minute) =>
-        `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`;
-
-      const start = formatTime(startHour, startMinute);
-      slots.push(`${start}`);
-
-      if (startMinute === 0) {
-        startMinute = 30;
-      } else {
-        startMinute = 0;
-        startHour++;
-      }
-    }
-    return slots;
-  };
-
+  useEffect(() => {
+    fetchBookedTimeSlots(currentYear, currentMonth);
+  }, [currentYear, currentMonth, fetchBookedTimeSlots]);
   // ========================================
   // =========DATEPICKER DATE LOGIC==========
   // ========================================
@@ -458,7 +452,7 @@ const DatePicker = ({ onDateSelect, selectedDate, setBookedTimeSlots }) => {
     if (isDayAvailable(day)) {
       const formattedDate = `${currentYear}-${String(currentMonth + 1).padStart(
         2,
-        "0"
+        "0",
       )}-${String(day).padStart(2, "0")}`;
       onDateSelect(formattedDate);
     }
@@ -536,7 +530,7 @@ const DatePicker = ({ onDateSelect, selectedDate, setBookedTimeSlots }) => {
 
         {daysArray.map((day) => {
           const formattedDate = `${currentYear}-${String(
-            currentMonth + 1
+            currentMonth + 1,
           ).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
           const isAvailable = isDayAvailable(day);
           const isSelected = selectedDate === formattedDate;

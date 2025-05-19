@@ -178,6 +178,10 @@ nav.tabs {
   .tabs button {
     max-width: 120px;
   }
+
+  .mobile-menu:last-child {
+    margin-bottom: 50px;
+  }
 }
 
 @media (orientation: landscape) and (max-height: 680px) {

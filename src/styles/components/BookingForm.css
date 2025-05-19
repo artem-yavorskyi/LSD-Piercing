@@ -277,6 +277,7 @@
   background-color: #1a1a1a;
   padding-top: 16px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 1px solid #1a1a1a;
 }
 
 .booking-confirm-button {
@@ -518,6 +519,10 @@
 }
 
 @media (max-width: 576px) {
+  .modal-container {
+    height: 95%;
+  }
+
   .form-field input {
     padding: 8px 10px;
     font-size: 16px;
