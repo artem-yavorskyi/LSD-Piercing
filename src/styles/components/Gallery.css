@@ -81,10 +81,22 @@
 /*===================================
 =========CAROUSEL TRACKS=========
 ===================================*/
-.track-piercing {
+/* .track-piercing {
   display: flex;
   width: max-content;
   animation: scroll 60s linear infinite;
+} */
+
+.track-piercing,
+.track-tattoo {
+  display: flex; /* <--- Ця властивість має розміщувати елементи в рядок */
+  width: max-content;
+  /* ... інші властивості ... */
+}
+
+.carousel-item {
+  margin-right: 16px; /* <--- Цей відступ має бути між елементами рядка */
+  /* ... інші властивості ... */
 }
 
 .track-tattoo {
@@ -193,9 +205,9 @@
     border-radius: 4px;
   }
 
-  .track-piercing {
+  /* .track-piercing {
     animation: scroll 35s linear infinite;
-  }
+  } */
 
   .track-tattoo {
     animation: scroll 35s linear infinite reverse;
