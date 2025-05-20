@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { Routes, Route, Link, useLocation } from "react-router-dom";
 import Hero from "./components/Hero";
 import AboutMe from "./components/AboutMe";
 import CarouselPiercing from "./components/CarouselPiercing";
