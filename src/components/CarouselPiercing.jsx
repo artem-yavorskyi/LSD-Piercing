@@ -32,7 +32,6 @@ const CarouselPiercing = () => {
       const numItemsInSet = images.length;
 
       if (numItemsInSet === 0 || items.length === 0) {
-        console.warn("Cannot measure width: No items or images.");
         singleSetWidth.current = 0;
         return;
       }
@@ -45,7 +44,6 @@ const CarouselPiercing = () => {
       }
 
       singleSetWidth.current = totalWidth;
-      console.log("Measured single set width:", singleSetWidth.current, "px");
 
       if (singleSetWidth.current > 0 && !isAnimating.current) {
         animate();

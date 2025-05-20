@@ -53,6 +53,10 @@
   hyphens: auto;
 }
 
+p.quote {
+  font-family: "Manrope";
+}
+
 .quote::before,
 .quote::after {
   position: absolute;

@@ -22,6 +22,7 @@ nav.tabs {
   border: none;
   color: #ffffff;
   font-size: 1rem;
+  font-weight: 500;
   cursor: pointer;
   transition: color 0.3s ease;
   padding: 4px 10px 6px;
@@ -180,7 +181,7 @@ nav.tabs {
   }
 
   .mobile-menu:last-child {
-    margin-bottom: 50px;
+    margin-bottom: 65px;
   }
 }
 

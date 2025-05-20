@@ -42,9 +42,23 @@
 ============HERO TEXT============
 ===================================*/
 .hero-content h1 {
-  font-size: 2rem;
-  color: #f3eeff;
+  font-size: 2.5rem;
+  color: #e3d8ff;
   margin-bottom: 28px;
+  font-family: "Wix Madefor Display", sans-serif;
+  font-weight: 500;
+
+  background: linear-gradient(160deg, #ffffff, #c9aaff, #bb94ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  background-repeat: no-repeat;
+
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 0 25px rgba(255, 255, 255, 0.4),
+    0 0 50px rgba(201, 170, 255, 0.25), 0 0 75px rgba(178, 133, 255, 0.2);
 }
 
 .hero-content p {
@@ -69,16 +83,19 @@
   font-family: "Inter", sans-serif;
   background: transparent;
   border: 2px solid #ffffff;
+  box-shadow: 0 0 18px rgba(197, 174, 255, 0.3),
+    inset 0 0 10px rgba(255, 255, 255, 0.2);
+  text-shadow: 0 0 16px rgba(255, 255, 255, 0.6);
+  background-color: #ffffff06;
 }
 
 .hero-button:hover {
-  background-color: #c09ee7;
-  border-color: #c09ee7;
-  color: #30203f;
-}
-
-.hero .hero-button:focus {
-  border-color: #c09ee7 !important;
+  background-color: #c3a1ff;
+  border-color: #c3a1ff;
+  color: #55396f;
+  box-shadow: 0 0 12px rgba(197, 174, 255, 0.8),
+    inset 0 0 10px rgba(255, 255, 255, 0.3);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
 }
 
 /*===================================
@@ -131,7 +148,8 @@
 
 @media (max-width: 576px) {
   .hero {
-    height: 90vh;
+    height: 88vh;
+    background-size: 700px 100%;
   }
 }
 

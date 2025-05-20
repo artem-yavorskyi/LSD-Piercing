@@ -45,7 +45,7 @@ const insertBooking = async (bookingData) => {
 // ========================================
 // ===========BookingForm COMPONENT===========
 // ========================================
-const BookingForm = ({ isModalOpened, onClose, onBookingComplete, lenis }) => {
+const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const [bookedTimeSlots, setBookedTimeSlots] = useState({});
@@ -60,38 +60,13 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete, lenis }) => {
 
   const [isThankYouOpened, setIsThankYouOpened] = useState(false);
 
+  const memoizedAllTimeSlots = useMemo(() => {
+    return generateTimeSlots();
+  }, []);
+
   // ========================================
   // ======BookingForm LIFECYCLE EFFECTS======
   // ========================================
-  useEffect(() => {
-    const scrollbarWidth =
-      window.innerWidth - document.documentElement.clientWidth;
-
-    if (isModalOpened) {
-      document.body.style.overflow = "hidden";
-      document.body.style.paddingRight = `${scrollbarWidth}px`;
-
-      if (lenis) {
-        lenis.stop();
-      }
-    } else {
-      document.body.style.overflow = "";
-      document.body.style.paddingRight = "";
-
-      if (lenis) {
-        lenis.start();
-      }
-    }
-
-    return () => {
-      document.body.style.overflow = "";
-      document.body.style.paddingRight = "";
-
-      if (lenis && isModalOpened) {
-        lenis.start();
-      }
-    };
-  }, [isModalOpened, lenis]);
 
   useEffect(() => {
     if (selectedDate && timeSlotSelectorRef.current) {
@@ -199,7 +174,7 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete, lenis }) => {
                   ✨
                 </p>
                 <p className="video-link-text">
-                  Детальне відео як дістатись до нас&nbsp;
+                  Відео як дістатись до нас&nbsp;
                   <a
                     href="https://www.instagram.com/stories/highlights/18113082277287997/"
                     target="_blank"
@@ -292,6 +267,7 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete, lenis }) => {
               onDateSelect={handleDateSelect}
               selectedDate={selectedDate}
               setBookedTimeSlots={setBookedTimeSlots}
+              memoizedAllTimeSlots={memoizedAllTimeSlots}
             />
 
             {selectedDate && (
@@ -301,6 +277,7 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete, lenis }) => {
                   selectedTime={selectedTime}
                   selectedDate={selectedDate}
                   bookedTimeSlots={bookedTimeSlots[selectedDate] || []}
+                  memoizedAllTimeSlots={memoizedAllTimeSlots}
                 />
               </div>
             )}
@@ -335,14 +312,19 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete, lenis }) => {
         </form>
       </Modal>
     </div>,
-    document.body,
+    document.body
   );
 };
 
 // ========================================
 // ==========DATEPICKER COMPONENT==========
 // ========================================
-const DatePicker = ({ onDateSelect, selectedDate, setBookedTimeSlots }) => {
+const DatePicker = ({
+  onDateSelect,
+  selectedDate,
+  setBookedTimeSlots,
+  memoizedAllTimeSlots,
+}) => {
   // ========================================
   // ========DATEPICKER STATE VARIABLES======
   // ========================================
@@ -365,9 +347,6 @@ const DatePicker = ({ onDateSelect, selectedDate, setBookedTimeSlots }) => {
   // ========================================
   // =====DATEPICKER LIFECYCLE EFFECTS=====
   // ========================================
-  const memoizedAllTimeSlots = useMemo(() => {
-    return generateTimeSlots();
-  }, []);
 
   // ========================================
   // ======DATEPICKER DATA FETCHING========
@@ -395,7 +374,6 @@ const DatePicker = ({ onDateSelect, selectedDate, setBookedTimeSlots }) => {
 
       const allTimeSlots = memoizedAllTimeSlots;
 
-      // Process data
       data.forEach((item) => {
         if (!timeSlotsByDate[item.selected_date]) {
           timeSlotsByDate[item.selected_date] = [];
@@ -424,7 +402,7 @@ const DatePicker = ({ onDateSelect, selectedDate, setBookedTimeSlots }) => {
       setAvailableDays,
       setIsLoading,
       formatDate,
-    ],
+    ]
   );
 
   useEffect(() => {
@@ -452,7 +430,7 @@ const DatePicker = ({ onDateSelect, selectedDate, setBookedTimeSlots }) => {
     if (isDayAvailable(day)) {
       const formattedDate = `${currentYear}-${String(currentMonth + 1).padStart(
         2,
-        "0",
+        "0"
       )}-${String(day).padStart(2, "0")}`;
       onDateSelect(formattedDate);
     }
@@ -530,7 +508,7 @@ const DatePicker = ({ onDateSelect, selectedDate, setBookedTimeSlots }) => {
 
         {daysArray.map((day) => {
           const formattedDate = `${currentYear}-${String(
-            currentMonth + 1,
+            currentMonth + 1
           ).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
           const isAvailable = isDayAvailable(day);
           const isSelected = selectedDate === formattedDate;

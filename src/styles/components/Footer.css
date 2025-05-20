@@ -72,6 +72,13 @@ footer a:hover {
   width: auto;
 }
 
+.instagram-link {
+  margin-right: 4px;
+}
+.telegram-link {
+  margin-left: 4px;
+}
+
 /*===================================
 ======FOOTER MEDIA QUERIES=======
 ===================================*/

@@ -135,10 +135,6 @@
   transition: all 0.2s;
 }
 
-.month-nav-button span {
-  margin-bottom: 4px;
-}
-
 .month-nav-button:hover:not(:disabled) {
   background-color: #333;
   border-color: rgba(255, 255, 255, 0.2);
@@ -277,7 +273,7 @@
   background-color: #1a1a1a;
   padding-top: 16px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  border-left: 1px solid #1a1a1a;
+  outline: 3px solid #1a1a1a;
 }
 
 .booking-confirm-button {
@@ -483,7 +479,7 @@
 }
 
 .thank-you-content p {
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-family: "Manrope";
   text-align: left;
   line-height: 1.4;
   hyphens: auto;
@@ -494,7 +490,7 @@
 }
 
 .thank-you-content a {
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-family: "Manrope";
   font-weight: 400;
   font-size: 18.4px;
   text-decoration: none;
@@ -533,7 +529,7 @@
   }
 
   .thank-you-container {
-    padding: 32px;
+    padding: 32px 24px;
   }
 
   .time-slot {
@@ -545,7 +541,7 @@
   }
 
   .thank-you-content h2 {
-    margin-bottom: 30px;
+    margin-bottom: 22px;
     font-size: 24px;
   }
 
@@ -562,9 +558,6 @@
   .thank-you-sticker {
     height: 200px;
   }
-}
-
-@media (max-width: 400px) {
 }
 
 @media (max-width: 375px) {

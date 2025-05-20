@@ -1,4 +1,4 @@
-import { React, useMemo } from "react";
+import React, { useMemo } from "react";
 import { Clock } from "lucide-react";
 import { generateTimeSlots } from "../utils/timeSlots";
 
@@ -7,10 +7,9 @@ const TimeSlotSelector = ({
   selectedTime,
   selectedDate,
   bookedTimeSlots = [],
+  memoizedAllTimeSlots,
 }) => {
-  const timeSlots = useMemo(() => {
-    generateTimeSlots();
-  }, []);
+  const timeSlots = memoizedAllTimeSlots;
 
   const isTimeSlotAvailable = (time) => {
     return !bookedTimeSlots.includes(time);

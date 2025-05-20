@@ -73,16 +73,58 @@
 ========SPECIFIC COURSE CARDS========
 ===================================*/
 .course-card-base {
-  background: #33365f96;
+  /* Градієнт з напівпрозорістю */
+  background: linear-gradient(
+    135deg,
+    rgba(65, 78, 140, 0.4) 0%,
+    rgba(40, 48, 100, 0.3) 100%
+  );
+  border-radius: 18px;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 0 10px rgba(65, 78, 140, 0.3),
+    inset 0 0 8px rgba(255, 255, 255, 0.03);
+  transition: all 0.3s ease-in-out; /* Змінюємо transition для плавності всіх ефектів */
+
+  filter: brightness(1); /* Початкова яскравість */
 }
+
+.course-card-base:hover {
+  transform: scale(1.02);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 15px rgba(65, 78, 140, 0.5);
+  border-color: rgba(255, 255, 255, 0.3);
+  filter: brightness(1.2); /* Збільшуємо яскравість на 20% при наведенні */
+}
+
 .course-card-full {
-  background: #45326e98;
+  /* Градієнт з напівпрозорістю */
+  background: linear-gradient(
+    135deg,
+    rgba(110, 80, 180, 0.45) 0%,
+    rgba(60, 40, 110, 0.35) 100%
+  );
+  border-radius: 18px;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35), 0 0 12px rgba(110, 80, 180, 0.4),
+    inset 0 0 10px rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease-in-out; /* Змінюємо transition для плавності всіх ефектів */
+
+  filter: brightness(1); /* Початкова яскравість */
+}
+
+.course-card-full:hover {
+  transform: scale(1.02);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(110, 80, 180, 0.6);
+  border-color: rgba(255, 255, 255, 0.4);
+  filter: brightness(1.2); /* Збільшуємо яскравість на 20% при наведенні */
 }
 
 .course-card-full .course-price {
   background-color: #b8a4ff8c;
 }
-
 /*===================================
 ========COURSE CARD HEADER========
 ===================================*/
@@ -153,6 +195,9 @@
     font-size: 1.85rem;
     margin-bottom: 30px;
   }
+  .studying-container {
+    padding: 40px 20px;
+  }
   .course-card {
     padding: 40px 16px;
   }
@@ -169,22 +214,104 @@
   .course-card li {
     margin-left: 0;
   }
+  .courses-columns {
+    gap: 16px;
+  }
 }
 
 @media (max-width: 768px) {
-  .hero-logo img {
-    height: 150px;
-  }
-  .hero-content h1 {
-    font-size: 1.5rem;
-  }
-  .course-header h3 {
-    font-size: 1.5rem;
+  .course-card-base {
+    background: linear-gradient(
+      135deg,
+      rgba(65, 78, 140, 0.4) 0%,
+      rgba(40, 48, 100, 0.3) 100%
+    );
+    border-radius: 18px;
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 0 10px rgba(65, 78, 140, 0.3),
+      inset 0 0 8px rgba(255, 255, 255, 0.03);
+    transition: all 0.3s ease-in-out;
+    filter: brightness(1);
   }
 
-  .hero-button {
-    font-size: 1rem;
-    border-width: 1px;
+  .course-card-base:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 15px rgba(65, 78, 140, 0.5);
+    border-color: rgba(255, 255, 255, 0.3);
+    filter: brightness(1.2);
+  }
+
+  .course-card-full {
+    background: linear-gradient(
+      135deg,
+      rgba(110, 80, 180, 0.45) 0%,
+      rgba(60, 40, 110, 0.35) 100%
+    );
+    border-radius: 18px;
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35), 0 0 12px rgba(110, 80, 180, 0.4),
+      inset 0 0 10px rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease-in-out;
+    filter: brightness(1);
+  }
+
+  .course-card-full:hover {
+    transform: scale(1.02);
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(110, 80, 180, 0.6);
+    border-color: rgba(255, 255, 255, 0.4);
+    filter: brightness(1.2);
+  }
+
+  .course-card-full .course-price {
+    background-color: #b8a4ff8c;
+  }
+
+  .course-card-base {
+    transform: scale(1);
+    background: linear-gradient(
+      135deg,
+      rgba(75, 88, 155, 0.45) 0%,
+      rgba(50, 60, 115, 0.35) 100%
+    );
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 15px rgba(65, 78, 140, 0.5);
+    border-color: rgba(255, 255, 255, 0.3);
+    filter: brightness(1.2);
+    transition: none;
+  }
+
+  .course-card-base:hover {
+    transform: scale(1);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 15px rgba(65, 78, 140, 0.5);
+    border-color: rgba(255, 255, 255, 0.3);
+    filter: brightness(1.2);
+  }
+
+  .course-card-full {
+    transform: scale(1);
+    background: linear-gradient(
+      135deg,
+      rgba(125, 95, 195, 0.5) 0%,
+      rgba(75, 55, 130, 0.4) 100%
+    );
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(110, 80, 180, 0.6);
+    border-color: rgba(255, 255, 255, 0.4);
+    filter: brightness(1.2);
+    transition: none;
+  }
+
+  .course-card-full:hover {
+    transform: scale(1);
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(110, 80, 180, 0.6);
+    border-color: rgba(255, 255, 255, 0.4);
+    filter: brightness(1.2);
+  }
+
+  .course-header h3 {
+    font-size: 1.5rem;
   }
   .courses-columns {
     grid-template-columns: repeat(1, 1fr);
@@ -204,6 +331,7 @@
     margin: 20px;
   }
 }
+
 @media (max-width: 576px) {
   .studying-container h2 {
     font-size: 1.5rem;
