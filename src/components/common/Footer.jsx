@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="footer-wrapper">
         <div className="footer-group">
           <div className="logo">
-            <img src="/assets/images/lsd-footer-logo.png" alt="lsd-logo" />
+            <img src="/assets/images/lsd-base-logo.png" alt="lsd-logo" />
           </div>
 
           <div className="connection">
@@ -30,7 +30,8 @@ const Footer = () => {
             <a
               className="maps-link"
               target="_blank"
-              href="https://maps.app.goo.gl/6YjnMiK5TpeTRmvu6" rel="noreferrer"
+              href="https://maps.app.goo.gl/6YjnMiK5TpeTRmvu6"
+              rel="noreferrer"
             >
               <i className="fas fa-map-marker-alt" aria-hidden="true"></i>{" "}
               Вінниця, вул. Тетаральна, 4
@@ -41,7 +42,8 @@ const Footer = () => {
             <a
               className="instagram-link"
               target="_blank"
-              href="https://www.instagram.com/piercing.lsd/" rel="noreferrer"
+              href="https://www.instagram.com/piercing.lsd/"
+              rel="noreferrer"
             >
               <i className="fab fa-instagram"></i> {`Instagram  `}
             </a>
@@ -50,7 +52,8 @@ const Footer = () => {
             <a
               className="telegram-link"
               target="_blank"
-              href="https://t.me/LSDpiercing" rel="noreferrer"
+              href="https://t.me/LSDpiercing"
+              rel="noreferrer"
             >
               <i className="fab fa-telegram"></i> Telegram
             </a>

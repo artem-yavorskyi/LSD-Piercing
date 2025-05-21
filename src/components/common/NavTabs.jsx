@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-const NavTabs = ({ activeTab, setActiveTab }) => {
+const NavTabs = () => {
   const [isMenuOpened, setIsMenuOpened] = useState(false);
 
-  const isActive = (path) => location.pathname === path;
-
   const location = useLocation();
+
+  const isActive = (path) => location.pathname === path;
 
   const toggleMenu = () => setIsMenuOpened((prev) => !prev);
   const closeMenu = () => setIsMenuOpened(false);
@@ -39,7 +39,7 @@ const NavTabs = ({ activeTab, setActiveTab }) => {
       </div>
 
       <div className="mobile-nav">
-        <img src="/assets/images/lsd-footer-logo.png"></img>
+        <img src="/assets/images/lsd-base-logo.png" alt="LSD Logo"></img>
         <div
           className={`hamburger ${isMenuOpened ? "open" : ""}`}
           onClick={toggleMenu}
@@ -76,9 +76,11 @@ const NavTabs = ({ activeTab, setActiveTab }) => {
             </Link>
             <Link
               to="/care"
-              onClick={handleTabClick("/care")}
+              onClick={() => handleTabClick("/care")}
               className={isActive("/care") ? "active" : ""}
-            ></Link>
+            >
+              Догляд
+            </Link>
           </div>
         </div>
       )}
