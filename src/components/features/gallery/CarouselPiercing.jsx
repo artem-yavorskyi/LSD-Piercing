@@ -116,7 +116,7 @@ const CarouselPiercing = () => {
       }
       isAnimating.current = false;
     };
-  }, []); // <--- Змінено: images.length видалено з масиву залежностей
+  }, []);
 
   return (
     <div className="carousel-wrapper carousel-piercing">
@@ -133,7 +133,7 @@ const CarouselPiercing = () => {
         >
           {[...images, ...images].map((img, index) => (
             <div className="carousel-item" key={`${index}-${img}`}>
-              <img src={img} alt={`Зображення ${index}`} />
+              <img src={img} />
             </div>
           ))}
         </div>

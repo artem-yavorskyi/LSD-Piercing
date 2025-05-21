@@ -6,7 +6,7 @@ import FadeInBlurForCarousel from "../../common/FadeInBlurForCarousel";
 const images = [
   "/assets/images/tattoo1-resized.avif",
   "/assets/images/tattoo2-resized.avif",
-  "/assets/tattoo3-resized.avif",
+  "/assets.images/tattoo3-resized.avif",
   "/assets/images/tattoo4-resized.avif",
   "/assets/images/tattoo5-resized.avif",
   "/assets/images/tattoo6-resized.avif",
@@ -143,7 +143,7 @@ const CarouselTattoo = () => {
         >
           {[...images, ...images].map((img, index) => (
             <div className="carousel-item" key={`${index}-${img}`}>
-              <img src={img} alt={`Зображення ${index}`} />
+              <img src={img} />
             </div>
           ))}
         </div>
