@@ -25,9 +25,14 @@
     "swiper": "^11.2.6"
   },
   "devDependencies": {
+    "@eslint/js": "^9.27.0",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
     "@vitejs/plugin-react": "^4.2.1",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.1.0",
     "vite": "^5.1.0"
   }
 }

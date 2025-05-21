@@ -1,6 +1,7 @@
-import React, { useMemo } from "react";
 import { Clock } from "lucide-react";
-import { generateTimeSlots } from "../utils/timeSlots";
+import React, { useMemo } from "react";
+
+import { generateTimeSlots } from "../../../utils/timeSlots";
 
 const TimeSlotSelector = ({
   onTimeSelect,

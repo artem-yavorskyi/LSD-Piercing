@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import "../styles/styles.css";
-import FadeInBlurForCarousel from "./FadeInBlurForCarousel";
+
+import "../../../styles/base/styles.css";
+import FadeInBlurForCarousel from "../../common/FadeInBlurForCarousel";
 
 const images = [
   "/assets/images/tattoo1-resized.avif",
   "/assets/images/tattoo2-resized.avif",
-  "/assets/images/tattoo3-resized.avif",
+  "/assets/tattoo3-resized.avif",
   "/assets/images/tattoo4-resized.avif",
   "/assets/images/tattoo5-resized.avif",
   "/assets/images/tattoo6-resized.avif",
@@ -56,7 +57,6 @@ const CarouselTattoo = () => {
         return;
       }
 
-      let loadedCount = 0;
       const loadingPromises = Array.from(imgs)
         .slice(0, totalImgsInSet)
         .map((img) => {
@@ -126,7 +126,7 @@ const CarouselTattoo = () => {
       }
       isAnimating.current = false;
     };
-  }, [images.length]);
+  }, []);
 
   return (
     <div className="carousel-wrapper carousel-tattoo">

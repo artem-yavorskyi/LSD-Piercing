@@ -17,4 +17,6 @@ const AboutMe = React.forwardRef((props, ref) => {
   );
 });
 
+AboutMe.displayName = "Booking";
+
 export default AboutMe;

@@ -1,16 +1,23 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
-@import "../styles/components/NavTabs.css";
-@import "../styles/components/Hero.css";
-@import "../styles/components/AboutMe.css";
-@import "../styles/components/Gallery.css";
-@import "../styles/components/Booking.css";
-@import "../styles/components/DatePicker.css";
-@import "../styles/components/Studying.css";
-@import "../styles/components/Footer.css";
-@import "../styles/components/PriceList.css";
-@import "../styles/components/Care.css";
+@import "../common/NavTabs.css";
+
+@import "../features/hero/Hero.css";
+
+@import "../features/aboutMe/AboutMe.css";
+
+@import "../features/gallery/Gallery.css";
+
+@import "../features/booking/Booking.css";
+@import "../features/booking/BookingForm.css";
+@import "../features/booking/DatePicker.css";
+
+@import "../pages/Studying.css";
+@import "../pages/PriceList.css";
+@import "../pages/Care.css";
+
+@import "../common/Footer.css";
 
 /*=================FONTS=================*/
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@400..800&display=swap");
 
