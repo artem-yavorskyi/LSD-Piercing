@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import "../styles/styles.css";
-import FadeInBlurForCarousel from "./FadeInBlurForCarousel";
+
+import "../../../styles/base/styles.css";
+import FadeInBlurForCarousel from "../../common/FadeInBlurForCarousel";
 
 const images = [
   "/assets/images/piercing1-resized.avif",
@@ -60,7 +61,6 @@ const CarouselPiercing = () => {
         return;
       }
 
-      let loadedCount = 0;
       const loadingPromises = Array.from(imgs)
         .slice(0, totalImgsInSet)
         .map((img) => {
@@ -116,7 +116,7 @@ const CarouselPiercing = () => {
       }
       isAnimating.current = false;
     };
-  }, [images.length]);
+  }, []);
 
   return (
     <div className="carousel-wrapper carousel-piercing">
@@ -133,7 +133,7 @@ const CarouselPiercing = () => {
         >
           {[...images, ...images].map((img, index) => (
             <div className="carousel-item" key={`${index}-${img}`}>
-              <img src={img} alt={`Зображення ${index}`} />
+              <img src={img} />
             </div>
           ))}
         </div>

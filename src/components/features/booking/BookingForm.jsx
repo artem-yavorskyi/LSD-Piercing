@@ -5,13 +5,12 @@ import React, {
   useMemo,
   useCallback,
 } from "react";
-import Modal from "./Modal";
+import Modal from "../../common/Modal";
 import TimeSlotSelector from "./TimeSlotSelector";
-import "../styles/components/BookingForm.css";
 import { createClient } from "@supabase/supabase-js";
 import { X } from "lucide-react";
 import ReactDOM from "react-dom";
-import { generateTimeSlots } from "../utils/timeSlots";
+import { generateTimeSlots } from "../../../utils/timeSlots";
 
 // ========================================
 // ============SUPABASE CONFIG=============

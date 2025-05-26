@@ -42,12 +42,12 @@
 ===================================*/
 .course-card {
   background-color: #140f1d9f;
-  border-radius: 10px;
   padding: 40px 60px;
   text-align: left;
   color: #e0e0e0;
   border: 1px solid #cfbeff;
   hyphens: auto;
+  border-radius: 14px;
 }
 
 .course-card .price {
@@ -79,7 +79,6 @@
     rgba(65, 78, 140, 0.4) 0%,
     rgba(40, 48, 100, 0.3) 100%
   );
-  border-radius: 18px;
   border: 1.5px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
@@ -104,7 +103,6 @@
     rgba(110, 80, 180, 0.45) 0%,
     rgba(60, 40, 110, 0.35) 100%
   );
-  border-radius: 18px;
   border: 1.5px solid rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);

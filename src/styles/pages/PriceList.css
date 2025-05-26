@@ -29,7 +29,7 @@
 ===================================*/
 .full-width-item {
   background-color: #9c85ff60;
-  border-radius: 12px;
+  border-radius: 14px;
   padding: 18px 30px;
   margin-bottom: 20px;
   display: block;
@@ -52,7 +52,7 @@
 ===================================*/
 .price-grid {
   background-color: #1e1e28cc;
-  border-radius: 16px;
+  border-radius: 14px;
   padding: 30px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -116,8 +116,8 @@ h2.section-title {
 ===================================*/
 .certificate-card {
   background: #ffffff;
-  border-radius: 1rem;
-  padding: 2rem;
+  border-radius: 14px;
+  padding: 30px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
   overflow: hidden;
@@ -193,11 +193,11 @@ span.piercing-price {
 ====SPECIFIC CERTIFICATE STYLES====
 ===================================*/
 .piercing-certificate {
-  border-top: 4px solid #667eea;
+  border-top: 3px solid #667eea;
 }
 
 .tattoo-certificate {
-  border-top: 4px solid #a173df;
+  border-top: 3px solid #a173df;
 }
 
 /*===================================

@@ -64,6 +64,7 @@ p.quote {
   color: #a986fc;
   opacity: 0.5;
   line-height: 1;
+  font-family: "Montserrat";
 }
 
 .quote::before {
@@ -74,7 +75,7 @@ p.quote {
 
 .quote::after {
   content: "”";
-  bottom: -40px;
+  bottom: -60px;
   right: 15px;
 }
 

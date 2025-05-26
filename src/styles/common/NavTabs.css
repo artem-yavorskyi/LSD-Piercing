@@ -17,7 +17,7 @@ nav.tabs {
 /*===================================
 ===========TAB BUTTON STYLES===========
 ===================================*/
-.tabs button {
+.tabs a {
   background: none;
   border: none;
   color: #ffffff;
@@ -30,13 +30,14 @@ nav.tabs {
   border-bottom: 1.5px solid #bb86fc00;
   transition: all 0.25s ease-in-out;
   margin: 12px;
+  text-decoration: none;
 }
 
-.tabs button:hover {
+.tabs a:hover {
   color: #bb86fc;
 }
 
-.tabs button.active {
+.tabs a.active {
   border-bottom: 1.5px solid #bb86fc;
   color: #bb86fc;
 }
@@ -142,7 +143,7 @@ nav.tabs {
 /*===================================
 =======MOBILE MENU BUTTON STYLES=======
 ===================================*/
-.mobile-menu button {
+.mobile-menu a {
   background: none;
   border: none;
   color: #fff;
@@ -153,7 +154,7 @@ nav.tabs {
   margin: 0 0 20px;
 }
 
-.mobile-menu button:hover {
+.mobile-menu a:hover {
   background-color: #1a1a1a;
 }
 
@@ -176,7 +177,7 @@ nav.tabs {
     align-items: center;
     justify-content: center;
   }
-  .tabs button {
+  .tabs a {
     max-width: 120px;
   }
 
@@ -201,7 +202,7 @@ nav.tabs {
     align-items: center;
     justify-content: center;
   }
-  .tabs button {
+  .tabs a {
     max-width: 120px;
   }
   .hamburger {

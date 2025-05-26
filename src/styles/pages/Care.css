@@ -62,7 +62,7 @@ h3.card-title {
 
 .care-card {
   background-color: rgba(30, 30, 40, 0.8);
-  border-radius: 16px;
+  border-radius: 14px;
   margin-bottom: 32px;
   padding: 32px 45px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;

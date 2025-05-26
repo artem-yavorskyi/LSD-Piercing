@@ -1,6 +1,7 @@
-import React, { useState, useEffect, forwardRef } from "react";
-import BookingForm from "./BookingForm";
 import { Calendar as CalendarIcon } from "lucide-react";
+import React, { useState, useEffect, forwardRef } from "react";
+
+import BookingForm from "./BookingForm";
 
 const Booking = forwardRef((props, ref) => {
   const [isModalOpened, setIsModalOpened] = useState(false);
@@ -18,6 +19,9 @@ const Booking = forwardRef((props, ref) => {
     closeBookingFormModal();
   };
 
+  /* ===============================
+   handleOffset for Google Chrome 
+   ===============================*/
   useEffect(() => {
     const handleOffset = () => {
       if (isModalOpened && window.innerWidth >= 576) {
@@ -26,7 +30,6 @@ const Booking = forwardRef((props, ref) => {
       } else {
         document.body.style.overflow = "";
         document.body.style.paddingRight = "";
-        document.body.style.backgroundColor = "";
       }
     };
 
@@ -57,5 +60,7 @@ const Booking = forwardRef((props, ref) => {
     </div>
   );
 });
+
+Booking.displayName = "Booking";
 
 export default Booking;

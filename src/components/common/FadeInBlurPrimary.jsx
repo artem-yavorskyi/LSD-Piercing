@@ -1,10 +1,10 @@
-import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect, useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const FadeInBlurSecondary = ({ children, delay = 0 }) => {
+const FadeInBlurPrimary = ({ children, delay = 0 }) => {
   const ref = useRef();
 
   useEffect(() => {
@@ -14,22 +14,22 @@ const FadeInBlurSecondary = ({ children, delay = 0 }) => {
       element,
       {
         opacity: 0,
-        filter: "blur(3px)",
-        y: 0,
+        filter: "blur(12px)",
+        y: 20,
       },
       {
         opacity: 1,
         filter: "blur(0px)",
         y: 0,
-        duration: 0.2,
+        duration: 1,
         delay,
         ease: "power2.out",
         scrollTrigger: {
           trigger: element,
-          start: "top 100%",
+          start: "top 95%",
           toggleActions: "play none none reverse",
         },
-      },
+      }
     );
   }, [delay]);
 
@@ -40,4 +40,4 @@ const FadeInBlurSecondary = ({ children, delay = 0 }) => {
   );
 };
 
-export default FadeInBlurSecondary;
+export default FadeInBlurPrimary;

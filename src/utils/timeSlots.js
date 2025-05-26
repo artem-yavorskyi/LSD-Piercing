@@ -4,8 +4,6 @@ export const generateTimeSlots = () => {
   let startMinute = 0;
 
   while (startHour < 18 || (startHour === 17 && startMinute === 0)) {
-    const endHour = startMinute === 0 ? startHour : startHour + 1;
-
     const formatTime = (h, m) =>
       `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
 
