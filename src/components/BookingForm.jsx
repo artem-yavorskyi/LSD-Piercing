@@ -20,6 +20,9 @@ const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+const TELEGRAM_FUNCTION_URL =
+  "https://xexpesevtjvmveqouekm.supabase.co/functions/v1/send-telegram-message";
+
 // ========================================
 // =========SUPABASE INSERT FUNCTION=======
 // ========================================
@@ -117,6 +120,24 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
       };
 
       const isSuccess = await insertBooking(bookingDetails);
+
+      const telegramPayload = {
+        selected_date: selectedDate,
+        selected_time: selectedTime,
+        name: name,
+        last_name: lastName,
+        phone_number: phoneNumber,
+        instagram: instagram,
+        comment: comment,
+      };
+
+      const telegramResponse = await fetch(TELEGRAM_FUNCTION_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(telegramPayload),
+      });
 
       if (isSuccess) {
         openThankYouModal();
@@ -312,7 +333,7 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
         </form>
       </Modal>
     </div>,
-    document.body
+    document.body,
   );
 };
 
@@ -396,13 +417,7 @@ const DatePicker = ({
       setAvailableDays(availableDaysMap);
       setIsLoading(false);
     },
-    [
-      memoizedAllTimeSlots,
-      setBookedTimeSlots,
-      setAvailableDays,
-      setIsLoading,
-      formatDate,
-    ]
+    [memoizedAllTimeSlots, setBookedTimeSlots, setAvailableDays, setIsLoading],
   );
 
   useEffect(() => {
@@ -430,7 +445,7 @@ const DatePicker = ({
     if (isDayAvailable(day)) {
       const formattedDate = `${currentYear}-${String(currentMonth + 1).padStart(
         2,
-        "0"
+        "0",
       )}-${String(day).padStart(2, "0")}`;
       onDateSelect(formattedDate);
     }
@@ -508,7 +523,7 @@ const DatePicker = ({
 
         {daysArray.map((day) => {
           const formattedDate = `${currentYear}-${String(
-            currentMonth + 1
+            currentMonth + 1,
           ).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
           const isAvailable = isDayAvailable(day);
           const isSelected = selectedDate === formattedDate;
