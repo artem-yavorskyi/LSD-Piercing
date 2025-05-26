@@ -3,6 +3,17 @@ import {serve} from "https://deno.land/std/http/server.ts";
 
 
 Deno.serve(async (req) => {
+if (req.method === "OPTIONS") {
+  return new Response("ok", {
+    headers: {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+     "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    },
+    status: 200
+  })
+}
+
   if (req.method !== 'POST') {
     return new Response("Method Not Allowed", {status: 405, headers: {"Allow": "POST"}})
   }
