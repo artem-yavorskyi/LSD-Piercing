@@ -19,7 +19,6 @@
 }
 
 .price-container h2 {
-  margin-top: 60px;
   margin-bottom: 40px;
   font-size: 2.25rem;
 }
@@ -37,13 +36,13 @@
 }
 
 .full-width-item .piercing-name {
-  color: #f6eeff;
+  color: hsl(263, 100%, 90%);
   font-weight: 600;
   margin-right: 8px;
 }
 
 .full-width-item .piercing-price {
-  color: #b980ff;
+  color: #f6eeff;
   font-weight: 700;
 }
 
@@ -76,14 +75,18 @@
 ========PRICE ITEM TEXT STYLES========
 ===================================*/
 .piercing-name {
-  color: #ddc2ff;
+  color: #e4cfff;
   font-weight: 500;
   max-width: 70%;
 }
 
 .piercing-price {
-  color: #b980ff;
-  font-weight: 600;
+  color: #f1e5ff;
+  font-weight: 900;
+}
+
+.full-width-item.piercing-price {
+  color: #000000;
 }
 
 /*===================================
@@ -185,10 +188,6 @@ h2.section-title {
   font-weight: 600;
 }
 
-span.piercing-price {
-  color: #dac6ff !important;
-}
-
 /*===================================
 ====SPECIFIC CERTIFICATE STYLES====
 ===================================*/
@@ -284,9 +283,13 @@ span.piercing-price {
 }
 
 @media (max-width: 576px) {
+  .price-container {
+    padding: 10px;
+  }
+
   .price-container h2 {
     font-size: 1.5rem;
-    margin-bottom: 20px;
+    margin: 20px 0;
   }
   .price-container h3 {
     font-size: 1.3rem;

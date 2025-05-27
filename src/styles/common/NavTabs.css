@@ -2,7 +2,8 @@
 ======GENERAL TABS NAVIGATION========
 ===================================*/
 nav.tabs {
-  position: absolute;
+  position: sticky !important;
+  top: 0 !important;
   width: 100%;
   background-color: #0f0f0f;
   height: 70px;
@@ -161,7 +162,7 @@ nav.tabs {
 /*===================================
 ====TABS/MOBILE MENU MEDIA QUERIES====
 ===================================*/
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 768px) and (max-height: 992px) {
   .tabs-desktop {
     display: none;
   }
@@ -195,18 +196,18 @@ nav.tabs {
   }
   .hamburger {
     display: flex;
+    right: 20px;
+    top: 20px;
   }
   .mobile-menu {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-bottom: 0 !important;
   }
   .tabs a {
     max-width: 120px;
-  }
-  .hamburger {
-    right: 20px;
-    top: 20px;
+    margin-bottom: 7px;
   }
 }
