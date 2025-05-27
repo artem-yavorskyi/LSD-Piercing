@@ -2,7 +2,7 @@
 ========GENERAL HERO STYLES========
 ===================================*/
 .hero {
-  height: 94vh;
+  height: 93vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,6 +26,7 @@
   align-items: center;
   max-width: 800px;
   padding: 20px;
+  margin-bottom: 70px;
 }
 
 /*===================================
