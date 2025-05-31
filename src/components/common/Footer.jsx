@@ -34,7 +34,7 @@ const Footer = () => {
               rel="noreferrer"
             >
               <i className="fas fa-map-marker-alt" aria-hidden="true"></i>{" "}
-              Вінниця, вул. Тетаральна, 4
+              Вінниця, вул. Театральна, 4
             </a>
           </div>
 
