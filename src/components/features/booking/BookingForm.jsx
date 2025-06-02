@@ -57,6 +57,7 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [serviceType, setServiceType] = useState("piercing");
   const [instagram, setInstagram] = useState("");
   const [comment, setComment] = useState("");
 
@@ -75,6 +76,10 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
       timeSlotSelectorRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [selectedDate, timeSlotSelectorRef.current]);
+
+  const handleChooseServiceType = (type) => {
+    setServiceType(type);
+  };
 
   // ========================================
   // =========BookingForm EVENT HANDLERS========
@@ -113,6 +118,7 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
         name: name,
         last_name: lastName,
         phone_number: phoneNumber,
+        service_type: serviceType,
         instagram: instagram,
         comment: comment,
         created_at: createAt,
@@ -126,6 +132,7 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
         name: name,
         last_name: lastName,
         phone_number: phoneNumber,
+        service_type: serviceType,
         instagram: instagram,
         comment: comment,
       };
@@ -143,6 +150,7 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
         setName("");
         setLastName("");
         setPhoneNumber("");
+        setServiceType("piercing");
         setInstagram("");
         setComment("");
       } else {
@@ -258,6 +266,30 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
               pattern="^(\+?38)?(0\d{9})$"
               required
             />
+          </div>
+          <div className="service-type-form">
+            <div
+              className={`form-field service-type-field ${
+                serviceType === "piercing" ? "active" : ""
+              }`}
+              value={serviceType}
+              onClick={() => {
+                handleChooseServiceType("piercing");
+              }}
+            >
+              <span className="service-type-btn">Пірсинг</span>
+            </div>
+            <div
+              className={`form-field service-type-field ${
+                serviceType === "tattoo" ? "active" : ""
+              }`}
+              value={serviceType}
+              onClick={() => {
+                handleChooseServiceType("tattoo");
+              }}
+            >
+              <span className="service-type-btn">Тату</span>
+            </div>
           </div>
           <div className="form-field">
             <label htmlFor="instagram"></label>

@@ -1,6 +1,6 @@
 export const generateTimeSlots = () => {
   const slots = [];
-  let startHour = 8;
+  let startHour = 12;
   let startMinute = 0;
 
   while (startHour < 18 || (startHour === 17 && startMinute === 0)) {

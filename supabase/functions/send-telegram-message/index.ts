@@ -28,6 +28,7 @@ Deno.serve(async (req) => {
     name,
     last_name,
     phone_number,
+    service_type,
     instagram,
     comment,
     selected_date,
@@ -44,7 +45,7 @@ Deno.serve(async (req) => {
     });
   }
 
-  let message = `🔔 Новий запис:\n\n👤 | Ім'я, прізвище: ${name} ${last_name}\n📱 | Телефон: ${phone_number}\n📅 | Дата: ${selected_date}\n⏳ | Час: ${selected_time}`;
+  let message = `🔔 Новий запис:\n\n👤 | Ім'я, прізвище: ${name} ${last_name}\n📱 | Телефон: ${phone_number}\n📅 | Дата: ${selected_date}\n⏳ | Час: ${selected_time}\n💜 | ${service_type==="piercing" ? "Пірсинг" : "Тату"}`;
 
   if (instagram) {
     message += `\n📷 | Інстарам: ${instagram}`;

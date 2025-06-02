@@ -326,7 +326,7 @@
 .booking-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 10px;
   padding: 10px 24px 0;
 }
 
@@ -356,6 +356,36 @@
 .form-field input:focus {
   border-color: rgba(255, 255, 255, 0.3);
   outline: none;
+}
+
+.service-type-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-field.service-type-field {
+  flex-direction: row;
+  background-color: rgb(54, 43, 65);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 16px;
+  transition: border-color 0.2s ease;
+  place-content: center;
+  color: rgba(255, 255, 255, 0.4);
+  transition: 0.3s all ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    color: #fff;
+    background-color: rgb(81, 49, 117);
+  }
+}
+
+.form-field.service-type-field.active {
+  color: #fff;
+  background-color: rgb(81, 49, 117);
 }
 
 /* Animations */
