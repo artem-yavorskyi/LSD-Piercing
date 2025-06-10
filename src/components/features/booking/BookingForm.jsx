@@ -7,14 +7,12 @@ import React, {
 } from "react";
 import Modal from "../../common/Modal";
 import TimeSlotSelector from "./TimeSlotSelector";
+import DatePicker from "./DatePicker ";
 import { createClient } from "@supabase/supabase-js";
 import { X } from "lucide-react";
 import ReactDOM from "react-dom";
 import { generateTimeSlots } from "../../../utils/timeSlots";
 
-// ========================================
-// ============SUPABASE CONFIG=============
-// ========================================
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -22,9 +20,6 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 const TELEGRAM_FUNCTION_URL =
   "https://xexpesevtjvmveqouekm.supabase.co/functions/v1/send-telegram-message";
 
-// ========================================
-// =========SUPABASE INSERT FUNCTION=======
-// ========================================
 const insertBooking = async (bookingData) => {
   try {
     const { data, error } = await supabase
@@ -44,9 +39,6 @@ const insertBooking = async (bookingData) => {
   }
 };
 
-// ========================================
-// ===========BookingForm COMPONENT===========
-// ========================================
 const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
@@ -67,10 +59,6 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
     return generateTimeSlots();
   }, []);
 
-  // ========================================
-  // ======BookingForm LIFECYCLE EFFECTS======
-  // ========================================
-
   useEffect(() => {
     if (selectedDate && timeSlotSelectorRef.current) {
       timeSlotSelectorRef.current.scrollIntoView({ behavior: "smooth" });
@@ -81,9 +69,6 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
     setServiceType(type);
   };
 
-  // ========================================
-  // =========BookingForm EVENT HANDLERS========
-  // ========================================
   const handleDateSelect = (date) => {
     setSelectedDate(date);
     setSelectedTime(null);
@@ -173,9 +158,6 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
     handleConfirmBooking();
   };
 
-  // ========================================
-  // ===========BookingForm JSX RENDER==========
-  // ========================================
   return ReactDOM.createPortal(
     <div className="booking-form-container">
       <Modal
@@ -320,6 +302,7 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
               selectedDate={selectedDate}
               setBookedTimeSlots={setBookedTimeSlots}
               memoizedAllTimeSlots={memoizedAllTimeSlots}
+              isAdminMode={false}
             />
 
             {selectedDate && (
@@ -365,216 +348,6 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
       </Modal>
     </div>,
     document.body,
-  );
-};
-
-// ========================================
-// ==========DATEPICKER COMPONENT==========
-// ========================================
-const DatePicker = ({
-  onDateSelect,
-  selectedDate,
-  setBookedTimeSlots,
-  memoizedAllTimeSlots,
-}) => {
-  // ========================================
-  // ========DATEPICKER STATE VARIABLES======
-  // ========================================
-  const today = new Date();
-  const [currentMonth, setCurrentMonth] = useState(today.getMonth());
-  const [currentYear, setCurrentYear] = useState(today.getFullYear());
-  const [availableDays, setAvailableDays] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
-
-  // ========================================
-  // ========DATEPICKER HELPER FUNCTIONS=====
-  // ========================================
-  const formatDate = (date) => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
-  };
-
-  // ========================================
-  // =====DATEPICKER LIFECYCLE EFFECTS=====
-  // ========================================
-
-  // ========================================
-  // ======DATEPICKER DATA FETCHING========
-  // ========================================
-  const fetchBookedTimeSlots = useCallback(
-    async (year, month) => {
-      setIsLoading(true);
-      const startDate = new Date(year, month, 1);
-      const endDate = new Date(year, month + 1, 0);
-
-      const { data, error } = await supabase
-        .from("sessions")
-        .select("selected_date, selected_time")
-        .gte("selected_date", formatDate(startDate))
-        .lte("selected_date", formatDate(endDate));
-
-      if (error) {
-        console.error("Помилка при завантаженні заброньованих часів:", error);
-        setIsLoading(false);
-        return;
-      }
-
-      const timeSlotsByDate = {};
-      const availableDaysMap = {};
-
-      const allTimeSlots = memoizedAllTimeSlots;
-
-      data.forEach((item) => {
-        if (!timeSlotsByDate[item.selected_date]) {
-          timeSlotsByDate[item.selected_date] = [];
-        }
-        timeSlotsByDate[item.selected_date].push(item.selected_time);
-      });
-
-      const daysInMonth = new Date(year, month + 1, 0).getDate();
-      for (let day = 1; day <= daysInMonth; day++) {
-        const date = new Date(year, month, day);
-        const formattedDate = formatDate(date);
-
-        const bookedSlots = timeSlotsByDate[formattedDate] || [];
-
-        availableDaysMap[formattedDate] =
-          bookedSlots.length < allTimeSlots.length;
-      }
-
-      setBookedTimeSlots(timeSlotsByDate);
-      setAvailableDays(availableDaysMap);
-      setIsLoading(false);
-    },
-    [memoizedAllTimeSlots, setBookedTimeSlots, setAvailableDays, setIsLoading],
-  );
-
-  useEffect(() => {
-    fetchBookedTimeSlots(currentYear, currentMonth);
-  }, [currentYear, currentMonth, fetchBookedTimeSlots]);
-  // ========================================
-  // =========DATEPICKER DATE LOGIC==========
-  // ========================================
-  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-  const daysArray = Array.from({ length: daysInMonth }, (_, i) => i + 1);
-
-  const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
-  const startOffset = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1;
-
-  const isDayAvailable = (day) => {
-    const date = new Date(currentYear, currentMonth, day);
-    const formattedDate = formatDate(date);
-    return date >= today && availableDays[formattedDate];
-  };
-
-  // ========================================
-  // ========DATEPICKER EVENT HANDLERS=======
-  // ========================================
-  const handleDateSelect = (day) => {
-    if (isDayAvailable(day)) {
-      const formattedDate = `${currentYear}-${String(currentMonth + 1).padStart(
-        2,
-        "0",
-      )}-${String(day).padStart(2, "0")}`;
-      onDateSelect(formattedDate);
-    }
-  };
-
-  const goToPreviousMonth = () => {
-    if (
-      currentMonth === today.getMonth() &&
-      currentYear === today.getFullYear()
-    ) {
-      return;
-    }
-
-    if (currentMonth === 0) {
-      setCurrentMonth(11);
-      setCurrentYear(currentYear - 1);
-    } else {
-      setCurrentMonth(currentMonth - 1);
-    }
-  };
-
-  const goToNextMonth = () => {
-    if (currentMonth === 11) {
-      setCurrentMonth(0);
-      setCurrentYear(currentYear + 1);
-    } else {
-      setCurrentMonth(currentMonth + 1);
-    }
-  };
-
-  // ========================================
-  // =========DATEPICKER UI HELPERS==========
-  // ========================================
-  const getMonthName = () => {
-    return new Date(currentYear, currentMonth).toLocaleDateString("uk-UA", {
-      month: "long",
-      year: "numeric",
-    });
-  };
-
-  // ========================================
-  // ==========DATEPICKER JSX RENDER=========
-  // ========================================
-  return (
-    <div className="datepicker">
-      <div className="datepicker-header">
-        <button
-          className="month-nav-button"
-          onClick={goToPreviousMonth}
-          disabled={
-            currentMonth === today.getMonth() &&
-            currentYear === today.getFullYear()
-          }
-        >
-          <span> &#8592; </span>
-        </button>
-        <h3>{getMonthName()}</h3>
-        <button className="month-nav-button" onClick={goToNextMonth}>
-          <span> &#8594; </span>
-        </button>
-      </div>
-
-      <div className="calendar-grid">
-        {["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд"].map((day) => (
-          <div key={day} className="day-header">
-            {day}
-          </div>
-        ))}
-
-        {Array(startOffset)
-          .fill(null)
-          .map((_, i) => (
-            <div key={`empty-${i}`} className="calendar-day empty"></div>
-          ))}
-
-        {daysArray.map((day) => {
-          const formattedDate = `${currentYear}-${String(
-            currentMonth + 1,
-          ).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
-          const isAvailable = isDayAvailable(day);
-          const isSelected = selectedDate === formattedDate;
-
-          return (
-            <div
-              key={day}
-              className={`calendar-day ${
-                isAvailable ? "available" : "unavailable"
-              } ${isSelected ? "selected" : ""}`}
-              onClick={() => isAvailable && handleDateSelect(day)}
-            >
-              {day}
-            </div>
-          );
-        })}
-      </div>
-
-      {/* {isLoading && <div className="loading-indicator">Завантаження...</div>} */}
-    </div>
   );
 };
 

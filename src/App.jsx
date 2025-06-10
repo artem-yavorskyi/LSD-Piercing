@@ -7,23 +7,25 @@ import Home from "./pages/Home";
 import Studying from "./pages/Studying";
 import PriceList from "./pages/PriceList";
 import Care from "./pages/Care";
+import Admin from "./pages/admin/Admin";
 
 import Footer from "./components/common/Footer";
 
 const App = () => {
   const location = useLocation();
+  const isAdmin = location.pathname === "/admin";
 
   return (
     <>
-      <NavTabs />
+      {!isAdmin && <NavTabs />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/studying" element={<Studying />} />
         <Route path="/pricelist" element={<PriceList />} />
         <Route path="/care" element={<Care />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
-
-      <Footer />
+      {!isAdmin && <Footer />}
     </>
   );
 };
