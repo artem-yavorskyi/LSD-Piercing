@@ -97,170 +97,6 @@
   gap: 12px;
 }
 
-/* DatePicker Component */
-.datepicker {
-  width: 100%;
-  position: relative;
-}
-
-.datepicker-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.datepicker-header h3 {
-  margin: 0;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 500;
-  text-transform: capitalize;
-  letter-spacing: -0.025em;
-}
-
-.month-nav-button {
-  background-color: #2a2a2a;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #fff;
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.month-nav-button:hover:not(:disabled) {
-  background-color: #333;
-  border-color: rgba(255, 255, 255, 0.2);
-}
-
-.month-nav-button:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-}
-
-/* Calendar Grid */
-.calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 8px;
-}
-
-.day-header {
-  text-align: center;
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.6);
-  font-weight: 500;
-  padding: 8px 0;
-  letter-spacing: -0.025em;
-}
-
-.calendar-day {
-  aspect-ratio: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  font-size: 14px;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid transparent;
-}
-
-.calendar-day.empty {
-  visibility: hidden;
-}
-
-.calendar-day.available,
-.time-slot.available {
-  background-color: #2a2a2a;
-  color: #fff;
-  cursor: pointer;
-  border-color: rgba(255, 255, 255, 0.1);
-}
-
-.calendar-day.available:hover,
-.time-slot:not(.unavailable):hover {
-  background-color: #333;
-  border-color: rgba(255, 255, 255, 0.2);
-}
-
-.calendar-day.unavailable,
-.time-slot.unavailable {
-  color: rgba(255, 255, 255, 0.3);
-  background-color: #1f1f1f;
-  cursor: not-allowed;
-  border-color: rgba(255, 255, 255, 0.05);
-}
-
-.calendar-day.selected {
-  background-color: #fff;
-  color: #000;
-  font-weight: 500;
-  border-color: #fff;
-}
-
-/* Time Slot Selector */
-.time-slot-selector {
-  margin-top: 24px;
-}
-
-.time-slot-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 16px;
-  color: #fff;
-}
-
-.time-slot-header h3 {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 500;
-  letter-spacing: -0.025em;
-}
-
-.time-slots-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  column-gap: 20px;
-  row-gap: 8px;
-}
-
-.time-slot {
-  background-color: #2a2a2a;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  padding: 10px 5px;
-  text-align: center;
-  color: #fff;
-  font-size: 14px;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.time-slot:hover:not(.unavailable) {
-  background-color: #333;
-  border-color: rgba(255, 255, 255, 0.2);
-}
-
-.time-slot.selected {
-  background-color: #fff;
-  color: #000;
-  border-color: #fff;
-  font-weight: 500;
-}
-
-.time-slot.unavailable {
-  background-color: #1f1f1f;
-  color: rgba(255, 255, 255, 0.3);
-  cursor: not-allowed;
-  border-color: rgba(255, 255, 255, 0.05);
-}
-
 /* Booking Button */
 .booking-actions {
   display: flex;
@@ -272,6 +108,22 @@
   padding-top: 16px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   outline: 3px solid #1a1a1a;
+}
+
+.activate-deactivate-day-button {
+  background-color: #fff;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: -0.025em;
+  margin-bottom: 16px;
+  width: 100%;
+  margin-top: 14px;
 }
 
 .booking-confirm-button {
@@ -288,14 +140,16 @@
   margin-bottom: 16px;
 }
 
-.booking-confirm-button:hover:not(:disabled) {
+.booking-confirm-button:hover:not(:disabled),
+.activate-deactivate-day-button:hover:not(:disabled) {
   background-color: rgba(255, 255, 255, 0.9);
 }
 
-.booking-confirm-button:disabled {
+.booking-confirm-button:disabled,
+.activate-deactivate-day-button:disabled {
   background-color: rgba(255, 255, 255, 0.1);
   color: rgba(255, 255, 255, 0.3);
-  cursor: not-allowed;
+  /* cursor: not-allowed; */
 }
 
 /* Loading indicator */

@@ -11,6 +11,11 @@
   margin: auto;
 }
 
+.time-slots-management {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
 /* Заголовки */
 .admin-panel h2,
 .admin-panel h3 {
@@ -176,7 +181,7 @@
 @media (max-width: 480px) {
   .admin-panel h2,
   .admin-panel h3 {
-    font-size: 1.3em;
+    font-size: 1.2em;
     margin-bottom: 10px;
     padding-bottom: 8px;
   }

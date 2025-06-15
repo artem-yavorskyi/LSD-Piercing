@@ -9,6 +9,16 @@
 }
 
 /*=================================
+===========DATE PICKER=============
+=================================*/
+.date-picker {
+  position: relative;
+  margin: 20px 0;
+  width: 100%;
+  max-width: 300px;
+}
+
+/*=================================
 ===========INPUT STYLES============
 =================================*/
 .date-input {
@@ -132,13 +142,15 @@
   font-weight: bold;
 }
 
-.day.unavailable {
+.day.unavailable,
+.admin-blocked {
   color: #666;
   cursor: not-allowed;
   background: transparent;
 }
 
-.day.unavailable:hover {
+.day.unavailable:hover,
+.admin-blocked:hover {
   background: transparent;
 }
 
@@ -149,4 +161,408 @@
 .calendar-day.available.selected:hover,
 div.time-slot.selected:hover {
   background-color: #cecece;
+}
+
+/*********************************/
+/*********************************/
+/*********************************/
+
+/* DatePicker Component */
+.datepicker {
+  width: 100%;
+  position: relative;
+}
+
+.datepicker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.datepicker-header h3 {
+  margin: 0;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: capitalize;
+  letter-spacing: -0.025em;
+}
+
+.month-nav-button {
+  background-color: #2a2a2a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.month-nav-button:hover:not(:disabled) {
+  background-color: #333;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.month-nav-button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Calendar Grid */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.day-header {
+  text-align: center;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+  padding: 8px 0;
+  letter-spacing: -0.025em;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.calendar-day.empty {
+  visibility: hidden;
+}
+
+.calendar-day.available,
+.time-slot.available {
+  background-color: #2a2a2a;
+  color: #fff;
+  cursor: pointer;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.calendar-day.available:hover,
+.time-slot:not(.unavailable):hover {
+  background-color: #333;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.calendar-day.unavailable,
+.time-slot.unavailable {
+  color: rgba(255, 255, 255, 0.3);
+  background-color: #1f1f1f;
+  cursor: not-allowed;
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.calendar-day.selected {
+  background-color: #fff;
+  color: #000;
+  font-weight: 500;
+  border-color: #fff;
+}
+
+/* Time Slot Selector */
+.time-slot-selector {
+  margin-top: 24px;
+}
+
+.time-slot-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  color: #fff;
+}
+
+.time-slot-header h3 {
+  margin: 0 !important;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  padding: 0 !important;
+  border: none !important;
+}
+
+.time-slots-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 20px;
+  row-gap: 8px;
+}
+
+.time-slot {
+  background-color: #2a2a2a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 10px 5px;
+  text-align: center;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.time-slot:hover:not(.unavailable) {
+  background-color: #333;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.time-slot.selected {
+  background-color: #fff;
+  color: #000;
+  border-color: #fff;
+  font-weight: 500;
+}
+
+.time-slot.unavailable {
+  background-color: #1f1f1f;
+  color: rgba(255, 255, 255, 0.3);
+  cursor: not-allowed;
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+/*=================================
+===========INPUT STYLES============
+=================================*/
+.date-input {
+  padding: 12px 16px;
+  border: 1px solid #555;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: border-color 0.3s;
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+}
+
+.date-input:hover {
+  border-color: #bb86fc;
+}
+
+.calendar-icon {
+  margin-left: 8px;
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: #bb86fc;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/*=================================
+===========CALENDAR POPUP==========
+=================================*/
+.calendar {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 300px;
+  background: #1f1f1f;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  color: #e0e0e0;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.calendar-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.calendar-header button {
+  background: none;
+  border: none;
+  color: #bb86fc;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/*=================================
+===========CALENDAR GRID===========
+=================================*/
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.day-header {
+  text-align: center;
+  font-size: 14px;
+  color: #aaa;
+  padding: 4px;
+  font-weight: bold;
+}
+
+.day {
+  text-align: center;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+/*=================================
+===========DAY STATES=============
+=================================*/
+.day.available {
+  background: transparent;
+  color: #e0e0e0;
+}
+
+.day.available:hover {
+  background: #333;
+  color: #ffffff;
+}
+
+.day.selected {
+  background: #bb86fc;
+  color: #0a0a0a;
+  font-weight: bold;
+}
+
+.day.unavailable,
+.admin-blocked {
+  color: #666;
+  cursor: not-allowed;
+  background: transparent;
+}
+
+.day.unavailable:hover,
+.admin-blocked:hover {
+  background: transparent;
+}
+
+.empty-day {
+  visibility: hidden;
+}
+
+.calendar-day.available.selected:hover,
+div.time-slot.selected:hover {
+  background-color: #cecece;
+}
+
+/*********************************/
+/*********************************/
+/*********************************/
+
+/* Admin.css або DatePicker.css */
+
+/* Стилі для контейнера дій адміністратора */
+.admin-actions {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Простір між елементами всередині */
+}
+
+/* Заголовок дій */
+.admin-actions h3 {
+  color: #333;
+  margin-bottom: 5px;
+}
+
+/* Стилі для самої кнопки блокування/розблокування */
+.block-day-button {
+  display: flex; /* Для вирівнювання тексту та іконки */
+  align-items: center; /* Вирівнювання по центру вертикально */
+  justify-content: center; /* Вирівнювання по центру горизонтально */
+  gap: 8px; /* Простір між іконкою та текстом */
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+  width: 100%; /* Розтягуємо на всю доступну ширину */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Легка тінь */
+}
+
+/* Стилі для кнопки "Заблокувати день" */
+.block-day-button.block {
+  background-color: #e74c3c; /* Яскраво-червоний */
+  color: white;
+}
+
+.block-day-button.block:hover {
+  background-color: #c0392b; /* Темніше при наведенні */
+  transform: translateY(-1px); /* Невеликий ефект підняття */
+}
+
+.block-day-button.block:active {
+  background-color: #a93226; /* Ще темніше при натисканні */
+  transform: translateY(0); /* Повернення в початкове положення */
+}
+
+/* Стилі для кнопки "Розблокувати день" */
+.block-day-button.unblock {
+  background-color: #2ecc71; /* Зелений */
+  color: white;
+}
+
+.block-day-button.unblock:hover {
+  background-color: #27ae60; /* Темніше при наведенні */
+  transform: translateY(-1px);
+}
+
+.block-day-button.unblock:active {
+  background-color: #229a56; /* Ще темніше при натисканні */
+  transform: translateY(0);
+}
+
+/* Стилі для іконки блокування на самому дні календаря */
+.calendar-day {
+  position: relative; /* Щоб іконка позиціонувалася відносно дня */
+  /* ... інші існуючі стилі для .calendar-day ... */
+}
+
+.calendar-day .blocked-icon {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  color: #e74c3c; /* Колір іконки для заблокованого дня */
+  /* Можливо, трохи менший розмір, ніж дефолтний */
+  width: 14px;
+  height: 14px;
 }

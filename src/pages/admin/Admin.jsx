@@ -1,7 +1,12 @@
-// src/components/admin/AdminPanel.jsx
+// Admin.jsx
 import React, { useState, useEffect, useMemo, useCallback } from "react";
-import DatePicker from "../../components/features/booking/DatePicker ";
+import DatePicker from "../../components/features/booking/DatePicker";
 import { generateTimeSlots } from "../../utils/timeSlots";
+import { createClient } from "@supabase/supabase-js";
+
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 const GET_ALL_BOOKINGS_PROXY_PATH = "/api/get-all-bookings";
 
@@ -12,9 +17,12 @@ const Admin = () => {
   const [currentMonth, setCurrentMonth] = useState(today.getMonth());
   const [currentYear, setCurrentYear] = useState(today.getFullYear());
   const [selectedDate, setSelectedDate] = useState(null);
+  // bookedTimeSlots тут не використовується для рендерингу, але може бути збережений для інших цілей.
+  // Фактичні дані про заброньовані слоти DatePicker отримує з fetchBookingsAndBlockedDates
   const [bookedTimeSlots, setBookedTimeSlots] = useState({});
   const [allMonthBookings, setAllMonthBookings] = useState([]);
   const [blockedDates, setBlockedDates] = useState([]);
+  const [blockedTimeSlots, setBlockedTimeSlots] = useState({});
 
   const [isLoadingBookings, setIsLoadingBookings] = useState(false);
 
@@ -22,43 +30,70 @@ const Admin = () => {
     return generateTimeSlots();
   }, []);
 
-  const fetchAllBookingsForCurrentMonth = useCallback(async (year, month) => {
-    setIsLoadingBookings(true);
-    const startDate = new Date(year, month, 1);
-    const endDate = new Date(year, month + 1, 0);
+  const fetchAllBookingsForCurrentMonth = useCallback(
+    async (year, month) => {
+      setIsLoadingBookings(true);
+      const startDate = new Date(year, month, 1);
+      const endDate = new Date(year, month + 1, 0);
 
-    const formattedStartDate = `${startDate.getFullYear()}-${String(
-      startDate.getMonth() + 1,
-    ).padStart(2, "0")}-01`;
-    const formattedEndDate = `${endDate.getFullYear()}-${String(
-      endDate.getMonth() + 1,
-    ).padStart(2, "0")}-${String(endDate.getDate()).padStart(2, "0")}`;
+      const formattedStartDate = `${startDate.getFullYear()}-${String(
+        startDate.getMonth() + 1,
+      ).padStart(2, "0")}-01`;
+      const formattedEndDate = `${endDate.getFullYear()}-${String(
+        endDate.getMonth() + 1,
+      ).padStart(2, "0")}-${String(endDate.getDate()).padStart(2, "0")}`;
 
-    try {
-      const response = await fetch(
-        `${GET_ALL_BOOKINGS_PROXY_PATH}?startDate=${formattedStartDate}&endDate=${formattedEndDate}`,
-      );
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(
-          `HTTP error! status: ${response.status} - ${errorText}`,
+      try {
+        const response = await fetch(
+          `${GET_ALL_BOOKINGS_PROXY_PATH}?startDate=${formattedStartDate}&endDate=${formattedEndDate}`,
         );
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(
+            `HTTP error! status: ${response.status} - ${errorText}`,
+          );
+        }
+        const data = await response.json();
+        setAllMonthBookings(data.sessions || []);
+        setBlockedDates(data.blockedDates || []);
+
+        const { data: blockedSlotsData, error: blockedSlotsError } =
+          await supabase
+            .from("blocked_time_slots")
+            .select("date, time")
+            .gte("date", formattedStartDate)
+            .lte("date", formattedEndDate);
+
+        if (blockedSlotsError) {
+          console.error(
+            "Admin: Помилка при завантаженні заблокованих слотів часу з Supabase:",
+            blockedSlotsError,
+          );
+        } else {
+          const blockedSlotsByDate = {};
+          blockedSlotsData.forEach((slot) => {
+            if (!blockedSlotsByDate[slot.date]) {
+              blockedSlotsByDate[slot.date] = [];
+            }
+            blockedSlotsByDate[slot.date].push(slot.time);
+          });
+          setBlockedTimeSlots(blockedSlotsByDate);
+        }
+      } catch (error) {
+        console.error(
+          "Admin: Помилка при завантаженні бронювань для адмін-панелі:",
+          error,
+        );
+        setAllMonthBookings([]);
+        setBlockedDates([]);
+        setBlockedTimeSlots({});
+      } finally {
+        setIsLoadingBookings(false);
       }
-      const data = await response.json();
-      setAllMonthBookings(data.sessions || []);
-      setBlockedDates(data.blockedDates || []);
-    } catch (error) {
-      console.error(
-        "Помилка при завантаженні бронювань для адмін-панелі:",
-        error,
-      );
-      setAllMonthBookings([]);
-      setBlockedDates([]);
-    } finally {
-      setIsLoadingBookings(false);
-    }
-  }, []);
+    },
+    [], // Залежності, які не змінюються, або змінюються керуються зовнішньо
+  );
 
   useEffect(() => {
     fetchAllBookingsForCurrentMonth(currentYear, currentMonth);
@@ -71,8 +106,47 @@ const Admin = () => {
   const handleMonthChange = useCallback((newMonth, newYear) => {
     setCurrentMonth(newMonth);
     setCurrentYear(newYear);
-    setSelectedDate(null);
+    setSelectedDate(null); // Скидаємо вибрану дату при зміні місяця
   }, []);
+
+  const handleTimeSlotBlockChange = useCallback(
+    async (date, time) => {
+      console.log(
+        `Admin: [handleTimeSlotBlockChange] Отримано запит на зміну статусу слоту: Дата: ${date}, Час: ${time}`,
+      );
+      const isCurrentlyBlocked = blockedTimeSlots[date]?.includes(time);
+
+      let error = null;
+
+      if (isCurrentlyBlocked) {
+        const { error: deleteError } = await supabase
+          .from("blocked_time_slots")
+          .delete()
+          .match({ date: date, time: time });
+        error = deleteError;
+      } else {
+        const { error: insertError } = await supabase
+          .from("blocked_time_slots")
+          .insert([{ date, time }]);
+        error = insertError;
+      }
+
+      if (error) {
+        console.error("Admin: Помилка блокування/розблокування часу:", error);
+      } else {
+        console.log(
+          "Admin: Успішно оновлено Supabase, викликаємо fetchAllBookingsForCurrentMonth...",
+        );
+        await fetchAllBookingsForCurrentMonth(currentYear, currentMonth);
+      }
+    },
+    [
+      blockedTimeSlots,
+      fetchAllBookingsForCurrentMonth,
+      currentYear,
+      currentMonth,
+    ],
+  );
 
   return (
     <div className="admin-panel">
@@ -81,13 +155,14 @@ const Admin = () => {
       <DatePicker
         onDateSelect={handleDateSelect}
         selectedDate={selectedDate}
-        setBookedTimeSlots={setBookedTimeSlots}
+        setBookedTimeSlots={setBookedTimeSlots} // Це пропс, який DatePicker використовує для internal state
         memoizedAllTimeSlots={memoizedAllTimeSlots}
         isAdminMode={true}
         month={currentMonth}
         year={currentYear}
         onMonthChange={handleMonthChange}
-        blockedDates={blockedDates}
+        // Передаємо функцію з Admin, яка буде оновлювати стан і запускати перезавантаження даних в Admin
+        onTimeSlotBlockChange={handleTimeSlotBlockChange}
       />
 
       <div className="admin-bookings-list">
@@ -98,7 +173,9 @@ const Admin = () => {
             year: "numeric",
           })}
         </h3>
-        {allMonthBookings.length > 0 ? (
+        {isLoadingBookings ? (
+          <p>Завантаження бронювань...</p>
+        ) : allMonthBookings.length > 0 ? (
           <table>
             <thead>
               <tr>

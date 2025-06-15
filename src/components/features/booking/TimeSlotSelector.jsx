@@ -1,19 +1,51 @@
 import { Clock } from "lucide-react";
 import React, { useMemo } from "react";
 
-import { generateTimeSlots } from "../../../utils/timeSlots";
-
 const TimeSlotSelector = ({
   onTimeSelect,
   selectedTime,
   selectedDate,
   bookedTimeSlots = [],
+  adminBlockedTimeSlots = [],
   memoizedAllTimeSlots,
+  isAdminMode,
+  toggleBlockedTimeSlot,
 }) => {
   const timeSlots = memoizedAllTimeSlots;
 
+  console.log("TimeSlotSelector received selectedTime:", selectedTime); // Для дебагу
+
+  const isTimeSlotBooked = (time) => {
+    return bookedTimeSlots.includes(time);
+  };
+
+  const isTimeSlotAdminBlocked = (time) => {
+    return adminBlockedTimeSlots.includes(time);
+  };
+
+  const handleTimeSlotClick = (time) => {
+    if (isAdminMode) {
+      if (!isTimeSlotBooked(time)) {
+        toggleBlockedTimeSlot(selectedDate, time);
+      } else {
+        console.log(
+          `TimeSlotSelector: Слот ${time} для ${selectedDate} заброньований користувачем, адмін не може його змінити.`,
+        );
+      }
+    } else {
+      if (isTimeSlotAvailable(time)) {
+        onTimeSelect(time);
+        console.log("TimeSlotSelector: calling onTimeSelect with", time); // Для дебагу
+      } else {
+        console.log(
+          `TimeSlotSelector: Слот ${time} для ${selectedDate} недоступний.`,
+        );
+      }
+    }
+  };
+
   const isTimeSlotAvailable = (time) => {
-    return !bookedTimeSlots.includes(time);
+    return !isTimeSlotBooked(time) && !isTimeSlotAdminBlocked(time);
   };
 
   return (
@@ -24,17 +56,31 @@ const TimeSlotSelector = ({
       </div>
       <div className="time-slots-grid">
         {timeSlots.map((time) => {
-          const isAvailable = isTimeSlotAvailable(time);
+          const booked = isTimeSlotBooked(time);
+          const adminBlocked = isTimeSlotAdminBlocked(time);
+          const available = isTimeSlotAvailable(time);
+
+          let className = "time-slot";
+          if (booked) {
+            className += " unavailable";
+          } else if (adminBlocked) {
+            className += " admin-blocked";
+          } else if (selectedTime === time && !isAdminMode) {
+            className += " selected"; // Клас для вибраного користувачем слоту
+          } else if (isAdminMode && selectedDate && !booked && !adminBlocked) {
+            className += " available-admin";
+          }
+
           return (
-            <div
+            <button
               key={time}
-              className={`time-slot ${!isAvailable ? "unavailable" : ""} ${
-                selectedTime === time ? "selected" : ""
-              }`}
-              onClick={() => isAvailable && onTimeSelect(time)}
+              className={className}
+              onClick={() => handleTimeSlotClick(time)}
+              disabled={booked && !isAdminMode}
+              type="button" // <-- ВИПРАВЛЕНО: Додано type="button"
             >
               {time}
-            </div>
+            </button>
           );
         })}
       </div>

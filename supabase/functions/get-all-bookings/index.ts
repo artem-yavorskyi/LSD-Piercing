@@ -1,6 +1,5 @@
-
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
-import { createClient } from "npm:@supabase/supabase-js@^2.49.4"; 
+import { createClient } from "npm:@supabase/supabase-js@^2.49.4";
 
 Deno.serve(async (req) => {
     const origin = req.headers.get("Origin") || "";
@@ -66,7 +65,7 @@ Deno.serve(async (req) => {
         let blockedDatesQuery = supabaseClient.from("blocked_dates").select("date");
         if (startDateParam && endDateParam) {
             blockedDatesQuery = blockedDatesQuery
-                .gte("date", startDateParam) 
+                .gte("date", startDateParam)
                 .lte("date", endDateParam);
         }
         const { data: blockedDatesData, error: blockedDatesError } = await blockedDatesQuery;
@@ -81,9 +80,34 @@ Deno.serve(async (req) => {
 
         const formattedBlockedDates = blockedDatesData.map(row => row.date);
 
+        let blockedTimeSlotsQuery = supabaseClient.from("blocked_time_slots").select("date, time");
+        if (startDateParam && endDateParam) {
+            blockedTimeSlotsQuery = blockedTimeSlotsQuery
+                .gte("date", startDateParam)
+                .lte("date", endDateParam);
+        }
+        const { data: blockedTimeSlotsData, error: blockedTimeSlotsError } = await blockedTimeSlotsQuery;
+
+        if (blockedTimeSlotsError) {
+            console.error("Supabase blocked_time_slots fetch error:", blockedTimeSlotsError.message);
+            return new Response(JSON.stringify({ error: blockedTimeSlotsError.message }), {
+                status: 500,
+                headers: { "Content-Type": "application/json", ...corsHeaders },
+            });
+        }
+
+        const formattedBlockedTimeSlots = {};
+        blockedTimeSlotsData.forEach(slot => {
+            if (!formattedBlockedTimeSlots[slot.date]) {
+                formattedBlockedTimeSlots[slot.date] = [];
+            }
+            formattedBlockedTimeSlots[slot.date].push(slot.time);
+        });
+
         return new Response(JSON.stringify({
             sessions: sessionsData,
             blockedDates: formattedBlockedDates,
+            blockedTimeSlots: formattedBlockedTimeSlots,
         }), {
             status: 200,
             headers: { "Content-Type": "application/json", ...corsHeaders },

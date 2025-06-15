@@ -6,8 +6,7 @@ import React, {
   useCallback,
 } from "react";
 import Modal from "../../common/Modal";
-import TimeSlotSelector from "./TimeSlotSelector";
-import DatePicker from "./DatePicker ";
+import DatePicker from "./DatePicker"; // Переконайтесь, що ім'я файлу правильне, без пробілів
 import { createClient } from "@supabase/supabase-js";
 import { X } from "lucide-react";
 import ReactDOM from "react-dom";
@@ -43,6 +42,7 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const [bookedTimeSlots, setBookedTimeSlots] = useState({});
+  const [adminBlockedTimeSlots, setAdminBlockedTimeSlots] = useState({});
 
   const timeSlotSelectorRef = useRef(null);
 
@@ -63,7 +63,7 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
     if (selectedDate && timeSlotSelectorRef.current) {
       timeSlotSelectorRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [selectedDate, timeSlotSelectorRef.current]);
+  }, [selectedDate]); // Змінено залежності, useRef не завжди потрібен тут, якщо тільки не для конкретної DOM ноди
 
   const handleChooseServiceType = (type) => {
     setServiceType(type);
@@ -71,11 +71,12 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
 
   const handleDateSelect = (date) => {
     setSelectedDate(date);
-    setSelectedTime(null);
+    setSelectedTime(null); // Скидаємо вибраний час при зміні дати
   };
 
   const handleTimeSelect = (time) => {
     setSelectedTime(time);
+    console.log("BookingForm: selectedTime updated to", time); // Додано для дебагу
   };
 
   function openThankYouModal() {
@@ -194,7 +195,13 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
                   </a>
                 </p>
 
-                <button className="thank-you-close" onClick={onClose}>
+                <button
+                  type="button"
+                  className="thank-you-close"
+                  onClick={onClose}
+                >
+                  {" "}
+                  {/* Додано type="button" */}
                   <X size={20} />
                 </button>
                 <img
@@ -298,51 +305,42 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
 
           <div className="booking-form-modal-content">
             <DatePicker
+              onTimeSelect={handleTimeSelect} // Розкоментовано
               onDateSelect={handleDateSelect}
               selectedDate={selectedDate}
               setBookedTimeSlots={setBookedTimeSlots}
               memoizedAllTimeSlots={memoizedAllTimeSlots}
               isAdminMode={false}
+              setAdminBlockedTimeSlots={setAdminBlockedTimeSlots}
+              selectedTime={selectedTime} // Передаємо selectedTime до DatePicker
+            />
+          </div>
+
+          <div className="booking-actions">
+            <input
+              type="hidden"
+              name="selectedDate"
+              value={selectedDate || ""}
+            />
+            <input
+              type="hidden"
+              name="selectedTime"
+              value={selectedTime || ""}
             />
 
-            {selectedDate && (
-              <div ref={timeSlotSelectorRef}>
-                <TimeSlotSelector
-                  onTimeSelect={handleTimeSelect}
-                  selectedTime={selectedTime}
-                  selectedDate={selectedDate}
-                  bookedTimeSlots={bookedTimeSlots[selectedDate] || []}
-                  memoizedAllTimeSlots={memoizedAllTimeSlots}
-                />
-              </div>
-            )}
-
-            <div className="booking-actions">
-              <input
-                type="hidden"
-                name="selectedDate"
-                value={selectedDate || ""}
-              />
-              <input
-                type="hidden"
-                name="selectedTime"
-                value={selectedTime || ""}
-              />
-
-              <button
-                type="submit"
-                className="booking-confirm-button"
-                disabled={
-                  !selectedDate ||
-                  !selectedTime ||
-                  !name ||
-                  !lastName ||
-                  !phoneNumber
-                }
-              >
-                Підтвердити
-              </button>
-            </div>
+            <button
+              type="submit"
+              className="booking-confirm-button"
+              disabled={
+                !selectedDate ||
+                !selectedTime ||
+                !name ||
+                !lastName ||
+                !phoneNumber
+              }
+            >
+              Підтвердити
+            </button>
           </div>
         </form>
       </Modal>
