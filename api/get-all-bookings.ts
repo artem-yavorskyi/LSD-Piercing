@@ -1,6 +1,10 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "npm:@supabase/supabase-js@^2.49.4";
 
+export const config = {
+  runtime: 'edge',
+};
+
 Deno.serve(async (req) => {
     const origin = req.headers.get("Origin") || "";
 

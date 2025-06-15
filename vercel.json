@@ -1,9 +1,4 @@
 {
-  "functions": {
-    "api/get-all-bookings.ts": {
-      "runtime": "@vercel/edge"
-    }
-  },
   "rewrites": [
     {
       "source": "/api/get-all-bookings",
