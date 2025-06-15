@@ -1,8 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/api/(.*)",
-      "destination": "/api/$1"
+      "source": "/supabase/functions/get-all-bookings",
+      "destination": "/supabase/functions/get-all-bookings/index.ts"
     },
     {
       "source": "/(.*)",
