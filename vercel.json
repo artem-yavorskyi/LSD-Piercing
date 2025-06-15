@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/get-all-bookings",
-      "destination": "/supabase/functions/get-all-bookings/index.ts"
+      "destination": "/api/get-all-bookings"
     },
     {
       "source": "/(.*)",
