@@ -331,15 +331,6 @@ const DatePicker = ({
     });
   };
 
-  console.log(
-    "DatePicker: selectedTime prop (from BookingForm):",
-    selectedTime,
-  );
-  console.log(
-    "DatePicker: onTimeSelect prop (from BookingForm):",
-    onTimeSelect,
-  );
-
   return (
     <div className="datepicker">
       <div className="datepicker-header">

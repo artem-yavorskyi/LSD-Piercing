@@ -76,7 +76,6 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
 
   const handleTimeSelect = (time) => {
     setSelectedTime(time);
-    console.log("BookingForm: selectedTime updated to", time); // Додано для дебагу
   };
 
   function openThankYouModal() {
