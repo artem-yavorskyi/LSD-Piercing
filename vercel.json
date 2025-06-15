@@ -1,7 +1,7 @@
 {
   "functions": {
     "api/get-all-bookings.ts": {
-      "runtime": "edge"
+      "runtime": "@vercel/edge"
     }
   },
   "rewrites": [
