@@ -1,173 +1,6 @@
 /*=================================
 ===========DATE PICKER=============
 =================================*/
-.date-picker {
-  position: relative;
-  margin: 20px 0;
-  width: 100%;
-  max-width: 300px;
-}
-
-/*=================================
-===========DATE PICKER=============
-=================================*/
-.date-picker {
-  position: relative;
-  margin: 20px 0;
-  width: 100%;
-  max-width: 300px;
-}
-
-/*=================================
-===========INPUT STYLES============
-=================================*/
-.date-input {
-  padding: 12px 16px;
-  border: 1px solid #555;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: border-color 0.3s;
-  background-color: #1a1a1a;
-  color: #e0e0e0;
-}
-
-.date-input:hover {
-  border-color: #bb86fc;
-}
-
-.calendar-icon {
-  margin-left: 8px;
-  width: 20px;
-  height: 20px;
-  fill: none;
-  stroke: #bb86fc;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-/*=================================
-===========CALENDAR POPUP==========
-=================================*/
-.calendar {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 300px;
-  background: #1f1f1f;
-  border: 1px solid #333;
-  border-radius: 8px;
-  padding: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  z-index: 1000;
-  color: #e0e0e0;
-}
-
-.calendar-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
-  margin-bottom: 16px;
-}
-
-.calendar-header h3 {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 500;
-  color: #ffffff;
-}
-
-.calendar-header button {
-  background: none;
-  border: none;
-  color: #bb86fc;
-  font-size: 1.2rem;
-  cursor: pointer;
-}
-
-/*=================================
-===========CALENDAR GRID===========
-=================================*/
-.calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 8px;
-}
-
-.day-header {
-  text-align: center;
-  font-size: 14px;
-  color: #aaa;
-  padding: 4px;
-  font-weight: bold;
-}
-
-.day {
-  text-align: center;
-  padding: 8px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.2s;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-}
-
-/*=================================
-===========DAY STATES=============
-=================================*/
-.day.available {
-  background: transparent;
-  color: #e0e0e0;
-}
-
-.day.available:hover {
-  background: #333;
-  color: #ffffff;
-}
-
-.day.selected {
-  background: #bb86fc;
-  color: #0a0a0a;
-  font-weight: bold;
-}
-
-.day.unavailable,
-.admin-blocked {
-  color: #666;
-  cursor: not-allowed;
-  background: transparent;
-}
-
-.day.unavailable:hover,
-.admin-blocked:hover {
-  background: transparent;
-}
-
-.empty-day {
-  visibility: hidden;
-}
-
-.calendar-day.available.selected:hover,
-div.time-slot.selected:hover {
-  background-color: #cecece;
-}
-
-/*********************************/
-/*********************************/
-/*********************************/
-
-/* DatePicker Component */
 .datepicker {
   width: 100%;
   position: relative;
@@ -244,16 +77,15 @@ div.time-slot.selected:hover {
   visibility: hidden;
 }
 
-.calendar-day.available,
-.time-slot.available {
+/* Базові стани для calendar-day */
+.calendar-day.available {
   background-color: #2a2a2a;
   color: #fff;
   cursor: pointer;
   border-color: rgba(255, 255, 255, 0.1);
 }
 
-.calendar-day.available:hover,
-.time-slot:not(.unavailable):hover {
+.calendar-day.available:hover {
   background-color: #333;
   border-color: rgba(255, 255, 255, 0.2);
 }
@@ -266,11 +98,41 @@ div.time-slot.selected:hover {
   border-color: rgba(255, 255, 255, 0.05);
 }
 
+.calendar-day.unavailable.admin-blocked.fully-booked.admin-mode-day.selected-admin {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* .calendar-day.unavailable.past-day,
+.calendar-day.unavailable.admin-blocked,
+.calendar-day.unavailable.fully-booked {
+ 
+} */
+
+/* Стиль для ВИБРАНОГО дня у звичайному (клієнтському) режимі */
 .calendar-day.selected {
   background-color: #fff;
   color: #000;
   font-weight: 500;
   border-color: #fff;
+}
+
+.calendar-day.selected:hover {
+  background-color: #e0e0e0;
+  border-color: #e0e0e0;
+}
+
+/* СТИЛЬ ДЛЯ ВИБРАНОЇ ДАТИ В РЕЖИМІ АДМІНА */
+/* Цей стиль забезпечить, що вибрана дата в адмін-режимі виглядає так само, як selected для юзера */
+.calendar-day.selected-admin {
+  background-color: #fff; /* Білий фон */
+  color: #000;
+  font-weight: 500;
+  border-color: #fff;
+}
+
+.calendar-day.selected-admin:hover {
+  background-color: #e0e0e0;
+  border-color: #e0e0e0;
 }
 
 /* Time Slot Selector */
@@ -314,7 +176,7 @@ div.time-slot.selected:hover {
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.time-slot:hover:not(.unavailable) {
+.time-slot:hover:not(.unavailable, .selected) {
   background-color: #333;
   border-color: rgba(255, 255, 255, 0.2);
 }
@@ -333,128 +195,83 @@ div.time-slot.selected:hover {
   border-color: rgba(255, 255, 255, 0.05);
 }
 
-/*=================================
-===========INPUT STYLES============
-=================================*/
-.date-input {
-  padding: 12px 16px;
-  border: 1px solid #555;
+/* Загальні стилі для вибраних елементів при наведенні (якщо вони були злиті) */
+.calendar-day.available.selected:hover,
+div.time-slot.selected:hover {
+  background-color: #cecece;
+}
+
+/* Адмін-специфічні стилі (з вашого попереднього коду) */
+.admin-actions {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
   border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
+  background-color: #f9f9f9; /* Якщо це частина темної теми адмінки, змініть на темний фон */
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: border-color 0.3s;
-  background-color: #1a1a1a;
-  color: #e0e0e0;
+  flex-direction: column;
+  gap: 15px;
+  color: #333; /* Колір тексту для світлого фону */
 }
 
-.date-input:hover {
-  border-color: #bb86fc;
+.admin-actions h3 {
+  color: #333;
+  margin-bottom: 5px;
 }
 
-.calendar-icon {
-  margin-left: 8px;
-  width: 20px;
-  height: 20px;
-  fill: none;
-  stroke: #bb86fc;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-/*=================================
-===========CALENDAR POPUP==========
-=================================*/
-.calendar {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 300px;
-  background: #1f1f1f;
-  border: 1px solid #333;
-  border-radius: 8px;
-  padding: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  z-index: 1000;
-  color: #e0e0e0;
-}
-
-.calendar-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
-  margin-bottom: 16px;
-}
-
-.calendar-header h3 {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 500;
-  color: #ffffff;
-}
-
-.calendar-header button {
-  background: none;
-  border: none;
-  color: #bb86fc;
-  font-size: 1.2rem;
-  cursor: pointer;
-}
-
-/*=================================
-===========CALENDAR GRID===========
-=================================*/
-.calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 8px;
-}
-
-.day-header {
-  text-align: center;
-  font-size: 14px;
-  color: #aaa;
-  padding: 4px;
-  font-weight: bold;
-}
-
-.day {
-  text-align: center;
-  padding: 8px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.2s;
-  width: 32px;
-  height: 32px;
+.block-day-button {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
+  gap: 8px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/*=================================
-===========DAY STATES=============
-=================================*/
-.day.available {
-  background: transparent;
-  color: #e0e0e0;
+.block-day-button.block {
+  background-color: #e74c3c;
+  color: white;
 }
 
-.day.available:hover {
-  background: #333;
-  color: #ffffff;
+.block-day-button.block:hover {
+  background-color: #c0392b;
+  transform: translateY(-1px);
 }
 
-.day.selected {
-  background: #bb86fc;
-  color: #0a0a0a;
-  font-weight: bold;
+.block-day-button.block:active {
+  background-color: #a93226;
+  transform: translateY(0);
+}
+
+.block-day-button.unblock {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.block-day-button.unblock:hover {
+  background-color: #27ae60;
+  transform: translateY(-1px);
+}
+
+.block-day-button.unblock:active {
+  background-color: #229a56;
+  transform: translateY(0);
+}
+
+.calendar-day .blocked-icon {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  color: #e74c3c;
+  width: 14px;
+  height: 14px;
 }
 
 .day.unavailable,
@@ -469,100 +286,38 @@ div.time-slot.selected:hover {
   background: transparent;
 }
 
-.empty-day {
-  visibility: hidden;
+.day.unavailable,
+.admin-blocked {
+  color: #666;
+  cursor: not-allowed;
+  background: transparent !important;
 }
 
-.calendar-day.available.selected:hover,
-div.time-slot.selected:hover {
-  background-color: #cecece;
-}
+/****************/
 
-/*********************************/
-/*********************************/
-/*********************************/
-
-/* Admin.css або DatePicker.css */
-
-/* Стилі для контейнера дій адміністратора */
-.admin-actions {
-  margin-top: 20px;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  display: flex;
-  flex-direction: column;
-  gap: 15px; /* Простір між елементами всередині */
-}
-
-/* Заголовок дій */
-.admin-actions h3 {
-  color: #333;
-  margin-bottom: 5px;
-}
-
-/* Стилі для самої кнопки блокування/розблокування */
-.block-day-button {
-  display: flex; /* Для вирівнювання тексту та іконки */
-  align-items: center; /* Вирівнювання по центру вертикально */
-  justify-content: center; /* Вирівнювання по центру горизонтально */
-  gap: 8px; /* Простір між іконкою та текстом */
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 600;
-  transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
-  width: 100%; /* Розтягуємо на всю доступну ширину */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Легка тінь */
-}
-
-/* Стилі для кнопки "Заблокувати день" */
-.block-day-button.block {
-  background-color: #e74c3c; /* Яскраво-червоний */
-  color: white;
-}
-
-.block-day-button.block:hover {
-  background-color: #c0392b; /* Темніше при наведенні */
-  transform: translateY(-1px); /* Невеликий ефект підняття */
-}
-
-.block-day-button.block:active {
-  background-color: #a93226; /* Ще темніше при натисканні */
-  transform: translateY(0); /* Повернення в початкове положення */
-}
-
-/* Стилі для кнопки "Розблокувати день" */
-.block-day-button.unblock {
-  background-color: #2ecc71; /* Зелений */
-  color: white;
-}
-
-.block-day-button.unblock:hover {
-  background-color: #27ae60; /* Темніше при наведенні */
-  transform: translateY(-1px);
-}
-
-.block-day-button.unblock:active {
-  background-color: #229a56; /* Ще темніше при натисканні */
-  transform: translateY(0);
-}
-
-/* Стилі для іконки блокування на самому дні календаря */
-.calendar-day {
-  position: relative; /* Щоб іконка позиціонувалася відносно дня */
-  /* ... інші існуючі стилі для .calendar-day ... */
-}
-
-.calendar-day .blocked-icon {
-  position: absolute;
-  top: 4px;
-  right: 4px;
-  color: #e74c3c; /* Колір іконки для заблокованого дня */
-  /* Можливо, трохи менший розмір, ніж дефолтний */
-  width: 14px;
+/* Modern Thin Spinner */
+.spinner-thin {
+  width: 14px; /* Slightly larger for visibility */
   height: 14px;
+  border: 1.5px solid rgba(255, 255, 255, 0.15); /* Very thin, subtle border */
+  border-top: 1.5px solid #fff; /* The main animated part, slightly brighter */
+  border-radius: 50%;
+  animation: spin-thin 0.9s linear infinite;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+@keyframes spin-thin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Optional: Additional style for the slot when updating */
+.time-slot.updating-slot {
+  opacity: 0.8; /* Make it slightly transparent while loading */
+  cursor: default !important; /* Change cursor to default */
 }

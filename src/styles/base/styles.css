@@ -15,6 +15,7 @@
 @import "../pages/Care.css";
 
 @import "../common/Footer.css";
+@import "../pages/Admin.css";
 
 /*=================FONTS=================*/
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
@@ -45,8 +46,6 @@ html,
 body {
   width: 100vw;
   width: 100%;
-  /* overflow-x: hidden; */
-  /* overflow-y: scroll; */
   margin: 0;
   padding: 0;
   font-family: "Inter", sans-serif;

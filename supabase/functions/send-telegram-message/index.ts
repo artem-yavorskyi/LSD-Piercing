@@ -1,4 +1,3 @@
-// deno-lint-ignore-file
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 
 Deno.serve(async (req) => {
@@ -22,7 +21,7 @@ Deno.serve(async (req) => {
     });
   }
 
-  let requestData = await req.json();
+  const requestData = await req.json();
 
   const {
     name,
@@ -45,7 +44,10 @@ Deno.serve(async (req) => {
     });
   }
 
-  let message = `🔔 Новий запис:\n\n👤 | Ім'я, прізвище: ${name} ${last_name}\n📱 | Телефон: ${phone_number}\n📅 | Дата: ${selected_date}\n⏳ | Час: ${selected_time}\n💜 | ${service_type==="piercing" ? "Пірсинг" : "Тату"}`;
+  let message =
+    `🔔 Новий запис:\n\n👤 | Ім'я, прізвище: ${name} ${last_name}\n📱 | Телефон: ${phone_number}\n📅 | Дата: ${selected_date}\n⏳ | Час: ${selected_time}\n💜 | ${
+      service_type === "piercing" ? "Пірсинг" : "Тату"
+    }`;
 
   if (instagram) {
     message += `\n📷 | Інстарам: ${instagram}`;
@@ -61,7 +63,7 @@ Deno.serve(async (req) => {
         method: "POST",
         headers: { "Content-Type": "application/json", ...corsHeaders },
         body: JSON.stringify({ chat_id: chatId, text: message }),
-      }
+      },
     );
 
     if (!telegramResponse.ok) {

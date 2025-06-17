@@ -1,0 +1,365 @@
+/*=================================
+===========GLOBAL ADMIN STYLES=====
+=================================*/
+.admin-panel {
+  padding: 30px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #121212;
+  color: #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+  margin: auto !important;
+  box-sizing: border-box;
+}
+
+.time-slots-management {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.admin-panel h2 {
+  color: #bb86fc;
+}
+
+.admin-panel h2,
+.admin-panel h3 {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #333;
+  padding-bottom: 15px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.admin-panel p {
+  margin-bottom: 25px;
+  color: #b0b0b0;
+  line-height: 1.7;
+}
+
+/*=================================
+===========DATE PICKER (AdminPanel) =============
+=================================*/
+
+.admin-panel .datepicker {
+  margin: 50px auto;
+  max-width: 500px;
+  background: #1f1f1f;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  color: #e0e0e0;
+  left: 0;
+  transform: none;
+  z-index: auto;
+  box-sizing: border-box;
+}
+
+/*=================================
+===========NEW BOOKING LIST STYLES============
+=================================*/
+.admin-bookings-list {
+  margin-top: 50px;
+  padding: 20px;
+  max-width: 1000px;
+  margin: 50px auto;
+  box-sizing: border-box;
+}
+
+.booking-cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.booking-card {
+  background-color: #1f1f1f;
+  padding: 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns:
+    100px /* Дата */
+    60px /* Час */
+    90px /* Ім'я */
+    90px /* Прізвище */
+    110px /* Телефон */
+    75px /* Послуга */
+    130px /* Instagram */
+    minmax(50px, 3fr) /* Коментар */
+    40px; /* Кнопка X */
+  border: 1px solid #333;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.booking-item {
+  display: contents;
+}
+
+.booking-item .booking-label {
+  grid-row: 1;
+  font-weight: 600;
+  color: #bb86fc;
+  font-size: 14px;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 8px;
+  border-bottom: 1px solid #333;
+  border-right: 1px solid #333;
+}
+
+.booking-item .booking-value {
+  grid-row: 2;
+  color: #e0e0e0;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 8px 6px;
+  border-right: 1px solid #333;
+}
+
+.booking-item:nth-of-type(1) .booking-label,
+.booking-item:nth-of-type(1) .booking-value {
+  grid-column: 1;
+}
+.booking-item:nth-of-type(2) .booking-label,
+.booking-item:nth-of-type(2) .booking-value {
+  grid-column: 2;
+}
+.booking-item:nth-of-type(3) .booking-label,
+.booking-item:nth-of-type(3) .booking-value {
+  grid-column: 3;
+}
+.booking-item:nth-of-type(4) .booking-label,
+.booking-item:nth-of-type(4) .booking-value {
+  grid-column: 4;
+}
+.booking-item:nth-of-type(5) .booking-label,
+.booking-item:nth-of-type(5) .booking-value {
+  grid-column: 5;
+}
+.booking-item:nth-of-type(6) .booking-label,
+.booking-item:nth-of-type(6) .booking-value {
+  grid-column: 6;
+}
+.booking-item:nth-of-type(7) .booking-label,
+.booking-item:nth-of-type(7) .booking-value {
+  grid-column: 7;
+}
+.booking-item:nth-of-type(8) .booking-label,
+.booking-item:nth-of-type(8) .booking-value {
+  grid-column: 8;
+}
+
+.booking-item.action-item .booking-label {
+  grid-column: 9;
+  border-right: none;
+  background-color: transparent;
+  color: transparent;
+  padding: 0;
+  border-bottom: 1px solid #333;
+}
+
+.booking-item.action-item .booking-value {
+  grid-column: 9;
+  border-right: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.booking-item .booking-comment-value {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+}
+
+.delete-session-button {
+  background: #982c3780;
+  color: white;
+  border: none;
+  padding: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.25s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.delete-session-button:hover {
+  background: #982c37;
+}
+
+.delete-session-button svg {
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+
+/*=================================
+===========RESPONSIVENESS==========
+=================================*/
+
+@media (max-width: 920px) {
+  .admin-bookings-list {
+    padding: 15px;
+    margin: 20px auto;
+  }
+
+  .booking-card {
+    display: flex;
+    flex-direction: column;
+    padding: 14px 16px;
+    gap: 10px;
+    border: none;
+    grid-template-rows: auto;
+    grid-template-columns: auto;
+  }
+
+  .booking-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #333;
+    box-sizing: border-box;
+    border-right: none;
+    border-top: none;
+    border-left: none;
+    padding-right: 0;
+  }
+
+  .booking-item:last-of-type {
+    border-bottom: none;
+  }
+
+  .booking-item .booking-label {
+    grid-row: auto;
+    grid-column: auto;
+    min-width: 70px;
+    margin-right: 10px;
+    padding: 0;
+    border: none;
+    white-space: normal;
+  }
+
+  .booking-item .booking-value {
+    grid-row: auto;
+    grid-column: auto;
+    text-align: right;
+    padding: 0;
+    border: none;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+  }
+
+  .booking-item.action-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: none;
+  }
+
+  .booking-item.action-item .booking-label {
+    display: none;
+  }
+
+  .booking-item.action-item .booking-value {
+    display: block;
+    text-align: left;
+  }
+
+  .delete-session-button {
+    background: #ac13234f;
+    color: rgba(255, 238, 238, 0.89);
+    border: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    width: auto;
+    height: auto;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+  }
+
+  .delete-session-button svg {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-panel {
+    padding: 15px;
+    margin: 10px auto;
+    border-radius: 8px;
+  }
+
+  .admin-panel .datepicker {
+    max-width: 100%;
+    padding: 10px;
+    margin-bottom: 25px;
+  }
+
+  .admin-bookings-list {
+    padding: 0;
+  }
+
+  .booking-card {
+    margin-bottom: 12px;
+  }
+
+  .booking-item {
+    padding-bottom: 6px;
+  }
+
+  .booking-item .booking-label {
+    min-width: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-panel h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+  }
+
+  .admin-panel h2 {
+    font-size: 26px;
+    margin-top: 10px;
+  }
+
+  .datepicker {
+    margin-top: 30px !important;
+  }
+
+  .admin-panel p {
+    font-size: 0.9em;
+    margin-bottom: 15px;
+  }
+
+  .booking-card {
+    margin-bottom: 10px;
+  }
+
+  .booking-item {
+    padding-bottom: 4px;
+  }
+
+  .booking-item .booking-label {
+    min-width: 50px;
+  }
+}

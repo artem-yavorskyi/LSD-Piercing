@@ -6,7 +6,7 @@ import React, {
   useCallback,
 } from "react";
 import Modal from "../../common/Modal";
-import DatePicker from "./DatePicker"; // Переконайтесь, що ім'я файлу правильне, без пробілів
+import DatePicker from "./DatePicker";
 import { createClient } from "@supabase/supabase-js";
 import { X } from "lucide-react";
 import ReactDOM from "react-dom";
@@ -30,10 +30,8 @@ const insertBooking = async (bookingData) => {
       return false;
     }
 
-    console.log("Бронювання успішно додано:", { ...bookingData });
     return true;
   } catch (error) {
-    console.error("Неочікувана помилка при додаванні бронювання:", error);
     return false;
   }
 };
@@ -63,7 +61,7 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
     if (selectedDate && timeSlotSelectorRef.current) {
       timeSlotSelectorRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [selectedDate]); // Змінено залежності, useRef не завжди потрібен тут, якщо тільки не для конкретної DOM ноди
+  }, [selectedDate]);
 
   const handleChooseServiceType = (type) => {
     setServiceType(type);
@@ -71,7 +69,7 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
 
   const handleDateSelect = (date) => {
     setSelectedDate(date);
-    setSelectedTime(null); // Скидаємо вибраний час при зміні дати
+    setSelectedTime(null);
   };
 
   const handleTimeSelect = (time) => {
@@ -81,6 +79,11 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
   function openThankYouModal() {
     setIsThankYouOpened(true);
   }
+
+  const formatDateForSupabase = useCallback((dateString) => {
+    const [day, month, year] = dateString.split(".");
+    return `${year}-${month}-${day}`;
+  }, []);
 
   const handleConfirmBooking = async () => {
     if (selectedDate && selectedTime) {
@@ -97,8 +100,11 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
       };
       const createAt = date.toLocaleString("uk-UA", options);
 
+      const formattedSelectedDateForSupabase =
+        formatDateForSupabase(selectedDate);
+
       const bookingDetails = {
-        selected_date: selectedDate,
+        selected_date: formattedSelectedDateForSupabase,
         selected_time: selectedTime,
         name: name,
         last_name: lastName,
@@ -112,7 +118,7 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
       const isSuccess = await insertBooking(bookingDetails);
 
       const telegramPayload = {
-        selected_date: selectedDate,
+        selected_date: selectedDate, // Для Telegram залишаємо у форматі DD.MM.YYYY для зручності читання
         selected_time: selectedTime,
         name: name,
         last_name: lastName,
@@ -199,8 +205,6 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
                   className="thank-you-close"
                   onClick={onClose}
                 >
-                  {" "}
-                  {/* Додано type="button" */}
                   <X size={20} />
                 </button>
                 <img
@@ -304,14 +308,14 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
 
           <div className="booking-form-modal-content">
             <DatePicker
-              onTimeSelect={handleTimeSelect} // Розкоментовано
+              onTimeSelect={handleTimeSelect}
               onDateSelect={handleDateSelect}
               selectedDate={selectedDate}
               setBookedTimeSlots={setBookedTimeSlots}
               memoizedAllTimeSlots={memoizedAllTimeSlots}
               isAdminMode={false}
               setAdminBlockedTimeSlots={setAdminBlockedTimeSlots}
-              selectedTime={selectedTime} // Передаємо selectedTime до DatePicker
+              selectedTime={selectedTime}
             />
           </div>
 
@@ -344,7 +348,7 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
         </form>
       </Modal>
     </div>,
-    document.body,
+    document.body
   );
 };
 
