@@ -8,7 +8,8 @@ const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-const GET_ALL_BOOKINGS_PROXY_PATH = "/api/get-all-bookings";
+const GET_ALL_BOOKINGS_URL =
+  "https://xekpesevrtjmvqoueukm.supabase.co/functions/v1/get-all-bookings";
 
 import "../../styles/pages/Admin.css";
 
@@ -52,7 +53,7 @@ const Admin = () => {
 
     try {
       const response = await fetch(
-        `${GET_ALL_BOOKINGS_PROXY_PATH}?startDate=${formattedStartDate}&endDate=${formattedEndDate}`
+        `${GET_ALL_BOOKINGS_URL}?startDate=${formattedStartDate}&endDate=${formattedEndDate}`
       );
 
       if (!response.ok) {

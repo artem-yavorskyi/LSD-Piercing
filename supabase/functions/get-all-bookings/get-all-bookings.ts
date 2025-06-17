@@ -1,11 +1,11 @@
 import { serve } from "https://deno.land/std@0.178.0/http/server.ts";
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2"; // Використовуйте esm.sh для імпорту JS-модулів
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
-  "Access-Control-Allow-Origin": "*", // У продакшені замініть на домен вашого Next.js додатка
+  "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, OPTIONS",
   "Access-Control-Allow-Headers":
-    "Content-Type, Authorization, x-client-info, apikey", // Додано x-client-info, apikey
+    "Content-Type, Authorization, x-client-info, apikey",
 };
 
 serve(async (req: Request) => {
@@ -20,10 +20,9 @@ serve(async (req: Request) => {
     });
   }
 
-  // Ініціалізація Supabase клієнта з змінними оточення Deno
   const supabaseClient = createClient(
     Deno.env.get("SUPABASE_URL") ?? "",
-    Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "", // Або SUPABASE_ANON_KEY, якщо це дозволено для даної операції
+    Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "",
   );
 
   try {
