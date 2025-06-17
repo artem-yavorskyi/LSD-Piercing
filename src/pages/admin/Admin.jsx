@@ -9,7 +9,7 @@ const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 const GET_ALL_BOOKINGS_URL =
-  "https://xekpesevrtjmvqoueukm.supabase.co/functions/v1/get-all-bookings";
+  "https://xexpesevtjvmveqouekm.supabase.co/functions/v1/get-all-bookings";
 
 import "../../styles/pages/Admin.css";
 
@@ -24,7 +24,7 @@ const Admin = () => {
   const [blockedTimeSlots, setBlockedTimeSlots] = useState({});
 
   const [isLoadingBookings, setIsLoadingBookings] = useState(false);
-  const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 920); // Стан для відстеження мобільного вигляду
+  const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 920);
 
   const memoizedAllTimeSlots = useMemo(() => {
     return generateTimeSlots();
