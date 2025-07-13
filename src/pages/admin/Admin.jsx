@@ -45,21 +45,21 @@ const Admin = () => {
     const endDate = new Date(year, month + 1, 0);
 
     const formattedStartDate = `${startDate.getFullYear()}-${String(
-      startDate.getMonth() + 1
+      startDate.getMonth() + 1,
     ).padStart(2, "0")}-01`;
     const formattedEndDate = `${endDate.getFullYear()}-${String(
-      endDate.getMonth() + 1
+      endDate.getMonth() + 1,
     ).padStart(2, "0")}-${String(endDate.getDate()).padStart(2, "0")}`;
 
     try {
       const response = await fetch(
-        `${GET_ALL_BOOKINGS_URL}?startDate=${formattedStartDate}&endDate=${formattedEndDate}`
+        `${GET_ALL_BOOKINGS_URL}?startDate=${formattedStartDate}&endDate=${formattedEndDate}`,
       );
 
       if (!response.ok) {
         const errorText = await response.text();
         throw new Error(
-          `HTTP error! status: ${response.status} - ${errorText}`
+          `HTTP error! status: ${response.status} - ${errorText}`,
         );
       }
       const data = await response.json();
@@ -76,7 +76,7 @@ const Admin = () => {
       if (blockedSlotsError) {
         console.error(
           "Admin: Помилка при завантаженні заблокованих слотів часу з Supabase:",
-          blockedSlotsError
+          blockedSlotsError,
         );
       } else {
         const blockedSlotsByDate = {};
@@ -91,7 +91,7 @@ const Admin = () => {
     } catch (error) {
       console.error(
         "Admin: Помилка при завантаженні бронювань для адмін-панелі:",
-        error
+        error,
       );
       setAllMonthBookings([]);
       setBlockedDates([]);
@@ -145,7 +145,7 @@ const Admin = () => {
       fetchAllBookingsForCurrentMonth,
       currentYear,
       currentMonth,
-    ]
+    ],
   );
 
   const handleDeleteSession = useCallback(
@@ -170,7 +170,7 @@ const Admin = () => {
         }
       }
     },
-    [fetchAllBookingsForCurrentMonth, currentYear, currentMonth]
+    [fetchAllBookingsForCurrentMonth, currentYear, currentMonth],
   );
 
   return (
@@ -218,7 +218,7 @@ const Admin = () => {
                         day: "2-digit",
                         month: "2-digit",
                         year: "numeric",
-                      }
+                      },
                     )}
                   </span>
                 </div>
@@ -244,8 +244,8 @@ const Admin = () => {
                     {booking.service_type === "piercing" ? "Пірсинг" : "Тату"}
                   </span>
                 </div>
-                <div className="booking-item instagram-item">
-                  <span className="booking-label">Instagram</span>
+                <div className="booking-item ig-telegram-item">
+                  <span className="booking-label">IG/Telegram</span>
                   <span className="booking-value">
                     {booking.instagram || "—"}
                   </span>

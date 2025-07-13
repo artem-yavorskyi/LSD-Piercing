@@ -48,10 +48,11 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [serviceType, setServiceType] = useState("piercing");
-  const [instagram, setInstagram] = useState("");
+  const [igTelegram, setIgTelegram] = useState("");
   const [comment, setComment] = useState("");
 
   const [isThankYouOpened, setIsThankYouOpened] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const memoizedAllTimeSlots = useMemo(() => {
     return generateTimeSlots();
@@ -80,15 +81,15 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
     setIsThankYouOpened(true);
   }
 
-  const formatDateForSupabase = useCallback((dateString) => {
-    const [day, month, year] = dateString.split(".");
-    return `${year}-${month}-${day}`;
-  }, []);
-
   const handleConfirmBooking = async () => {
-    if (selectedDate && selectedTime) {
-      const date = new Date();
+    if (!selectedDate || !selectedTime) {
+      alert("Будь ласка, виберіть дату та час.");
+      return;
+    }
 
+    setIsSubmitting(true);
+    try {
+      const date = new Date();
       const options = {
         day: "2-digit",
         month: "2-digit",
@@ -100,17 +101,14 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
       };
       const createAt = date.toLocaleString("uk-UA", options);
 
-      const formattedSelectedDateForSupabase =
-        formatDateForSupabase(selectedDate);
-
       const bookingDetails = {
-        selected_date: formattedSelectedDateForSupabase,
+        selected_date: selectedDate,
         selected_time: selectedTime,
         name: name,
         last_name: lastName,
         phone_number: phoneNumber,
         service_type: serviceType,
-        instagram: instagram,
+        ig_telegram: igTelegram,
         comment: comment,
         created_at: createAt,
       };
@@ -118,17 +116,17 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
       const isSuccess = await insertBooking(bookingDetails);
 
       const telegramPayload = {
-        selected_date: selectedDate, // Для Telegram залишаємо у форматі DD.MM.YYYY для зручності читання
+        selected_date: selectedDate,
         selected_time: selectedTime,
         name: name,
         last_name: lastName,
         phone_number: phoneNumber,
         service_type: serviceType,
-        instagram: instagram,
+        ig_telegram: igTelegram,
         comment: comment,
       };
 
-      const telegramResponse = await fetch(TELEGRAM_FUNCTION_URL, {
+      await fetch(TELEGRAM_FUNCTION_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -142,13 +140,18 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
         setLastName("");
         setPhoneNumber("");
         setServiceType("piercing");
-        setInstagram("");
+        setIgTelegram("");
         setComment("");
+        setSelectedDate(null);
+        setSelectedTime(null);
       } else {
         alert("Виникла помилка при бронюванні. Спробуйте ще раз.");
       }
-    } else {
-      alert("Будь ласка, виберіть дату та час.");
+    } catch (error) {
+      console.error("Помилка під час відправки бронювання:", error);
+      alert("Виникла помилка при бронюванні. Спробуйте ще раз.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -161,6 +164,10 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
       return;
     }
 
+    if (isSubmitting) {
+      return;
+    }
+
     handleConfirmBooking();
   };
 
@@ -169,7 +176,10 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
       <Modal
         isThankYouOpened={isThankYouOpened}
         isModalOpened={isModalOpened}
-        onClose={onClose}
+        onClose={() => {
+          setIsThankYouOpened(false);
+          onClose();
+        }}
         title="Запис на сеанс"
       >
         {isThankYouOpened && (
@@ -185,7 +195,10 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
                 <button
                   type="button"
                   className="thank-you-close"
-                  onClick={onClose}
+                  onClick={() => {
+                    setIsThankYouOpened(false);
+                    onClose();
+                  }}
                 >
                   <X size={20} />
                 </button>
@@ -246,7 +259,6 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
               className={`form-field service-type-field ${
                 serviceType === "piercing" ? "active" : ""
               }`}
-              value={serviceType}
               onClick={() => {
                 handleChooseServiceType("piercing");
               }}
@@ -257,7 +269,6 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
               className={`form-field service-type-field ${
                 serviceType === "tattoo" ? "active" : ""
               }`}
-              value={serviceType}
               onClick={() => {
                 handleChooseServiceType("tattoo");
               }}
@@ -266,14 +277,15 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
             </div>
           </div>
           <div className="form-field">
-            <label htmlFor="instagram"></label>
+            <label htmlFor="ig_telegram"></label>
             <input
               type="text"
-              id="instagram"
-              name="instagram"
-              value={instagram}
-              placeholder="Інстаграм (необов'язково)"
-              onChange={(e) => setInstagram(e.target.value)}
+              id="ig-telegram"
+              name="ig-telegram"
+              value={igTelegram}
+              placeholder="Instagram/Telegram (*Обов'язково)"
+              onChange={(e) => setIgTelegram(e.target.value)}
+              required
             />
           </div>
           <div className="form-field">
@@ -321,10 +333,12 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
                 !selectedTime ||
                 !name ||
                 !lastName ||
-                !phoneNumber
+                !phoneNumber ||
+                isSubmitting ||
+                !igTelegram
               }
             >
-              Підтвердити
+              {isSubmitting ? <div className="spinner"></div> : "Підтвердити"}
             </button>
           </div>
         </form>
