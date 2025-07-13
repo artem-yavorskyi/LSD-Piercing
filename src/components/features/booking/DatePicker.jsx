@@ -1,4 +1,3 @@
-// DatePicker.jsx
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { createClient } from "@supabase/supabase-js";
 import TimeSlotSelector from "./TimeSlotSelector";
@@ -42,10 +41,10 @@ const DatePicker = ({
   const [isLoading, setIsLoading] = useState(false);
 
   const [currentMonth, setCurrentMonth] = useState(
-    controlledMonth !== undefined ? controlledMonth : today.getMonth()
+    controlledMonth !== undefined ? controlledMonth : today.getMonth(),
   );
   const [currentYear, setCurrentYear] = useState(
-    controlledYear !== undefined ? controlledYear : today.getFullYear()
+    controlledYear !== undefined ? controlledYear : today.getFullYear(),
   );
 
   useEffect(() => {
@@ -81,7 +80,7 @@ const DatePicker = ({
     if (sessionsError) {
       console.error(
         "DatePicker: Помилка при завантаженні заброньованих часів:",
-        sessionsError
+        sessionsError,
       );
       setIsLoading(false);
       return;
@@ -108,7 +107,7 @@ const DatePicker = ({
     if (blockedError) {
       console.error(
         "DatePicker: Помилка завантаження заблокованих дат адміном (blocked_dates):",
-        blockedError
+        blockedError,
       );
       setBlockedDates([]);
     } else {
@@ -126,7 +125,7 @@ const DatePicker = ({
     if (blockedSlotsError) {
       console.error(
         "DatePicker: Помилка завантаження індивідуально заблокованих слотів адміном (blocked_time_slots):",
-        blockedSlotsError
+        blockedSlotsError,
       );
     } else {
       blockedSlotsData.forEach((slot) => {
@@ -192,7 +191,7 @@ const DatePicker = ({
       }
       await fetchBookingsAndBlockedDates();
     },
-    [onTimeSlotBlockChange, fetchBookingsAndBlockedDates]
+    [onTimeSlotBlockChange, fetchBookingsAndBlockedDates],
   );
 
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
@@ -218,7 +217,7 @@ const DatePicker = ({
       if (deleteDateError) {
         console.error(
           "DatePicker: Помилка розблокування дати:",
-          deleteDateError
+          deleteDateError,
         );
       }
 
@@ -230,7 +229,7 @@ const DatePicker = ({
       if (deleteSlotsError) {
         console.error(
           "DatePicker: Помилка розблокування слотів часу:",
-          deleteSlotsError
+          deleteSlotsError,
         );
       }
     } else {
@@ -254,7 +253,7 @@ const DatePicker = ({
       if (insertSlotsError) {
         console.error(
           "DatePicker: Помилка блокування всіх слотів часу:",
-          insertSlotsError
+          insertSlotsError,
         );
       }
     }
@@ -298,7 +297,7 @@ const DatePicker = ({
       today,
       blockedDates,
       bookedDaysInfo,
-    ]
+    ],
   );
 
   const goToPreviousMonth = () => {

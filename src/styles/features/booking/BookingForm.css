@@ -356,8 +356,9 @@
 }
 
 .thank-you-content h2 {
-  margin-bottom: 36px;
+  margin-bottom: 30px;
   text-align: center;
+  font-size: 36px;
 }
 
 .thank-you-content p {
@@ -365,6 +366,7 @@
   text-align: left;
   line-height: 1.4;
   hyphens: auto;
+  max-width: 360px;
 }
 
 .video-link-text {
@@ -423,7 +425,7 @@
   }
 
   .thank-you-content h2 {
-    margin-bottom: 22px;
+    margin-bottom: 20px;
     font-size: 24px;
   }
 
