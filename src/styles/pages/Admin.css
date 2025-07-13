@@ -83,13 +83,13 @@
   display: grid;
   grid-template-rows: auto auto;
   grid-template-columns:
-    100px /* Дата */
-    60px /* Час */
-    90px /* Ім'я */
-    90px /* Прізвище */
-    110px /* Телефон */
+    90px /* Дата */
+    56px /* Час */
+    100px /* Ім'я */
+    116px /* Прізвище */
+    95px /* Телефон */
     75px /* Послуга */
-    130px /* IG/Telegram */
+    150px /* IG/Telegram */
     minmax(50px, 3fr) /* Коментар */
     40px; /* Кнопка X */
   border: 1px solid #333;
@@ -116,12 +116,13 @@
 }
 
 .booking-item .booking-value {
+  font-size: 14px;
   grid-row: 2;
   color: #e0e0e0;
   text-align: left;
   white-space: nowrap;
   overflow: hidden;
-  padding: 8px 6px;
+  padding: 8px 4px;
   border-right: 1px solid #333;
 }
 
