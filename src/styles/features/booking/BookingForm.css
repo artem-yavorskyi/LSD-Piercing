@@ -356,8 +356,9 @@
 }
 
 .thank-you-content h2 {
-  margin-bottom: 36px;
+  margin-bottom: 30px;
   text-align: center;
+  font-size: 36px;
 }
 
 .thank-you-content p {
@@ -365,6 +366,7 @@
   text-align: left;
   line-height: 1.4;
   hyphens: auto;
+  max-width: 360px;
 }
 
 .video-link-text {
@@ -423,7 +425,7 @@
   }
 
   .thank-you-content h2 {
-    margin-bottom: 22px;
+    margin-bottom: 20px;
     font-size: 24px;
   }
 
@@ -446,4 +448,42 @@
   .thank-you-sticker {
     height: 170px;
   }
+}
+
+.spinner {
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid #fff;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  animation: spin 1s linear infinite;
+  margin: 0;
+  display: inline-block; /* Щоб спінер був видимий */
+  vertical-align: middle; /* Для кращого вирівнювання, якщо текст все ж десь проявиться */
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Booking Button Loading State */
+.booking-confirm-button.loading {
+  display: flex; /* Центруємо вміст (спінер) */
+  justify-content: center; /* Центруємо по горизонталі */
+  align-items: center; /* Центруємо по вертикалі */
+  padding: 12px 24px; /* Зберігаємо оригінальний padding */
+  /* Ці властивості приховують текст і роблять кнопку "візуально порожньою" для спінера */
+  color: transparent; /* Робить колір тексту прозорим */
+  font-size: 0; /* Встановлює розмір шрифту 0, щоб текст не займав місце */
+  text-indent: -9999px; /* Переміщує текст за межі видимої області */
+  overflow: hidden; /* Приховує текст, який вийшов за межі */
+}
+
+.booking-confirm-button.loading .spinner {
+  display: block; /* Робимо спінер видимим, якщо він був прихований за замовчуванням */
 }
