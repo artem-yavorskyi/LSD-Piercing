@@ -1,12 +1,9 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import DatePicker from "../../components/features/booking/DatePicker";
 import { generateTimeSlots } from "../../utils/timeSlots";
-import { createClient } from "@supabase/supabase-js";
 import { X } from "lucide-react";
 
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+import { supabase } from "../../supabaseClient";
 
 const GET_ALL_BOOKINGS_URL =
   "https://xexpesevtjvmveqouekm.supabase.co/functions/v1/get-all-bookings";

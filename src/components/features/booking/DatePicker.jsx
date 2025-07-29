@@ -1,11 +1,7 @@
 // DatePicker.jsx
 import React, { useState, useEffect, useCallback, useRef } from "react";
-import { createClient } from "@supabase/supabase-js";
 import TimeSlotSelector from "./TimeSlotSelector";
-
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+import { supabase } from "../../../supabaseClient";
 
 const DatePicker = ({
   onDateSelect,

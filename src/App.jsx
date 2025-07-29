@@ -8,6 +8,7 @@ import Studying from "./pages/Studying";
 import PriceList from "./pages/PriceList";
 import Care from "./pages/Care";
 import Admin from "./pages/admin/Admin";
+import ProtectedAdminPage from "./components/ProtectedAdminPage";
 
 import Footer from "./components/common/Footer";
 
@@ -23,7 +24,7 @@ const App = () => {
         <Route path="/studying" element={<Studying />} />
         <Route path="/pricelist" element={<PriceList />} />
         <Route path="/care" element={<Care />} />
-        <Route path="/admin" element={<Admin />} />
+        <Route path="/admin" element={<ProtectedAdminPage />} />
       </Routes>
       {!isAdmin && <Footer />}
     </>
