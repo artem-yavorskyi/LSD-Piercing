@@ -115,26 +115,26 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
 
       const isSuccess = await insertBooking(bookingDetails);
 
-      const telegramPayload = {
-        selected_date: selectedDate,
-        selected_time: selectedTime,
-        name: name,
-        last_name: lastName,
-        phone_number: phoneNumber,
-        service_type: serviceType,
-        ig_telegram: igTelegram,
-        comment: comment,
-      };
-
-      await fetch(TELEGRAM_FUNCTION_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(telegramPayload),
-      });
-
       if (isSuccess) {
+        const telegramPayload = {
+          selected_date: selectedDate,
+          selected_time: selectedTime,
+          name: name,
+          last_name: lastName,
+          phone_number: phoneNumber,
+          service_type: serviceType,
+          ig_telegram: igTelegram,
+          comment: comment,
+        };
+
+        await fetch(TELEGRAM_FUNCTION_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(telegramPayload),
+        });
+
         openThankYouModal();
         setName("");
         setLastName("");
@@ -344,7 +344,7 @@ const BookingForm = ({ isModalOpened, onClose, onBookingComplete }) => {
         </form>
       </Modal>
     </div>,
-    document.body,
+    document.body
   );
 };
 
